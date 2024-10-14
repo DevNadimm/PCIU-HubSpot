@@ -76,7 +76,7 @@ class HomeScreen extends StatelessWidget {
           child: Container(
             height: 200,
             decoration: BoxDecoration(
-              color: primaryColor.withOpacity(0.05),
+              color: shadeColor,
               borderRadius: BorderRadius.circular(12),
             ),
             child: Column(
