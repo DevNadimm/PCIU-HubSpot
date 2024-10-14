@@ -45,7 +45,7 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: primaryColor,
       child: CircleAvatar(
         radius: 30,
-        backgroundColor: shadeColor,
+        backgroundColor: primaryColor,
         backgroundImage: NetworkImage(
           'https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
         ),
@@ -67,8 +67,11 @@ class HomeScreen extends StatelessWidget {
       itemBuilder: (context, index) {
         final service = servicesList[index];
         return GestureDetector(
-          onTap: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context)=> service.widget));
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => service.widget),
+            );
           },
           child: Container(
             height: 200,
