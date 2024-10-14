@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pciu_hubspot/utils/colors.dart';
+import 'package:pciu_hubspot/utils/grid_data.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -56,16 +57,40 @@ class HomeScreen extends StatelessWidget {
     return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: 8,
+      itemCount: servicesList.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         mainAxisSpacing: 16,
         crossAxisSpacing: 16,
+        childAspectRatio: 1.5,
       ),
       itemBuilder: (context, index) {
-        return Container(
-          height: 200,
-          color: Colors.blue,
+        final service = servicesList[index];
+        return GestureDetector(
+          onTap: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=> service.widget));
+          },
+          child: Container(
+            height: 200,
+            decoration: BoxDecoration(
+              color: primaryColor.withOpacity(0.05),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  service.icon,
+                  size: 30,
+                ),
+                const SizedBox(height: 06),
+                Text(
+                  service.title,
+                  style: Theme.of(context).textTheme.titleLarge,
+                )
+              ],
+            ),
+          ),
         );
       },
     );
