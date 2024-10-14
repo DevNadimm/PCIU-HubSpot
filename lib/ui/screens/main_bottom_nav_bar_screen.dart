@@ -4,6 +4,7 @@ import 'package:pciu_hubspot/ui/screens/home_screen.dart';
 import 'package:pciu_hubspot/ui/screens/links_screen.dart';
 import 'package:pciu_hubspot/ui/screens/more_screen.dart';
 import 'package:pciu_hubspot/ui/screens/profile_screen.dart';
+import 'package:pciu_hubspot/utils/colors.dart';
 
 class MainBottomNavBarScreen extends StatefulWidget {
   const MainBottomNavBarScreen({super.key});
@@ -26,6 +27,8 @@ class _MainBottomNavBarScreenState extends State<MainBottomNavBarScreen> {
     return Scaffold(
       body: _screens[currentIndex],
       bottomNavigationBar: NavigationBar(
+        backgroundColor: shadeColor,
+        indicatorColor:backgroundColor,
         selectedIndex: currentIndex,
         onDestinationSelected: (index) {
           currentIndex = index;
