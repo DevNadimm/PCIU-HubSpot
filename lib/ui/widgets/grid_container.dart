@@ -38,7 +38,7 @@ class GridContainer extends StatelessWidget {
               children: [
                 Icon(
                   item.icon,
-                  size: 30,
+                  size: 35,
                 ),
                 const SizedBox(height: 06),
                 Text(
