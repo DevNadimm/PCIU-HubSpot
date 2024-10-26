@@ -82,7 +82,7 @@ class _MoreScreenState extends State<MoreScreen> {
         ),
         child: Row(
           children: [
-            Image.asset(option.imgPath, scale: 10),
+            Image.asset(option.imgPath, scale: 12),
             const SizedBox(width: 10),
             Expanded(
               child: Column(
