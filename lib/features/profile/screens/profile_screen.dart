@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pciu_hubspot/core/constants/colors.dart';
 
@@ -36,14 +37,38 @@ class ProfileScreen extends StatelessWidget {
   }
 
   Widget _buildProfilePhoto() {
-    return const CircleAvatar(
-      radius: 65,
-      backgroundColor: primaryColor,
-      child: CircleAvatar(
-        radius: 60,
-        backgroundColor: primaryColor,
-        backgroundImage: NetworkImage(_profileImageUrl),
-      ),
+    return Stack(
+      children: [
+        const CircleAvatar(
+          radius: 65,
+          backgroundColor: primaryColor,
+          child: CircleAvatar(
+            radius: 60,
+            backgroundColor: primaryColor,
+            backgroundImage: NetworkImage(_profileImageUrl),
+          ),
+        ),
+        Positioned(
+          right: 0,
+          bottom: 0,
+          child: GestureDetector(
+            onTap: () {},
+            child: const CircleAvatar(
+              backgroundColor: Colors.white,
+              radius: 20,
+              child: CircleAvatar(
+                backgroundColor: primaryColor,
+                radius: 17,
+                child: Icon(
+                  CupertinoIcons.photo,
+                  color: Colors.white,
+                  size: 20,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 
