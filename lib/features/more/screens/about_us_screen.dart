@@ -13,6 +13,7 @@ class AboutUsScreen extends StatelessWidget {
           style: Theme.of(context).textTheme.titleLarge,
         ),
         centerTitle: true,
+        forceMaterialTransparency: true,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -23,10 +24,7 @@ class AboutUsScreen extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               'The project aims to provide resources and information to students of PCIU, including a student name search, student CGPA, CR info, and officers info.',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium!
-                  .copyWith(color: Colors.black87),
+              style: Theme.of(context).textTheme.bodyMedium,
               textAlign: TextAlign.justify,
             ),
             const SizedBox(height: 24),
@@ -34,22 +32,21 @@ class AboutUsScreen extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               'Our mission is to centralize resources and make it easier for students to access important information, connect with their peers, and stay informed about academic progress.',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium!
-                  .copyWith(color: Colors.black87),
+              style: Theme.of(context).textTheme.bodyMedium,
               textAlign: TextAlign.justify,
             ),
             const SizedBox(height: 24),
             _buildSectionHeader(context, 'Meet Our Team'),
             const SizedBox(height: 16),
             _buildTeamMember(
+              context: context,
               imgPath: 'assets/images/member1.png',
               name: 'Younus Foysal',
               role: 'Project Leader',
             ),
             const SizedBox(height: 16),
             _buildTeamMember(
+              context: context,
               imgPath: 'assets/images/member2.jpg',
               name: 'Nadim Chowdhury',
               role: 'Flutter Developer',
@@ -65,7 +62,10 @@ class AboutUsScreen extends StatelessWidget {
   }
 
   Widget _buildTeamMember(
-      {required String imgPath, required String name, required String role}) {
+      {required BuildContext context,
+      required String imgPath,
+      required String name,
+      required String role}) {
     return Row(
       children: [
         CircleAvatar(
@@ -77,14 +77,11 @@ class AboutUsScreen extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              name,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.black87,
-              ),
-            ),
+            Text(name,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge!
+                    .copyWith(fontWeight: FontWeight.bold)),
             Text(
               role,
               style: const TextStyle(

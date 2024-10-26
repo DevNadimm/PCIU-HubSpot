@@ -90,10 +90,7 @@ class _MoreScreenState extends State<MoreScreen> {
                 children: [
                   Text(
                     option.title,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleLarge!
-                        .copyWith(color: Colors.black87),
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                   Text(
                     option.subTitle,

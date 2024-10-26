@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pciu_hubspot/core/constants/reviews_data.dart';
 
 class UserReviewsScreen extends StatelessWidget {
-  const UserReviewsScreen({Key? key}) : super(key: key);
+  const UserReviewsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +112,10 @@ class UserReviewsScreen extends StatelessWidget {
                           const SizedBox(width: 8),
                           Text(
                             time,
-                            style: Theme.of(context).textTheme.labelMedium,
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelMedium!
+                                .copyWith(color: Colors.black54),
                           ),
                         ],
                       ),
