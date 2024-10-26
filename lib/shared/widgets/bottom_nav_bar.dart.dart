@@ -27,8 +27,8 @@ class _MainBottomNavBarScreenState extends State<MainBottomNavBarScreen> {
     return Scaffold(
       body: _screens[currentIndex],
       bottomNavigationBar: NavigationBar(
-        backgroundColor: shadeColor,
-        indicatorColor:backgroundColor,
+        backgroundColor: backgroundColor,
+        indicatorColor:shadeColor,
         selectedIndex: currentIndex,
         onDestinationSelected: (index) {
           currentIndex = index;
