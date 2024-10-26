@@ -90,18 +90,17 @@ class _MoreScreenState extends State<MoreScreen> {
                 children: [
                   Text(
                     option.title,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                    ),
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleLarge!
+                        .copyWith(color: Colors.black87),
                   ),
                   Text(
                     option.subTitle,
-                    style: const TextStyle(
-                      fontSize: 12,
-                      color: Colors.black54,
-                    ),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(color: Colors.black54),
                   ),
                 ],
               ),
