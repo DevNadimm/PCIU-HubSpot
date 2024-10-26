@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pciu_hubspot/ui/screens/home_screen.dart';
-import 'package:pciu_hubspot/ui/screens/links_screen.dart';
-import 'package:pciu_hubspot/ui/screens/more_screen.dart';
-import 'package:pciu_hubspot/ui/screens/profile_screen.dart';
-import 'package:pciu_hubspot/utils/colors.dart';
+import 'package:pciu_hubspot/features/home/screens/home_screen.dart';
+import 'package:pciu_hubspot/features/links/screens/links_screen.dart';
+import 'package:pciu_hubspot/features/more/screens/more_screen.dart';
+import 'package:pciu_hubspot/features/profile/screens/profile_screen.dart';
+import 'package:pciu_hubspot/core/constants/colors.dart';
 
 class MainBottomNavBarScreen extends StatefulWidget {
   const MainBottomNavBarScreen({super.key});

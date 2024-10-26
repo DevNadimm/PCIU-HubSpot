@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pciu_hubspot/ui/screens/sign_in_screen.dart';
-import 'package:pciu_hubspot/utils/colors.dart';
+import 'package:pciu_hubspot/features/auth/screens/sign_in_screen.dart';
+import 'package:pciu_hubspot/core/constants/colors.dart';
 
 class MyApp extends StatelessWidget {
   MyApp({super.key});

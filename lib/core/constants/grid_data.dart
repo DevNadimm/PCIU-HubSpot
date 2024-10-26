@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pciu_hubspot/data/model/grid_model.dart';
-import 'package:pciu_hubspot/ui/screens/under_maintenance_screen.dart';
+import 'package:pciu_hubspot/core/models/grid_model.dart';
+import 'package:pciu_hubspot/features/maintenance/screens/under_maintenance_screen.dart';
 
 List<GridModel> servicesList = [
   GridModel(

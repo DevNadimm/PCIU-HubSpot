@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:pciu_hubspot/ui/widgets/grid_container.dart';
-import 'package:pciu_hubspot/utils/colors.dart';
-import 'package:pciu_hubspot/utils/grid_data.dart';
+import 'package:pciu_hubspot/shared/widgets/grid_container.dart';
+import 'package:pciu_hubspot/core/constants/colors.dart';
+import 'package:pciu_hubspot/core/constants/grid_data.dart';
 
-class LinksScreen extends StatelessWidget {
-  const LinksScreen({super.key});
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,17 +21,17 @@ class LinksScreen extends StatelessWidget {
               RichText(
                 text: TextSpan(
                   style: Theme.of(context).textTheme.headlineLarge,
-                  children: [
-                    const TextSpan(text: '🔗 Necessary Links\n'),
+                  children: const [
+                    TextSpan(text: 'Hi 👋 Nadim,\nWelcome to '),
                     TextSpan(
-                      text: 'Visit your required links in one click',
-                      style: Theme.of(context).textTheme.titleMedium,
+                      text: 'PCIU HubSpot',
+                      style: TextStyle(color: primaryColor),
                     ),
                   ],
                 ),
               ),
               const SizedBox(height: 20),
-              GridContainer(items: necessaryLinks),
+              GridContainer(items: servicesList),
               const SizedBox(height: 16),
             ],
           ),

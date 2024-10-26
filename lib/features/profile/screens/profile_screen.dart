@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pciu_hubspot/utils/colors.dart';
+import 'package:pciu_hubspot/core/constants/colors.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});

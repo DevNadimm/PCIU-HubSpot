@@ -1,4 +1,4 @@
-const underMaintenanceIllistration =
+const maintenanceBanner=
 '''<svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M524.01 410.31H995.89" stroke="#0E0E0E" stroke-width="3" stroke-miterlimit="10"/>
 <path d="M991.05 381.06H528.85C526.177 381.06 524.01 383.227 524.01 385.9V400.68C524.01 403.353 526.177 405.52 528.85 405.52H991.05C993.723 405.52 995.89 403.353 995.89 400.68V385.9C995.89 383.227 993.723 381.06 991.05 381.06Z" fill="#D3D3D3"/>

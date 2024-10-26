@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pciu_hubspot/data/underMaintenanceIllustration.dart';
+import 'package:pciu_hubspot/features/maintenance/widgets/maintenance_banner.dart';
 
 class UnderMaintenanceScreen extends StatelessWidget {
   const UnderMaintenanceScreen({super.key});
@@ -20,7 +20,7 @@ class UnderMaintenanceScreen extends StatelessWidget {
                 child: AspectRatio(
                   aspectRatio: 1,
                   child: SvgPicture.string(
-                    underMaintenanceIllistration,
+                    maintenanceBanner,
                     fit: BoxFit.scaleDown,
                   ),
                 ),
