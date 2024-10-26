@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pciu_hubspot/shared/widgets/grid_container.dart';
-import 'package:pciu_hubspot/core/constants/colors.dart';
 import 'package:pciu_hubspot/core/constants/grid_data.dart';
 
 class LinksScreen extends StatelessWidget {
