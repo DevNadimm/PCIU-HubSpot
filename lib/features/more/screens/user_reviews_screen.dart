@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pciu_hubspot/core/constants/colors.dart';
 import 'package:pciu_hubspot/core/constants/reviews_data.dart';
+import 'package:pciu_hubspot/features/more/screens/write_review_screen.dart';
 
 class UserReviewsScreen extends StatelessWidget {
   const UserReviewsScreen({super.key});
@@ -37,7 +38,7 @@ class UserReviewsScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            _buildWriteReviewButton(),
+            _buildWriteReviewButton(context),
             const SizedBox(height: 16),
           ],
         ),
@@ -45,12 +46,19 @@ class UserReviewsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildWriteReviewButton() {
+  Widget _buildWriteReviewButton(BuildContext context) {
     return SizedBox(
       width: double.infinity,
       height: 50,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const WriteReviewScreen(),
+            ),
+          );
+        },
         child: const Text('Write Review'),
       ),
     );
