@@ -23,10 +23,10 @@ class ProfileScreen extends StatelessWidget {
               'Nadim Chowdhury',
               style: Theme.of(context).textTheme.headlineLarge,
             ),
-            const SizedBox(height: 6),
+            const SizedBox(height: 4),
             Text(
               'CSE 03308478',
-              style: Theme.of(context).textTheme.headlineSmall,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 32),
             _buildStudentInfoContainer(context),
@@ -104,15 +104,16 @@ class ProfileScreen extends StatelessWidget {
         Expanded(
           child: Text(
             title,
-            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                  color: Colors.black.withOpacity(0.6),
-                ),
+            style: Theme.of(context)
+                .textTheme
+                .titleLarge!
+                .copyWith(color: Colors.black54),
           ),
         ),
         Expanded(
           child: Text(
             ': $leading',
-            style: Theme.of(context).textTheme.headlineSmall,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
         ),
       ],

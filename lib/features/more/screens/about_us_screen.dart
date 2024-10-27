@@ -58,7 +58,7 @@ class AboutUsScreen extends StatelessWidget {
   }
 
   Widget _buildSectionHeader(BuildContext context, String title) {
-    return Text(title, style: Theme.of(context).textTheme.headlineLarge);
+    return Text(title, style: Theme.of(context).textTheme.headlineMedium);
   }
 
   Widget _buildTeamMember(
@@ -86,10 +86,10 @@ class AboutUsScreen extends StatelessWidget {
             ),
             Text(
               role,
-              style: const TextStyle(
-                fontSize: 14,
-                color: Colors.black54,
-              ),
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium!
+                  .copyWith(color: Colors.black54),
             ),
           ],
         ),

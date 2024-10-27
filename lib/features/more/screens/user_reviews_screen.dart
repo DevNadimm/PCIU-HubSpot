@@ -64,14 +64,14 @@ class UserReviewsScreen extends StatelessWidget {
     required String review,
   }) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 12),
+      margin: const EdgeInsets.only(bottom: 6, top: 6),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
-            blurRadius: 6,
+            color: Colors.grey.withOpacity(0.1),
+            blurRadius: 3,
             offset: const Offset(0, 3),
           ),
         ],
