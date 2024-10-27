@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pciu_hubspot/core/constants/colors.dart';
 import 'package:pciu_hubspot/core/models/menu_option_model.dart';
 import 'package:pciu_hubspot/features/more/screens/about_us_screen.dart';
-import 'package:pciu_hubspot/features/more/screens/admin_contact_screen.dart';
+import 'package:pciu_hubspot/features/more/screens/contact_admin_screen.dart';
 import 'package:pciu_hubspot/features/more/screens/user_reviews_screen.dart';
 
 class MoreScreen extends StatefulWidget {
@@ -53,10 +53,10 @@ class _MoreScreenState extends State<MoreScreen> {
         onTap: () => _navigateToScreen(const UserReviewsScreen()),
       ),
       MenuOption(
-        title: 'Admin Contact',
+        title: 'Contact Admin',
         subTitle: 'Reach out for support or feedback.',
         imgPath: 'assets/images/email.png',
-        onTap: () => _navigateToScreen(const AdminContactScreen()),
+        onTap: () => _navigateToScreen(const ContactAdminScreen()),
       ),
       MenuOption(
         title: 'Log Out',
