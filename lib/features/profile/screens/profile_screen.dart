@@ -81,24 +81,24 @@ class ProfileScreen extends StatelessWidget {
       ),
       child: Column(
         children: [
-          _buildRow(context, title: 'Email', leading: 'nadim@gmail.com'),
+          _buildRow(context, title: 'Email', label: 'nadim@gmail.com'),
           const SizedBox(height: 8),
-          _buildRow(context, title: 'Department', leading: 'CSE'),
+          _buildRow(context, title: 'Department', label: 'CSE'),
           const SizedBox(height: 8),
-          _buildRow(context, title: 'Admission', leading: 'Fall 2024'),
+          _buildRow(context, title: 'Admission', label: 'Fall 2024'),
           const SizedBox(height: 8),
-          _buildRow(context, title: 'Batch', leading: '033'),
+          _buildRow(context, title: 'Batch', label: '033'),
           const SizedBox(height: 8),
-          _buildRow(context, title: 'Total Credit', leading: '156'),
+          _buildRow(context, title: 'Total Credit', label: '156'),
           const SizedBox(height: 8),
-          _buildRow(context, title: 'Shift', leading: 'Day'),
+          _buildRow(context, title: 'Shift', label: 'Day'),
         ],
       ),
     );
   }
 
   Widget _buildRow(BuildContext context,
-      {required String title, required String leading}) {
+      {required String title, required String label}) {
     return Row(
       children: [
         Expanded(
@@ -112,7 +112,7 @@ class ProfileScreen extends StatelessWidget {
         ),
         Expanded(
           child: Text(
-            ': $leading',
+            ': $label',
             style: Theme.of(context).textTheme.titleLarge,
           ),
         ),
