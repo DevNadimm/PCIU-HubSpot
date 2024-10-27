@@ -113,7 +113,11 @@ class UserReviewsScreen extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          const Icon(CupertinoIcons.star_fill, color: Colors.amber, size: 16),
+                          const Icon(
+                            CupertinoIcons.star_fill,
+                            color: Colors.amber,
+                            size: 16,
+                          ),
                           const SizedBox(width: 4),
                           Text(
                             rating,
