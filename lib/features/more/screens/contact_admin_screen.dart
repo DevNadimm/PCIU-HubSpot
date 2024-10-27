@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class AdminContactScreen extends StatelessWidget {
-  const AdminContactScreen({super.key});
+class ContactAdminScreen extends StatelessWidget {
+  const ContactAdminScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
