@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 
 class GridModel {
-  final Icon iconWidget;
   final Widget widget;
-  final IconData icon;
+  final String imgPath;
   final String title;
 
-  GridModel(this.iconWidget, {
+  GridModel({
     required this.widget,
-    required this.icon,
+    required this.imgPath,
     required this.title,
   });
 }

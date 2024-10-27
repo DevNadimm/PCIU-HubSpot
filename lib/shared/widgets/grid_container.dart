@@ -36,11 +36,8 @@ class GridContainer extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  item.icon,
-                  size: 35,
-                ),
-                const SizedBox(height: 06),
+                Image.asset(item.imgPath, scale: 12,),
+                const SizedBox(height: 08),
                 Text(
                   item.title,
                   style: Theme.of(context).textTheme.titleLarge,
