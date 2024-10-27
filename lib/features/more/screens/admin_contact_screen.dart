@@ -8,8 +8,8 @@ class AdminContactScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Contact with Admin',
-          style: Theme.of(context).textTheme.titleLarge,
+          'Contact Admin',
+          style: Theme.of(context).textTheme.headlineSmall,
         ),
         centerTitle: true,
         forceMaterialTransparency: true,
@@ -22,20 +22,20 @@ class AdminContactScreen extends StatelessWidget {
             children: [
               const SizedBox(height: 16),
               Text(
-                'If you had any issues or you liked my concept, please share with me!',
+                'We’d love to hear from you! If you have feedback or questions, feel free to reach out.',
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
               const SizedBox(height: 24),
               _buildTextField(
                 context: context,
                 initialValue: 'Nadim Chowdhury',
-                hintText: 'Name',
+                hintText: 'Your Name',
               ),
               const SizedBox(height: 16),
               _buildTextField(
                 context: context,
                 initialValue: 'nadimchowdhury87@gmail.com',
-                hintText: 'Email',
+                hintText: 'Your Email',
               ),
               const SizedBox(height: 16),
               _buildTextField(
@@ -46,7 +46,7 @@ class AdminContactScreen extends StatelessWidget {
               _buildTextField(
                 context: context,
                 maxLines: 4,
-                hintText: 'How can I help you?',
+                hintText: 'Please share your message here',
               ),
               const SizedBox(height: 24),
               SizedBox(
@@ -54,10 +54,17 @@ class AdminContactScreen extends StatelessWidget {
                 height: 50,
                 child: ElevatedButton(
                   onPressed: () {},
-                  child: const Text('Send'),
+                  child: const Text('Send Message'),
                 ),
               ),
               const SizedBox(height: 16),
+              Text(
+                'We’ll reply to the email address you provided.',
+                style: Theme.of(context)
+                    .textTheme
+                    .labelMedium!
+                    .copyWith(color: Colors.black54),
+              ),
             ],
           ),
         ),
