@@ -49,7 +49,7 @@ class _MoreScreenState extends State<MoreScreen> {
       MenuOption(
         title: 'User Reviews',
         subTitle: 'See what our users say about us.',
-        imgPath: 'assets/images/rating.png',
+        imgPath: 'assets/images/satisfaction.png',
         onTap: () => _navigateToScreen(const UserReviewsScreen()),
       ),
       MenuOption(
