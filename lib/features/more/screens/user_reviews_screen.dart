@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pciu_hubspot/core/constants/colors.dart';
 import 'package:pciu_hubspot/core/constants/reviews_data.dart';
@@ -112,7 +113,7 @@ class UserReviewsScreen extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          const Icon(Icons.star, color: Colors.amber, size: 16),
+                          const Icon(CupertinoIcons.star_fill, color: Colors.amber, size: 16),
                           const SizedBox(width: 4),
                           Text(
                             rating,
