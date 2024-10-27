@@ -78,6 +78,13 @@ class ProfileScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: shadeColor,
         borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.1),
+            blurRadius: 3,
+            offset: const Offset(0, 3),
+          ),
+        ],
       ),
       child: Column(
         children: [
