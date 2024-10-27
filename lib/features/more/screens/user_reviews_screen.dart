@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pciu_hubspot/core/constants/colors.dart';
 import 'package:pciu_hubspot/core/constants/reviews_data.dart';
 
 class UserReviewsScreen extends StatelessWidget {
@@ -87,7 +88,7 @@ class UserReviewsScreen extends StatelessWidget {
                 CircleAvatar(
                   radius: 22,
                   backgroundImage: NetworkImage(imgUrl),
-                  backgroundColor: Colors.blueAccent,
+                  backgroundColor: primaryColor,
                 ),
                 const SizedBox(width: 16),
                 Expanded(
