@@ -24,10 +24,7 @@ class _SignInScreenState extends State<SignInScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              primaryColor,
-              secondaryColor,
-            ],
+            colors: [primaryColor, secondaryColor],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -56,9 +53,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       onPressed: () => _onTapSignIn(context),
                       child: const Padding(
                         padding: EdgeInsets.all(16),
-                        child: Text(
-                          'Sign In',
-                        ),
+                        child: Text('Sign In'),
                       ),
                     ),
                   ),
@@ -79,11 +74,19 @@ class _SignInScreenState extends State<SignInScreen> {
       child: Column(
         children: [
           TextFormField(
+            style: Theme.of(context)
+                .textTheme
+                .titleLarge!
+                .copyWith(fontWeight: FontWeight.w600),
             controller: _emailTEController,
             decoration: const InputDecoration(hintText: 'Email'),
           ),
           const SizedBox(height: 10),
           TextFormField(
+            style: Theme.of(context)
+                .textTheme
+                .titleLarge!
+                .copyWith(fontWeight: FontWeight.w600),
             controller: _passwordTEController,
             decoration: const InputDecoration(hintText: 'Password'),
           ),
@@ -108,11 +111,11 @@ class _SignInScreenState extends State<SignInScreen> {
               'assets/images/google_icon.png',
               scale: 15,
             ),
-            const SizedBox(width: 07),
+            const SizedBox(width: 7),
             Text(
               'Sign In with Google',
               style: Theme.of(context).textTheme.titleLarge,
-            )
+            ),
           ],
         ),
       ),
@@ -125,18 +128,14 @@ class _SignInScreenState extends State<SignInScreen> {
         const Row(
           children: [
             Expanded(
-              child: Divider(
-                thickness: 2,
-              ),
+              child: Divider(thickness: 2),
             ),
-            SizedBox(width: 05),
+            SizedBox(width: 5),
             Text('Or'),
-            SizedBox(width: 05),
+            SizedBox(width: 5),
             Expanded(
-              child: Divider(
-                thickness: 2,
-              ),
-            )
+              child: Divider(thickness: 2),
+            ),
           ],
         ),
         const SizedBox(height: 10),
@@ -173,12 +172,7 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   void _onTapGoogleSignIn(BuildContext context) {
-    // Navigator.pushReplacement(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) => const SignUpScreen(),
-    //   ),
-    // );
+    // Handle Google sign-in here.
   }
 
   void _onTapSignUp(BuildContext context) {

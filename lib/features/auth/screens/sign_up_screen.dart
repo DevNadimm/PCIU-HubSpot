@@ -25,10 +25,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              primaryColor,
-              secondaryColor,
-            ],
+            colors: [primaryColor, secondaryColor],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -54,12 +51,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () =>_onTapSignUp(context),
+                      onPressed: () => _onTapSignUp(context),
                       child: const Padding(
                         padding: EdgeInsets.all(16),
-                        child: Text(
-                          'Sign Up',
-                        ),
+                        child: Text('Sign Up'),
                       ),
                     ),
                   ),
@@ -79,27 +74,39 @@ class _SignUpScreenState extends State<SignUpScreen> {
       key: _globalKey,
       child: Column(
         children: [
-          TextFormField(
+          _buildTextField(
             controller: _nameTEController,
-            decoration: const InputDecoration(hintText: 'Name'),
+            hintText: 'Name',
           ),
           const SizedBox(height: 10),
-          TextFormField(
+          _buildTextField(
             controller: _studentIdTEController,
-            decoration: const InputDecoration(hintText: 'CSE 03308478'),
+            hintText: 'CSE 03308478',
           ),
           const SizedBox(height: 10),
-          TextFormField(
+          _buildTextField(
             controller: _emailTEController,
-            decoration: const InputDecoration(hintText: 'Email'),
+            hintText: 'Email',
           ),
           const SizedBox(height: 10),
-          TextFormField(
+          _buildTextField(
             controller: _passwordTEController,
-            decoration: const InputDecoration(hintText: 'Password'),
+            hintText: 'Password',
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildTextField(
+      {required TextEditingController controller, required String hintText}) {
+    return TextFormField(
+      style: Theme.of(context)
+          .textTheme
+          .titleLarge!
+          .copyWith(fontWeight: FontWeight.w600),
+      controller: controller,
+      decoration: InputDecoration(hintText: hintText),
     );
   }
 
@@ -131,18 +138,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
   void _onTapSignUp(BuildContext context) {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(
-        builder: (context) => const SignInScreen(),
-      ),
+      MaterialPageRoute(builder: (context) => const SignInScreen()),
     );
   }
 
   void _onTapSignIn(BuildContext context) {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(
-        builder: (context) => const SignInScreen(),
-      ),
+      MaterialPageRoute(builder: (context) => const SignInScreen()),
     );
   }
 }
