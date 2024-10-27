@@ -74,7 +74,7 @@ class UserReviewsScreen extends StatelessWidget {
     required String review,
   }) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 6, top: 6),
+      margin: const EdgeInsets.only(bottom: 8, top: 8),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
