@@ -16,26 +16,27 @@ class AboutUsScreen extends StatelessWidget {
         forceMaterialTransparency: true,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SizedBox(height: 16),
             _buildSectionHeader(context, 'About PCIU HubSpot'),
-            const SizedBox(height: 8),
+            const SizedBox(height: 16),
             Text(
               'The project aims to provide resources and information to students of PCIU, including a student name search, student CGPA, CR info, and officers info.',
               style: Theme.of(context).textTheme.labelLarge,
               textAlign: TextAlign.justify,
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 32),
             _buildSectionHeader(context, 'Our Mission'),
-            const SizedBox(height: 8),
+            const SizedBox(height: 16),
             Text(
               'Our mission is to centralize resources and make it easier for students to access important information, connect with their peers, and stay informed about academic progress.',
               style: Theme.of(context).textTheme.labelLarge,
               textAlign: TextAlign.justify,
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 32),
             _buildSectionHeader(context, 'Meet Our Team'),
             const SizedBox(height: 16),
             _buildTeamMember(
@@ -51,6 +52,7 @@ class AboutUsScreen extends StatelessWidget {
               name: 'Nadim Chowdhury',
               role: 'Flutter Developer',
             ),
+            const SizedBox(height: 16),
           ],
         ),
       ),
@@ -58,7 +60,7 @@ class AboutUsScreen extends StatelessWidget {
   }
 
   Widget _buildSectionHeader(BuildContext context, String title) {
-    return Text(title, style: Theme.of(context).textTheme.headlineMedium);
+    return Text(title, style: Theme.of(context).textTheme.headlineSmall);
   }
 
   Widget _buildTeamMember(

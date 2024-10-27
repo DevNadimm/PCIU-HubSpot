@@ -15,16 +15,15 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
   double _rating = 5;
 
   @override
+  void dispose() {
+    _reviewController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Write a Review",
-          style: Theme.of(context).textTheme.headlineSmall,
-        ),
-        centerTitle: true,
-        forceMaterialTransparency: true,
-      ),
+      appBar: _buildAppBar(context),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: SingleChildScrollView(
@@ -32,13 +31,14 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
             key: _formKey,
             child: Column(
               mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 16),
-                Text(
-                  "Share Your Experience",
-                  style: Theme.of(context).textTheme.headlineLarge,
-                ),
+                _buildTitle(context, "Rate Us!"),
                 const SizedBox(height: 16),
+                _buildSubTitle(context,
+                    "Every feedback matters to us, tell us how your recent experience with our app was."),
+                const SizedBox(height: 32),
                 _buildRatingSection(context),
                 const SizedBox(height: 16),
                 _buildReviewTextField(),
@@ -53,13 +53,36 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
     );
   }
 
+  AppBar _buildAppBar(BuildContext context) {
+    return AppBar(
+      title: Text(
+        "Write Review",
+        style: Theme.of(context).textTheme.headlineSmall,
+      ),
+      centerTitle: true,
+      forceMaterialTransparency: true,
+    );
+  }
+
+  Widget _buildTitle(BuildContext context, String text) {
+    return Text(
+      text,
+      style: Theme.of(context).textTheme.headlineSmall,
+    );
+  }
+
+  Widget _buildSubTitle(BuildContext context, String text) {
+    return Text(
+      text,
+      style: Theme.of(context).textTheme.labelLarge,
+    );
+  }
+
   Widget _buildRatingSection(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          "Rate Us",
-          style: Theme.of(context).textTheme.headlineSmall,
-        ),
+        _buildTitle(context, "How was your experience?"),
         const SizedBox(height: 8),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -71,8 +94,10 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
                 });
               },
               icon: Icon(
-                CupertinoIcons.star_fill,
-                color: index < _rating ? Colors.amber : Colors.grey,
+                index < _rating
+                    ? CupertinoIcons.star_fill
+                    : CupertinoIcons.star,
+                color: Colors.amber,
               ),
             );
           }),
@@ -86,11 +111,11 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
       controller: _reviewController,
       maxLines: 5,
       decoration: const InputDecoration(
-        hintText: "Write your review here...",
+        hintText: "Write your comment",
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return "Please enter your review";
+          return "Please enter your comment";
         }
         return null;
       },
@@ -113,7 +138,6 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
   }
 
   void _submitReview() {
-    // Submit the review (e.g., send to a server or save locally)
     ToastMessage.successToast('Review submitted successfully');
     _reviewController.clear();
     setState(() {
