@@ -101,10 +101,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget _buildTextField(
       {required TextEditingController controller, required String hintText}) {
     return TextFormField(
-      style: Theme.of(context)
-          .textTheme
-          .titleLarge!
-          .copyWith(fontWeight: FontWeight.w600),
+      style: Theme.of(context).textTheme.titleLarge,
       controller: controller,
       decoration: InputDecoration(hintText: hintText),
     );

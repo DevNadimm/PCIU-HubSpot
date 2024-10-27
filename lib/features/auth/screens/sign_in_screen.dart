@@ -74,19 +74,13 @@ class _SignInScreenState extends State<SignInScreen> {
       child: Column(
         children: [
           TextFormField(
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge!
-                .copyWith(fontWeight: FontWeight.w600),
+            style: Theme.of(context).textTheme.titleLarge,
             controller: _emailTEController,
             decoration: const InputDecoration(hintText: 'Email'),
           ),
           const SizedBox(height: 10),
           TextFormField(
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge!
-                .copyWith(fontWeight: FontWeight.w600),
+            style: Theme.of(context).textTheme.titleLarge,
             controller: _passwordTEController,
             decoration: const InputDecoration(hintText: 'Password'),
           ),

@@ -25,7 +25,7 @@ class ContactAdminScreen extends StatelessWidget {
                 'We’d love to hear from you! If you have feedback or questions, feel free to reach out.',
                 style: Theme.of(context).textTheme.labelLarge,
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 32),
               _buildTextField(
                 context: context,
                 initialValue: 'Nadim Chowdhury',
@@ -48,7 +48,7 @@ class ContactAdminScreen extends StatelessWidget {
                 maxLines: 4,
                 hintText: 'Please share your message here',
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 16),
               SizedBox(
                 width: double.infinity,
                 height: 50,
@@ -57,7 +57,7 @@ class ContactAdminScreen extends StatelessWidget {
                   child: const Text('Send Message'),
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 8),
               Text(
                 'We’ll reply to the email address you provided.',
                 style: Theme.of(context)
@@ -65,6 +65,7 @@ class ContactAdminScreen extends StatelessWidget {
                     .labelMedium!
                     .copyWith(color: Colors.black54),
               ),
+              const SizedBox(height: 16),
             ],
           ),
         ),
@@ -79,10 +80,7 @@ class ContactAdminScreen extends StatelessWidget {
     int maxLines = 1,
   }) {
     return TextFormField(
-      style: Theme.of(context)
-          .textTheme
-          .titleLarge!
-          .copyWith(fontWeight: FontWeight.w600),
+      style: Theme.of(context).textTheme.titleLarge,
       initialValue: initialValue,
       maxLines: maxLines,
       decoration: InputDecoration(

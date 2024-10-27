@@ -108,6 +108,7 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
 
   Widget _buildReviewTextField() {
     return TextFormField(
+      style: Theme.of(context).textTheme.titleLarge,
       controller: _reviewController,
       maxLines: 5,
       decoration: const InputDecoration(
