@@ -81,14 +81,14 @@ class AboutUsScreen extends StatelessWidget {
               name,
               style: Theme.of(context)
                   .textTheme
-                  .bodyLarge!
+                  .titleLarge!
                   .copyWith(fontWeight: FontWeight.bold),
             ),
             Text(
               role,
               style: Theme.of(context)
                   .textTheme
-                  .labelLarge!
+                  .titleMedium!
                   .copyWith(color: Colors.black54),
             ),
           ],
