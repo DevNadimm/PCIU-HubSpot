@@ -10,7 +10,7 @@ class AboutUsScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'About Us',
-          style: Theme.of(context).textTheme.titleLarge,
+          style: Theme.of(context).textTheme.headlineSmall,
         ),
         centerTitle: true,
         forceMaterialTransparency: true,

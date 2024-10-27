@@ -11,7 +11,7 @@ class UserReviewsScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'Reviews',
-          style: Theme.of(context).textTheme.titleLarge,
+          style: Theme.of(context).textTheme.headlineSmall,
         ),
         centerTitle: true,
         forceMaterialTransparency: true,
