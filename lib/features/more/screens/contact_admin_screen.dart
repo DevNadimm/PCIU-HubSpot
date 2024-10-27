@@ -23,7 +23,7 @@ class ContactAdminScreen extends StatelessWidget {
               const SizedBox(height: 16),
               Text(
                 'We’d love to hear from you! If you have feedback or questions, feel free to reach out.',
-                style: Theme.of(context).textTheme.bodyMedium,
+                style: Theme.of(context).textTheme.labelLarge,
               ),
               const SizedBox(height: 24),
               _buildTextField(

@@ -24,7 +24,7 @@ class AboutUsScreen extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               'The project aims to provide resources and information to students of PCIU, including a student name search, student CGPA, CR info, and officers info.',
-              style: Theme.of(context).textTheme.bodyMedium,
+              style: Theme.of(context).textTheme.labelLarge,
               textAlign: TextAlign.justify,
             ),
             const SizedBox(height: 24),
@@ -32,7 +32,7 @@ class AboutUsScreen extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               'Our mission is to centralize resources and make it easier for students to access important information, connect with their peers, and stay informed about academic progress.',
-              style: Theme.of(context).textTheme.bodyMedium,
+              style: Theme.of(context).textTheme.labelLarge,
               textAlign: TextAlign.justify,
             ),
             const SizedBox(height: 24),
@@ -88,7 +88,7 @@ class AboutUsScreen extends StatelessWidget {
               role,
               style: Theme.of(context)
                   .textTheme
-                  .bodyMedium!
+                  .labelLarge!
                   .copyWith(color: Colors.black54),
             ),
           ],

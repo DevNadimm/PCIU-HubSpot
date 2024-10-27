@@ -142,7 +142,6 @@ class UserReviewsScreen extends StatelessWidget {
             Text(
               review,
               style: Theme.of(context).textTheme.labelLarge,
-              textAlign: TextAlign.justify,
             ),
           ],
         ),
