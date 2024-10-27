@@ -115,7 +115,10 @@ class _MoreScreenState extends State<MoreScreen> {
                 onChanged: (value) => setState(() => isDarkTheme = value),
               )
             else
-              const Icon(Icons.navigate_next_sharp),
+              const Icon(
+                Icons.navigate_next_sharp,
+                color: Colors.black54,
+              ),
           ],
         ),
       ),
