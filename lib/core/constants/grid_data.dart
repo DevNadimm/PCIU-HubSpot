@@ -1,4 +1,5 @@
 import 'package:pciu_hubspot/core/models/grid_model.dart';
+import 'package:pciu_hubspot/features/home/screens/faculty_members_screen.dart';
 import 'package:pciu_hubspot/features/maintenance/screens/under_maintenance_screen.dart';
 
 List<GridModel> servicesList = [
@@ -10,7 +11,7 @@ List<GridModel> servicesList = [
   GridModel(
     imgPath: 'assets/images/services/teacher.png',
     title: "All Faculties",
-    widget: const UnderMaintenanceScreen(),
+    widget: const FacultyMembersScreen(),
   ),
   GridModel(
     imgPath: 'assets/images/services/education.png',
