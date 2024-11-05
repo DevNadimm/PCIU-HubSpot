@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:pciu_hubspot/core/constants/batch_coordinators_data.dart';
-import 'package:pciu_hubspot/features/home/widgets/batch_coordinator_info_card.dart';
+import 'package:pciu_hubspot/core/constants/cr_data.dart';
+import 'package:pciu_hubspot/features/home/widgets/cr_info_card.dart';
 
 class CrScreen extends StatefulWidget {
   const CrScreen({super.key});
 
   @override
-  State<CrScreen> createState() =>
-      _CrScreenState();
+  State<CrScreen> createState() => _CrScreenState();
 }
 
 class _CrScreenState extends State<CrScreen> {
@@ -17,12 +16,9 @@ class _CrScreenState extends State<CrScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final filteredList = batchCoordinators.where((batchCoordinator) {
-      final matchesDepartment = _selectedDepartment == null ||
-          batchCoordinator.department == _selectedDepartment;
-      final matchesSearch = batchCoordinator.name
-          .toLowerCase()
-          .contains(_searchQuery.toLowerCase());
+    final filteredList = crList.where((cr) {
+      final matchesDepartment = _selectedDepartment == null || cr.department == _selectedDepartment;
+      final matchesSearch = cr.name.toLowerCase().contains(_searchQuery.toLowerCase());
       return matchesDepartment && matchesSearch;
     }).toList();
 
@@ -48,14 +44,9 @@ class _CrScreenState extends State<CrScreen> {
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: filteredList.length,
                 itemBuilder: (context, index) {
-                  final batchCoordinator = filteredList[index];
-                  return BatchCoordinatorInfoCard(
-                    name: batchCoordinator.name,
-                    shortName: batchCoordinator.shortForm,
-                    room: batchCoordinator.room,
-                    department: batchCoordinator.department,
-                    contact: batchCoordinator.contact,
-                    batches: batchCoordinator.batches,
+                  final cr = filteredList[index];
+                  return CrInfoCard(
+                    cr: cr,
                   );
                 },
                 separatorBuilder: (BuildContext context, int index) {

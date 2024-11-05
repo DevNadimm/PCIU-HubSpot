@@ -1,23 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:pciu_hubspot/core/constants/colors.dart';
+import 'package:pciu_hubspot/core/models/cr_model.dart';
 
 class CrInfoCard extends StatelessWidget {
   const CrInfoCard({
     super.key,
-    required this.name,
-    required this.shortName,
-    required this.designation,
-    required this.room,
-    required this.department,
-    required this.contact,
+    required this.cr,
   });
 
-  final String name;
-  final String shortName;
-  final String designation;
-  final String room;
-  final String department;
-  final String contact;
+  final CR cr;
 
   @override
   Widget build(BuildContext context) {
@@ -37,19 +28,22 @@ class CrInfoCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _titleSection(
-            context: context,
-            name: name,
-            shortName: shortName,
-            designation: designation,
-          ),
+          _titleSection(context: context, name: cr.name),
           const Divider(color: Colors.black26),
           const SizedBox(height: 8),
-          _detailRow(context: context, label: 'Room:', value: room),
+          _detailRow(context: context, label: 'Batch:', value: cr.batch ?? 'N/A'),
           const SizedBox(height: 4),
-          _detailRow(context: context, label: 'Department:', value: department),
+          _detailRow(context: context, label: 'Department:', value: cr.department ?? 'N/A'),
           const SizedBox(height: 4),
-          _detailRow(context: context, label: 'Contact:', value: contact),
+          _detailRow(context: context, label: 'Shift:', value: cr.shift ?? 'N/A'),
+          const SizedBox(height: 4),
+          _detailRow(context: context, label: 'Section:', value: cr.section ?? 'N/A'),
+          const SizedBox(height: 4),
+          _detailRow(context: context, label: 'Contact:', value: cr.contact ?? 'N/A'),
+          const SizedBox(height: 4),
+          _detailRow(context: context, label: 'Email:', value: cr.email ?? 'N/A'),
+          const SizedBox(height: 4),
+          _detailRow(context: context, label: 'Facebook ID:', value: cr.facebookId ?? 'N/A'),
         ],
       ),
     );
@@ -59,41 +53,24 @@ class CrInfoCard extends StatelessWidget {
 Widget _titleSection({
   required BuildContext context,
   required String name,
-  required String shortName,
-  required String designation,
 }) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        '$name ($shortName)',
-        style: Theme.of(context).textTheme.headlineSmall,
-      ),
-      const SizedBox(height: 4),
-      Text(
-        designation,
-        style: Theme.of(context)
-            .textTheme
-            .titleLarge!
-            .copyWith(color: Colors.black54),
-      ),
-    ],
+  return Text(
+    name,
+    style: Theme.of(context).textTheme.headlineSmall,
   );
 }
 
-Widget _detailRow(
-    {required BuildContext context,
-      required String label,
-      required String value}) {
+Widget _detailRow({
+  required BuildContext context,
+  required String label,
+  required String value,
+}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       Text(
         label,
-        style: Theme.of(context)
-            .textTheme
-            .titleMedium!
-            .copyWith(color: Colors.black54),
+        style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Colors.black54),
       ),
       Text(
         value,
