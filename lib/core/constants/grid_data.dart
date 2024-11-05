@@ -1,5 +1,6 @@
 import 'package:pciu_hubspot/core/models/grid_model.dart';
 import 'package:pciu_hubspot/features/home/screens/batch_coordinators_screen.dart';
+import 'package:pciu_hubspot/features/home/screens/cr_screen.dart';
 import 'package:pciu_hubspot/features/home/screens/faculty_members_screen.dart';
 import 'package:pciu_hubspot/features/maintenance/screens/under_maintenance_screen.dart';
 
@@ -7,7 +8,7 @@ List<GridModel> servicesList = [
   GridModel(
     imgPath: 'assets/images/services/graduated.png',
     title: "All CRs",
-    widget: const UnderMaintenanceScreen(),
+    widget: const CrScreen(),
   ),
   GridModel(
     imgPath: 'assets/images/services/teacher.png',
