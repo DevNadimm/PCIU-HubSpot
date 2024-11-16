@@ -111,7 +111,7 @@ class MyApp extends StatelessWidget {
     enabledBorder: _outlineInputBorder,
     hintStyle: TextStyle(
       color: Colors.black54,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w500,
       fontSize: 16,
     ),
   );
