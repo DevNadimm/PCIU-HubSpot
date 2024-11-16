@@ -28,7 +28,7 @@ class GridContainer extends StatelessWidget {
             );
           },
           child: Container(
-            height: 200,
+            padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               color: shadeColor,
               borderRadius: BorderRadius.circular(12),
@@ -48,6 +48,7 @@ class GridContainer extends StatelessWidget {
                 Text(
                   item.title,
                   style: Theme.of(context).textTheme.titleLarge,
+                  textAlign: TextAlign.center,
                 )
               ],
             ),

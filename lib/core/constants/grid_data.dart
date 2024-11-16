@@ -16,7 +16,7 @@ List<GridModel> servicesList = [
     widget: const FacultyMembersScreen(),
   ),
   GridModel(
-    imgPath: 'assets/images/services/education.png',
+    imgPath: 'assets/images/services/batch_coordinator.png',
     title: "Batch Coordinators",
     widget: const BatchCoordinatorsScreen(),
   ),
