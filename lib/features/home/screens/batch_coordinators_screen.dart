@@ -1,6 +1,8 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:pciu_hubspot/core/constants/batch_coordinators_data.dart';
 import 'package:pciu_hubspot/features/home/widgets/batch_coordinator_info_card.dart';
+import 'package:pciu_hubspot/shared/widgets/empty_list_widget.dart';
 
 class BatchCoordinatorsScreen extends StatefulWidget {
   const BatchCoordinatorsScreen({super.key});
@@ -43,25 +45,27 @@ class _BatchCoordinatorsScreenState extends State<BatchCoordinatorsScreen> {
               const SizedBox(height: 16),
               _buildTopSection(context),
               const SizedBox(height: 16),
-              ListView.separated(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: filteredList.length,
-                itemBuilder: (context, index) {
-                  final batchCoordinator = filteredList[index];
-                  return BatchCoordinatorInfoCard(
-                    name: batchCoordinator.name,
-                    shortName: batchCoordinator.shortForm,
-                    room: batchCoordinator.room,
-                    department: batchCoordinator.department,
-                    contact: batchCoordinator.contact,
-                    batches: batchCoordinator.batches,
-                  );
-                },
-                separatorBuilder: (BuildContext context, int index) {
-                  return const SizedBox(height: 16);
-                },
-              ),
+              filteredList.isEmpty
+                  ? const EmptyListWidget()
+                  : ListView.separated(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: filteredList.length,
+                      itemBuilder: (context, index) {
+                        final batchCoordinator = filteredList[index];
+                        return BatchCoordinatorInfoCard(
+                          name: batchCoordinator.name,
+                          shortName: batchCoordinator.shortForm,
+                          room: batchCoordinator.room,
+                          department: batchCoordinator.department,
+                          contact: batchCoordinator.contact,
+                          batches: batchCoordinator.batches,
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return const SizedBox(height: 16);
+                      },
+                    ),
               const SizedBox(height: 16),
             ],
           ),
@@ -86,13 +90,23 @@ class _BatchCoordinatorsScreenState extends State<BatchCoordinatorsScreen> {
         ),
         const SizedBox(width: 8),
         Flexible(
-          child: DropdownButtonFormField<String>(
+          child: DropdownButtonFormField2<String>(
             isDense: true,
-            decoration: const InputDecoration(
-              contentPadding: EdgeInsets.all(14),
+            decoration: InputDecoration(
+              contentPadding: const EdgeInsets.symmetric(vertical: 14),
               hintText: 'Department',
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
             ),
             value: _selectedDepartment,
+            hint: Text(
+              'Department',
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge!
+                  .copyWith(color: Colors.black54),
+            ),
             onChanged: (newValue) {
               setState(() {
                 _selectedDepartment = newValue;
@@ -101,7 +115,10 @@ class _BatchCoordinatorsScreenState extends State<BatchCoordinatorsScreen> {
             items: _departments.map((department) {
               return DropdownMenuItem<String>(
                 value: department,
-                child: Text(department),
+                child: Text(
+                  department,
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
               );
             }).toList(),
           ),
