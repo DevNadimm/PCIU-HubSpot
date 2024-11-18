@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1079420895223",
+    "project_id": "pciuhubspot",
+    "storage_bucket": "pciuhubspot.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1079420895223:android:ff801823c4a905b61ab8f2",
+        "android_client_info": {
+          "package_name": "com.pciu.hub_spot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1079420895223-g9nprbst8kkdvkrheif9rd8edleov44s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBp5cAJnzkCv18t9Xjk0wnC8PZY3_JwrrA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1079420895223-g9nprbst8kkdvkrheif9rd8edleov44s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
