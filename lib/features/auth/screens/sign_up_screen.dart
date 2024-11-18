@@ -185,7 +185,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       try {
         await _auth.createUserWithEmailAndPassword(email: email, password: password);
         SnackBarMessage.successMessage('Account created successfully!');
-        Get.off(const SignInScreen());
+        Get.off(SignInScreen(email: email));
       } catch (e) {
         SnackBarMessage.errorMessage('Sign Up Failed');
       }

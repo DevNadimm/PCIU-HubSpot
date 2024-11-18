@@ -4,7 +4,9 @@ import 'package:pciu_hubspot/features/auth/screens/sign_up_screen.dart';
 import 'package:pciu_hubspot/core/constants/colors.dart';
 
 class SignInScreen extends StatefulWidget {
-  const SignInScreen({super.key});
+  const SignInScreen({super.key, this.email});
+
+  final String? email;
 
   @override
   State<SignInScreen> createState() => _SignInScreenState();
@@ -14,6 +16,12 @@ class _SignInScreenState extends State<SignInScreen> {
   final GlobalKey<FormState> _globalKey = GlobalKey();
   final TextEditingController _emailTEController = TextEditingController();
   final TextEditingController _passwordTEController = TextEditingController();
+
+  @override
+  void initState() {
+    _emailTEController.text = widget.email ?? '';
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
