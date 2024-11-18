@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pciu_hubspot/features/auth/screens/sign_in_screen.dart';
 import 'package:pciu_hubspot/core/constants/colors.dart';
 
@@ -7,7 +8,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'PCIU-HubSpot',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

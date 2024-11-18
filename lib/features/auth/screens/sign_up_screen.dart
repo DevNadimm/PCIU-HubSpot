@@ -30,37 +30,43 @@ class _SignUpScreenState extends State<SignUpScreen> {
             end: Alignment.bottomRight,
           ),
         ),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Image.asset(
-                    'assets/images/PCIU-HubSpot.png',
-                    scale: 5,
-                  ),
-                  const SizedBox(height: 10),
-                  _buildTextFields(),
-                  const SizedBox(height: 10),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () => _onTapSignUp(context),
-                      child: const Padding(
-                        padding: EdgeInsets.all(16),
-                        child: Text('Sign Up'),
+        child: SafeArea(
+          child: Center(
+            child: SingleChildScrollView(
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Image.asset(
+                      'assets/images/PCIU-HubSpot.png',
+                      scale: 5,
+                    ),
+                    const SizedBox(height: 10),
+                    _buildTextFields(),
+                    const SizedBox(height: 10),
+                    Visibility(
+                      visible: !_isLoading,
+                      replacement: const CircularProgressIndicator(),
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: _onTapSignUp,
+                          child: const Padding(
+                            padding: EdgeInsets.all(16),
+                            child: Text('Sign Up'),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 10),
-                  _buildBottomSection(context),
-                ],
+                    const SizedBox(height: 10),
+                    _buildBottomSection(context),
+                  ],
+                ),
               ),
             ),
           ),
@@ -132,17 +138,35 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  void _onTapSignUp(BuildContext context) {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const SignInScreen()),
-    );
+  Future<void> _onTapSignUp() async {
+    _isLoading = true;
+    setState(() {});
+
+    if (_globalKey.currentState?.validate() ?? false) {
+      final email = _emailTEController.text.trim();
+      final password = _passwordTEController.text.trim();
+
+      try {
+        await _auth.createUserWithEmailAndPassword(
+            email: email, password: password);
+        SnackBarMessage.successMessage('Account created successfully!');
+        await Future.delayed(const Duration(seconds: 2));
+        Get.off(const SignInScreen());
+      } catch (e) {
+        SnackBarMessage.errorMessage('Sign Up Failed');
+      }
+    }
+
+    _isLoading = false;
+    setState(() {});
   }
 
-  void _onTapSignIn(BuildContext context) {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const SignInScreen()),
-    );
+  @override
+  void dispose() {
+    _emailTEController.dispose();
+    _passwordTEController.dispose();
+    _studentIdTEController.dispose();
+    _nameTEController.dispose();
+    super.dispose();
   }
 }
