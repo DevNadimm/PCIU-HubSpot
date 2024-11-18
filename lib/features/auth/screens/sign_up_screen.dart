@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:pciu_hubspot/core/utils/snackbar_message.dart';
 import 'package:pciu_hubspot/features/auth/screens/sign_in_screen.dart';
 import 'package:pciu_hubspot/core/constants/colors.dart';
 
@@ -15,6 +18,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _passwordTEController = TextEditingController();
   final TextEditingController _studentIdTEController = TextEditingController();
   final TextEditingController _nameTEController = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  bool _isLoading = false;
+  bool _isPasswordVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +69,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 20),
                     _buildBottomSection(context),
                   ],
                 ),
@@ -80,59 +86,89 @@ class _SignUpScreenState extends State<SignUpScreen> {
       key: _globalKey,
       child: Column(
         children: [
-          _buildTextField(
+          TextFormField(
             controller: _nameTEController,
-            hintText: 'Name',
+            decoration: const InputDecoration(hintText: 'Name'),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Name cannot be empty';
+              }
+              return null;
+            },
           ),
           const SizedBox(height: 10),
-          _buildTextField(
+          TextFormField(
             controller: _studentIdTEController,
-            hintText: 'CSE 03308478',
+            decoration: const InputDecoration(hintText: 'CSE 03308478'),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Student ID is required';
+              }
+              return null;
+            },
           ),
           const SizedBox(height: 10),
-          _buildTextField(
+          TextFormField(
             controller: _emailTEController,
-            hintText: 'Email',
+            decoration: const InputDecoration(hintText: 'Email'),
+            keyboardType: TextInputType.emailAddress,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Email cannot be empty';
+              }
+              if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                return 'Enter a valid email';
+              }
+              return null;
+            },
           ),
           const SizedBox(height: 10),
-          _buildTextField(
+          TextFormField(
             controller: _passwordTEController,
-            hintText: 'Password',
+            decoration: InputDecoration(
+              hintText: 'Password',
+              suffixIcon: IconButton(
+                icon: Icon(
+                  _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                  color: primaryColor,
+                ),
+                onPressed: () {
+                  _isPasswordVisible = !_isPasswordVisible;
+                  setState(() {});
+                },
+              ),
+            ),
+            obscureText: !_isPasswordVisible,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Password cannot be empty';
+              }
+              if (value.length < 6) {
+                return 'Password must be at least 6 characters';
+              }
+              return null;
+            },
           ),
         ],
       ),
     );
   }
 
-  Widget _buildTextField(
-      {required TextEditingController controller, required String hintText}) {
-    return TextFormField(
-      style: Theme.of(context).textTheme.titleLarge,
-      controller: controller,
-      decoration: InputDecoration(hintText: hintText),
-    );
-  }
-
   Widget _buildBottomSection(BuildContext context) {
-    return Column(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const SizedBox(height: 20),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text("Have an account?"),
-            const SizedBox(width: 5),
-            GestureDetector(
-              onTap: () => _onTapSignIn(context),
-              child: const Text(
-                'Sign In',
-                style: TextStyle(
-                  color: primaryColor,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+        const Text("Already have an account?"),
+        const SizedBox(width: 5),
+        GestureDetector(
+          onTap: () => Get.off(const SignInScreen()),
+          child: const Text(
+            'Sign In',
+            style: TextStyle(
+              color: primaryColor,
+              fontWeight: FontWeight.bold,
             ),
-          ],
+          ),
         ),
       ],
     );

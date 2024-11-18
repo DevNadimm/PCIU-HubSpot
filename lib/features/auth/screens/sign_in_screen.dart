@@ -166,7 +166,7 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   void _onTapGoogleSignIn(BuildContext context) {
-    // Handle Google sign-in here.
+    /// Handle Google sign-in here.
   }
 
   void _onTapSignUp(BuildContext context) {
