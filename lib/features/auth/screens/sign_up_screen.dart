@@ -183,8 +183,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       final password = _passwordTEController.text.trim();
 
       try {
-        await _auth.createUserWithEmailAndPassword(
-            email: email, password: password);
+        await _auth.createUserWithEmailAndPassword(email: email, password: password);
         SnackBarMessage.successMessage('Account created successfully!');
         await Future.delayed(const Duration(seconds: 2));
         Get.off(const SignInScreen());
