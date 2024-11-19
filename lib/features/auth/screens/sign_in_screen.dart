@@ -94,15 +94,42 @@ class _SignInScreenState extends State<SignInScreen> {
       child: Column(
         children: [
           TextFormField(
-            style: Theme.of(context).textTheme.titleLarge,
             controller: _emailTEController,
+            keyboardType: TextInputType.emailAddress,
             decoration: const InputDecoration(hintText: 'Email'),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter your email';
+              }
+              if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                return 'Enter a valid email address';
+              }
+              return null;
+            },
           ),
           const SizedBox(height: 10),
           TextFormField(
-            style: Theme.of(context).textTheme.titleLarge,
             controller: _passwordTEController,
-            decoration: const InputDecoration(hintText: 'Password'),
+            obscureText: !_isPasswordVisible,
+            decoration: InputDecoration(
+              hintText: 'Password',
+              suffixIcon: IconButton(
+                onPressed: () {
+                  _isPasswordVisible = !_isPasswordVisible;
+                  setState(() {});
+                },
+                icon: _isPasswordVisible
+                    ? const Icon(Icons.visibility)
+                    : const Icon(Icons.visibility_off),
+                color: primaryColor,
+              ),
+            ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter your password';
+              }
+              return null;
+            },
           ),
         ],
       ),
