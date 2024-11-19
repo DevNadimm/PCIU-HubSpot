@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pciu_hubspot/core/constants/colors.dart';
 import 'package:pciu_hubspot/core/models/menu_option_model.dart';
+import 'package:pciu_hubspot/features/auth/screens/sign_in_screen.dart';
 import 'package:pciu_hubspot/features/more/screens/about_us_screen.dart';
 import 'package:pciu_hubspot/features/more/screens/contact_admin_screen.dart';
 import 'package:pciu_hubspot/features/more/screens/user_reviews_screen.dart';
@@ -13,6 +16,7 @@ class MoreScreen extends StatefulWidget {
 }
 
 class _MoreScreenState extends State<MoreScreen> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   bool isDarkTheme = false;
 
   @override
@@ -62,6 +66,10 @@ class _MoreScreenState extends State<MoreScreen> {
         title: 'Log Out',
         subTitle: 'Securely log out of your account.',
         imgPath: 'assets/images/logout.png',
+        onTap: () async {
+          await _auth.signOut();
+          Get.offAll(const SignInScreen());
+        }
       ),
     ];
 

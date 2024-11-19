@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pciu_hubspot/features/auth/screens/sign_in_screen.dart';
 import 'package:pciu_hubspot/core/constants/colors.dart';
+import 'package:pciu_hubspot/features/auth/screens/splash_screen.dart';
 
 class MyApp extends StatelessWidget {
   MyApp({super.key});
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         inputDecorationTheme: _inputDecorationTheme,
         elevatedButtonTheme: _elevatedButtonThemeData,
       ),
-      home: const SignInScreen(),
+      home: const SplashScreen(),
     );
   }
 
