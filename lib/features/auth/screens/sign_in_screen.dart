@@ -227,4 +227,11 @@ class _SignInScreenState extends State<SignInScreen> {
   void _onTapGoogleSignIn(BuildContext context) {
     /// Handle Google sign-in here.
   }
+
+  @override
+  void dispose() {
+    _emailTEController.dispose();
+    _passwordTEController.dispose();
+    super.dispose();
+  }
 }
