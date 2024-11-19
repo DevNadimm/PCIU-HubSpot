@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
           image: DecorationImage(
             image: AssetImage("assets/images/bg_texure.jpg"),
             fit: BoxFit.cover,
-            opacity: 0.07,
+            opacity: 0.05,
           ),
         ),
         child: Center(
