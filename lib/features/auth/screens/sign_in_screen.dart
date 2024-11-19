@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:pciu_hubspot/core/utils/snackbar_message.dart';
 import 'package:pciu_hubspot/shared/widgets/bottom_nav_bar.dart.dart';
 import 'package:pciu_hubspot/features/auth/screens/sign_up_screen.dart';
 import 'package:pciu_hubspot/core/constants/colors.dart';
@@ -16,6 +19,9 @@ class _SignInScreenState extends State<SignInScreen> {
   final GlobalKey<FormState> _globalKey = GlobalKey();
   final TextEditingController _emailTEController = TextEditingController();
   final TextEditingController _passwordTEController = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  bool _isPasswordVisible = false;
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -37,37 +43,43 @@ class _SignInScreenState extends State<SignInScreen> {
             end: Alignment.bottomRight,
           ),
         ),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Image.asset(
-                    'assets/images/PCIU-HubSpot.png',
-                    scale: 5,
-                  ),
-                  const SizedBox(height: 10),
-                  _buildTextFields(),
-                  const SizedBox(height: 10),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () => _onTapSignIn(context),
-                      child: const Padding(
-                        padding: EdgeInsets.all(16),
-                        child: Text('Sign In'),
+        child: SafeArea(
+          child: Center(
+            child: SingleChildScrollView(
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Image.asset(
+                      'assets/images/PCIU-HubSpot.png',
+                      scale: 5,
+                    ),
+                    const SizedBox(height: 10),
+                    _buildTextFields(),
+                    const SizedBox(height: 10),
+                    Visibility(
+                      visible: !_isLoading,
+                      replacement: const CircularProgressIndicator(),
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () => _onTapSignIn(context),
+                          child: const Padding(
+                            padding: EdgeInsets.all(16),
+                            child: Text('Sign In'),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 10),
-                  _buildBottomSection(context),
-                ],
+                    const SizedBox(height: 10),
+                    _buildBottomSection(context),
+                  ],
+                ),
               ),
             ),
           ),
@@ -149,7 +161,7 @@ class _SignInScreenState extends State<SignInScreen> {
             const Text("Don't have an account?"),
             const SizedBox(width: 5),
             GestureDetector(
-              onTap: () => _onTapSignUp(context),
+              onTap: () => Get.off(const SignUpScreen()),
               child: const Text(
                 'Sign Up',
                 style: TextStyle(
@@ -164,25 +176,28 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
-  void _onTapSignIn(BuildContext context) {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const MainBottomNavBarScreen(),
-      ),
-    );
+  Future<void> _onTapSignIn(BuildContext context) async {
+    _isLoading = true;
+    setState(() {});
+
+    if (_globalKey.currentState?.validate() ?? false) {
+      final email = _emailTEController.text.trim();
+      final password = _passwordTEController.text.trim();
+
+      try {
+        await _auth.signInWithEmailAndPassword(email: email, password: password);
+        SnackBarMessage.successMessage('Signed in successfully!');
+        Get.off(const MainBottomNavBarScreen());
+      } catch (e) {
+        SnackBarMessage.errorMessage('Sign-in failed. Please check your credentials and try again.');
+      }
+    }
+
+    _isLoading = false;
+    setState(() {});
   }
 
   void _onTapGoogleSignIn(BuildContext context) {
     /// Handle Google sign-in here.
-  }
-
-  void _onTapSignUp(BuildContext context) {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const SignUpScreen(),
-      ),
-    );
   }
 }

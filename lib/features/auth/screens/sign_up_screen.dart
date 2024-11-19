@@ -187,7 +187,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         SnackBarMessage.successMessage('Account created successfully!');
         Get.off(SignInScreen(email: email));
       } catch (e) {
-        SnackBarMessage.errorMessage('Sign Up Failed');
+        SnackBarMessage.errorMessage('Sign-up failed. Please ensure your information is correct and try again.');
       }
     }
 
