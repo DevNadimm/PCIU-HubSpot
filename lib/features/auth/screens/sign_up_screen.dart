@@ -1,6 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pciu_hubspot/controller/auth_controller/sign_up_controller.dart';
 import 'package:pciu_hubspot/core/utils/snackbar_message.dart';
 import 'package:pciu_hubspot/features/auth/screens/sign_in_screen.dart';
 import 'package:pciu_hubspot/core/constants/colors.dart';
@@ -18,8 +18,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _passwordTEController = TextEditingController();
   final TextEditingController _studentIdTEController = TextEditingController();
   final TextEditingController _nameTEController = TextEditingController();
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  bool _isLoading = false;
   bool _isPasswordVisible = false;
 
   @override
@@ -55,18 +53,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     const SizedBox(height: 10),
                     _buildTextFields(),
                     const SizedBox(height: 10),
-                    Visibility(
-                      visible: !_isLoading,
-                      replacement: const CircularProgressIndicator(),
-                      child: SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: _onTapSignUp,
-                          child: const Padding(
-                            padding: EdgeInsets.all(16),
-                            child: Text('Sign Up'),
-                          ),
-                        ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: GetBuilder<SignUpController>(
+                        builder: (controller) {
+                          return Visibility(
+                            visible: !controller.inProgress,
+                            replacement: const CircularProgressIndicator(),
+                            child: ElevatedButton(
+                              onPressed: _onTapSignUp,
+                              child: const Padding(
+                                padding: EdgeInsets.all(16),
+                                child: Text('Sign Up'),
+                              ),
+                            ),
+                          );
+                        }
                       ),
                     ),
                     const SizedBox(height: 20),
@@ -175,24 +177,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   Future<void> _onTapSignUp() async {
-    _isLoading = true;
-    setState(() {});
+    if(_globalKey.currentState!.validate()){
+      final controller = SignUpController.instance;
+      final result = await controller.signUp(
+        name: _nameTEController.text.trim(),
+        studentId: _studentIdTEController.text.trim(),
+        email: _emailTEController.text.trim(),
+        password: _passwordTEController.text.trim(),
+      );
 
-    if (_globalKey.currentState?.validate() ?? false) {
-      final email = _emailTEController.text.trim();
-      final password = _passwordTEController.text.trim();
-
-      try {
-        await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      if (result) {
         SnackBarMessage.successMessage('Account created successfully!');
-        Get.off(SignInScreen(email: email));
-      } catch (e) {
-        SnackBarMessage.errorMessage('Sign-up failed. Please ensure your information is correct and try again.');
+        Get.off(SignInScreen(
+          email: _emailTEController.text.trim(),
+        ));
+      } else {
+        SnackBarMessage.errorMessage(
+            'Sign-up failed. Please ensure your information is correct and try again.');
       }
     }
-
-    _isLoading = false;
-    setState(() {});
   }
 
   @override

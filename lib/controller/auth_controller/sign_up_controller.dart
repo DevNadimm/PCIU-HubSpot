@@ -32,15 +32,22 @@ class SignUpController extends GetxController {
       "status": true
     };
 
-    final response = await NetworkCaller.putRequest(
-      url: Urls.signUp,
-      body: requestBody,
-    );
+    try {
+      final response = await NetworkCaller.putRequest(
+        url: Urls.signUp,
+        body: requestBody,
+      );
 
-    if(response.isSuccess){
-      isSuccess = true;
-    } else {
+      if (response.isSuccess) {
+        isSuccess = true;
+        _errorMessage = null;
+      } else {
+        isSuccess = false;
+        _errorMessage = response.errorMessage;
+      }
+    } catch (e) {
       isSuccess = false;
+      _errorMessage = 'An error occurred: $e';
     }
 
     _inProgress = false;
