@@ -49,8 +49,9 @@ class _SplashScreenState extends State<SplashScreen> {
                         .copyWith(color: primaryColor)),
                 const SizedBox(height: 10),
                 Text(
-                  "Your go-to hub for staying informed, connected, and empowered. Everything you need to succeed academically and build meaningful connections is here!",                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.labelLarge,
+                  "We provide resources and information to students of PCIU, including a student name search, student CGPA, CR info, and officers info.",
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.labelMedium,
                 ),
               ],
             ),
