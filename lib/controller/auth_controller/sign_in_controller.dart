@@ -21,26 +21,32 @@ class SignInController extends GetxController {
 
     Map<String, dynamic> requestBody = {
       "identifier": email,
-      "password": password
+      "password": password,
     };
 
-    final response = await NetworkCaller.postRequest(
-      url: Urls.signIn,
-      body: requestBody,
-    );
+    try {
+      final response = await NetworkCaller.postRequest(
+        url: Urls.signIn,
+        body: requestBody,
+      );
 
-    if (response.isSuccess) {
-      isSuccess = true;
-      final data = response.responseData;
-      if (data.containsKey('token')) {
-        final token = data['token'];
-        await AuthController.saveAccessToken(token);
-      } else {
-        debugPrint('Token not found in response');
+      if (response.isSuccess) {
         isSuccess = true;
+
+        final data = response.responseData;
+        if (data.containsKey('token')) {
+          final token = data['token'];
+          await AuthController.saveAccessToken(token);
+        } else {
+          debugPrint('Token not found in response');
+        }
+      } else {
+        isSuccess = false;
+        _errorMessage = 'Sign-in failed. Please check your credentials and try again.';
       }
-    } else {
+    } catch (e) {
       isSuccess = false;
+      _errorMessage = 'An error occurred: $e. Please try again later.';
     }
 
     _inProgress = false;
