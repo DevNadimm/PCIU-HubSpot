@@ -218,8 +218,7 @@ class _SignInScreenState extends State<SignInScreen> {
        SnackBarMessage.successMessage('Signed in successfully!');
        Get.off(const MainBottomNavBarScreen());
      } else {
-       SnackBarMessage.errorMessage(
-           'Sign-in failed. Please check your credentials and try again.');
+       SnackBarMessage.errorMessage(controller.errorMessage!);
      }
    }
   }

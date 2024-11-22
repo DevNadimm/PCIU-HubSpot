@@ -25,6 +25,9 @@ class NetworkCaller {
       );
 
       _printResponse(url, response, token);
+      debugPrint(
+        'URL: $url\nRESPONSE CODE: ${response.statusCode}\nTOKEN: ${token ?? "No Token"}\nBODY: ${response.body}\n',
+      );
 
       if (response.statusCode == 200) {
         final decodedData = jsonDecode(response.body);
@@ -66,7 +69,7 @@ class NetworkCaller {
         headers: headers,
       );
 
-      // _printResponse(url, response, token);
+      _printResponse(url, response, token);
       debugPrint(
         'URL: $url\nRESPONSE CODE: ${response.statusCode}\nTOKEN: ${token ?? "No Token"}\nBODY: ${response.body}\n',
       );
