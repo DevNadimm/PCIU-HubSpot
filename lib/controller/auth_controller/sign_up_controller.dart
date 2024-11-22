@@ -34,13 +34,11 @@ class SignUpController extends GetxController {
     };
 
     final signInController = SignInController.instance;
-    final isUserAlreadyRegistered =
-    await signInController.signIn(email: email, password: password);
+    final isUserAlreadyRegistered = await signInController.signIn(email: email, password: password);
 
     if (isUserAlreadyRegistered) {
       isSuccess = false;
-      _errorMessage =
-      'This email is already registered. Please try signing up with a different email address.';
+      _errorMessage = 'This email is already registered. Please try signing up with a different email address.';
     } else {
       try {
         final response = await NetworkCaller.putRequest(
@@ -53,13 +51,11 @@ class SignUpController extends GetxController {
           _errorMessage = null;
         } else {
           isSuccess = false;
-          _errorMessage =
-          'Sign-up failed. Please ensure your information is correct and try again.';
+          _errorMessage = 'Sign-up failed. Please ensure your information is correct and try again.';
         }
       } catch (e) {
         isSuccess = false;
-        _errorMessage =
-        'An unexpected error occurred: $e. Please try again later.';
+        _errorMessage = 'An unexpected error occurred: $e. Please try again later.';
       }
     }
 
