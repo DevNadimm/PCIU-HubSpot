@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pciu_hubspot/controller/auth_controller/sign_in_controller.dart';
+import 'package:pciu_hubspot/core/utils/progress_indicator.dart';
 import 'package:pciu_hubspot/core/utils/snackbar_message.dart';
 import 'package:pciu_hubspot/shared/widgets/bottom_nav_bar.dart.dart';
 import 'package:pciu_hubspot/features/auth/screens/sign_up_screen.dart';
@@ -66,7 +67,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         builder: (controller) {
                           return Visibility(
                             visible: !controller.inProgress,
-                            replacement:  const CircularProgressIndicator(),
+                            replacement: const ProgressIndicatorWidget(),
                             child: ElevatedButton(
                               onPressed: () => _onTapSignIn(context),
                               child: const Padding(
