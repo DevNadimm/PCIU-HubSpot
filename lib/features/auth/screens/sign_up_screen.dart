@@ -193,8 +193,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           email: _emailTEController.text.trim(),
         ));
       } else {
-        SnackBarMessage.errorMessage(
-            'Sign-up failed. Please ensure your information is correct and try again.');
+        SnackBarMessage.errorMessage(controller.errorMessage!);
       }
     }
   }
