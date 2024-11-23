@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pciu_hubspot/core/constants/colors.dart';
-import 'package:pciu_hubspot/firebase_services/splash_services.dart';
+import 'package:pciu_hubspot/splash_services/splash_services.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -10,12 +10,14 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  SplashServices splashServices = SplashServices();
-
   @override
   void initState() {
-    splashServices.isLogin();
     super.initState();
+    _startSplash();
+  }
+
+  Future<void> _startSplash() async {
+    await SplashServices.isLogin();
   }
 
   @override
