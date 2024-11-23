@@ -46,6 +46,11 @@ class DropDownWidget<T> extends StatelessWidget {
             ),
           )
           .toList(),
+      dropdownStyleData: DropdownStyleData(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
     );
   }
 }
