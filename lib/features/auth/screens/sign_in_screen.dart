@@ -69,7 +69,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             visible: !controller.inProgress,
                             replacement: const ProgressIndicatorWidget(),
                             child: ElevatedButton(
-                              onPressed: () => _onTapSignIn(context),
+                              onPressed: () => _onTapSignInButton(context),
                               child: const Padding(
                                 padding: EdgeInsets.all(16),
                                 child: Text('Sign In'),
@@ -206,7 +206,7 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
-  Future<void> _onTapSignIn(BuildContext context) async {
+  Future<void> _onTapSignInButton(BuildContext context) async {
    if(_globalKey.currentState!.validate()){
 
      final controller = SignInController.instance;
@@ -225,6 +225,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
   void _onTapGoogleSignIn(BuildContext context) {
     /// Handle Google sign-in here.
+    Get.off(const MainBottomNavBarScreen());
   }
 
   @override
