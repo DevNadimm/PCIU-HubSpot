@@ -1,7 +1,7 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:pciu_hubspot/core/constants/batch_coordinators_data.dart';
 import 'package:pciu_hubspot/features/home/widgets/batch_coordinator_info_card.dart';
+import 'package:pciu_hubspot/shared/widgets/drop_down_munu_widget.dart';
 import 'package:pciu_hubspot/shared/widgets/empty_list_widget.dart';
 
 class BatchCoordinatorsScreen extends StatefulWidget {
@@ -90,37 +90,15 @@ class _BatchCoordinatorsScreenState extends State<BatchCoordinatorsScreen> {
         ),
         const SizedBox(width: 8),
         Flexible(
-          child: DropdownButtonFormField2<String>(
-            isDense: true,
-            decoration: InputDecoration(
-              contentPadding: const EdgeInsets.symmetric(vertical: 14),
-              hintText: 'Department',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-            ),
+          child: DropDownWidget<String>(
+            items: _departments,
+            hintText: 'Department',
             value: _selectedDepartment,
-            hint: Text(
-              'Department',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge!
-                  .copyWith(color: Colors.black54),
-            ),
             onChanged: (newValue) {
               setState(() {
                 _selectedDepartment = newValue;
               });
             },
-            items: _departments.map((department) {
-              return DropdownMenuItem<String>(
-                value: department,
-                child: Text(
-                  department,
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-              );
-            }).toList(),
           ),
         ),
       ],
