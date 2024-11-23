@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pciu_hubspot/features/maintenance/widgets/maintenance_banner.dart';
+import 'package:pciu_hubspot/features/other/widgets/maintenance_banner.dart';
 
 class UnderMaintenanceScreen extends StatelessWidget {
   const UnderMaintenanceScreen({super.key});
