@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pciu_hubspot/controller/auth_controller.dart';
+import 'package:pciu_hubspot/controller/auth_controller/auth_controller_prefs.dart';
 import 'package:pciu_hubspot/core/constants/colors.dart';
 import 'package:pciu_hubspot/core/models/menu_option_model.dart';
 import 'package:pciu_hubspot/features/auth/screens/sign_in_screen.dart';

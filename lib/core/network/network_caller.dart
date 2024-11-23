@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:pciu_hubspot/controller/auth_controller.dart';
+import 'package:pciu_hubspot/controller/auth_controller/auth_controller_prefs.dart';
 import 'package:pciu_hubspot/core/network/network_response.dart';
 
 class NetworkCaller {
