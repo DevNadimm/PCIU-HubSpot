@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pciu_hubspot/controller/controller_binders.dart';
+import 'package:pciu_hubspot/controller/controller_binders/controller_binders.dart';
 import 'package:pciu_hubspot/core/constants/colors.dart';
 import 'package:pciu_hubspot/features/auth/screens/splash_screen.dart';
 
