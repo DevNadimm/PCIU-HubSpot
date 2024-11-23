@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pciu_hubspot/core/constants/batch_coordinators_data.dart';
 import 'package:pciu_hubspot/features/home/widgets/batch_coordinator_info_card.dart';
-import 'package:pciu_hubspot/shared/widgets/drop_down_munu_widget.dart';
+import 'package:pciu_hubspot/shared/widgets/dropdown_menu_widget.dart';
 import 'package:pciu_hubspot/shared/widgets/empty_list_widget.dart';
 
 class BatchCoordinatorsScreen extends StatefulWidget {
@@ -90,7 +90,7 @@ class _BatchCoordinatorsScreenState extends State<BatchCoordinatorsScreen> {
         ),
         const SizedBox(width: 8),
         Flexible(
-          child: DropDownWidget<String>(
+          child: DropdownMenuWidget<String>(
             items: _departments,
             hintText: 'Department',
             value: _selectedDepartment,

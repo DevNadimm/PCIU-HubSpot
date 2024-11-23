@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pciu_hubspot/core/constants/faculty_members_data.dart';
 import 'package:pciu_hubspot/features/home/widgets/faculty_info_card.dart';
-import 'package:pciu_hubspot/shared/widgets/drop_down_munu_widget.dart';
+import 'package:pciu_hubspot/shared/widgets/dropdown_menu_widget.dart';
 import 'package:pciu_hubspot/shared/widgets/empty_list_widget.dart';
 
 class FacultyMembersScreen extends StatefulWidget {
@@ -88,7 +88,7 @@ class _FacultyMembersScreenState extends State<FacultyMembersScreen> {
         ),
         const SizedBox(width: 8),
         Flexible(
-          child: DropDownWidget<String>(
+          child: DropdownMenuWidget<String>(
             items: _departments,
             hintText: 'Department',
             value: _selectedDepartment,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pciu_hubspot/core/constants/cr_data.dart';
 import 'package:pciu_hubspot/features/home/widgets/cr_info_card.dart';
-import 'package:pciu_hubspot/shared/widgets/drop_down_munu_widget.dart';
+import 'package:pciu_hubspot/shared/widgets/dropdown_menu_widget.dart';
 import 'package:pciu_hubspot/shared/widgets/empty_list_widget.dart';
 
 class CrScreen extends StatefulWidget {
@@ -81,7 +81,7 @@ class _CrScreenState extends State<CrScreen> {
         ),
         const SizedBox(width: 8),
         Flexible(
-          child: DropDownWidget<String>(
+          child: DropdownMenuWidget<String>(
             items: _departments,
             hintText: 'Department',
             value: _selectedDepartment,
