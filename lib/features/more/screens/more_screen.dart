@@ -47,19 +47,19 @@ class _MoreScreenState extends State<MoreScreen> {
         title: 'About Us',
         subTitle: 'Learn more about our mission and team.',
         imgPath: 'assets/images/team.png',
-        onTap: () => _navigateToScreen(const AboutUsScreen()),
+        onTap: () => Get.to(const AboutUsScreen()),
       ),
       MenuOption(
         title: 'User Reviews',
         subTitle: 'See what our users say about us.',
         imgPath: 'assets/images/satisfaction.png',
-        onTap: () => _navigateToScreen(const UserReviewsScreen()),
+        onTap: () => Get.to(const UserReviewsScreen()),
       ),
       MenuOption(
         title: 'Contact Admin',
         subTitle: 'Reach out for support or feedback.',
         imgPath: 'assets/images/email.png',
-        onTap: () => _navigateToScreen(const ContactAdminScreen()),
+        onTap: () => Get.to(const ContactAdminScreen()),
       ),
       MenuOption(
         title: 'Log Out',
@@ -129,13 +129,6 @@ class _MoreScreenState extends State<MoreScreen> {
           ],
         ),
       ),
-    );
-  }
-
-  void _navigateToScreen(Widget screen) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => screen),
     );
   }
 }
