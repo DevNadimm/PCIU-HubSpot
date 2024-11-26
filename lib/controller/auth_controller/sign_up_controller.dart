@@ -28,7 +28,6 @@ class SignUpController extends GetxController {
       "email": email,
       "password": password,
       "role": "user",
-      "photo": null,
       "sid": studentId,
       "status": true
     };
