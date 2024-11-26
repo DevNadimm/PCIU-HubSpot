@@ -16,7 +16,7 @@ class GridContainer extends StatelessWidget {
         crossAxisCount: 2,
         mainAxisSpacing: 16,
         crossAxisSpacing: 16,
-        childAspectRatio: 1.5,
+        childAspectRatio: 1.4,
       ),
       itemBuilder: (context, index) {
         final item = items[index];

@@ -45,13 +45,11 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
                 const SizedBox(height: 20),
                 Text("Welcome to PCIU HubSpot!",
-                    style: Theme.of(context)
-                        .textTheme
-                        .displaySmall!
-                        .copyWith(color: primaryColor)),
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.displaySmall!.copyWith(color: primaryColor),
+                ),
                 const SizedBox(height: 10),
-                Text(
-                  "We provide resources and information to students of PCIU, including a student name search, student CGPA, CR info, and officers info.",
+                Text("We provide resources and information to students of PCIU, including a student name search, student CGPA, CR info, and officers info.",
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.labelMedium,
                 ),

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pciu_hubspot/controller/auth_controller/auth_controller_prefs.dart';
@@ -16,6 +17,7 @@ class MoreScreen extends StatefulWidget {
 }
 
 class _MoreScreenState extends State<MoreScreen> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   bool isDarkTheme = false;
 
   @override
@@ -67,6 +69,7 @@ class _MoreScreenState extends State<MoreScreen> {
         imgPath: 'assets/images/logout.png',
         onTap: () async {
           await AuthController.clearAccessToken();
+          await _auth.signOut();
           Get.offAll(const SignInScreen());
         }
       ),
