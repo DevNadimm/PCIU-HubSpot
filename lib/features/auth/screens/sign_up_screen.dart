@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pciu_hubspot/controller/auth_controller/sign_up_controller.dart';
 import 'package:pciu_hubspot/core/utils/progress_indicator.dart';
@@ -20,6 +21,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _studentIdTEController = TextEditingController();
   final TextEditingController _nameTEController = TextEditingController();
   bool _isPasswordVisible = false;
+
+  TextInputFormatter get _studentIdFormatter {
+    return FilteringTextInputFormatter.allow(RegExp(r'[A-Za-z0-9]'));
+  }
+
+  String? _validateStudentId(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Student ID is required';
+    } else if (value.length != 11) {
+      return 'Student ID must be 11 characters long';
+    } else if (!RegExp(r'^[A-Za-z]{3}\d{8}$').hasMatch(value)) {
+      return 'Invalid ID format. Example: CSE03308478';
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,13 +118,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
           const SizedBox(height: 10),
           TextFormField(
             controller: _studentIdTEController,
+            inputFormatters: [_studentIdFormatter],
             decoration: const InputDecoration(hintText: 'CSE 03308478'),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Student ID is required';
-              }
-              return null;
-            },
+            validator: _validateStudentId,
           ),
           const SizedBox(height: 10),
           TextFormField(
