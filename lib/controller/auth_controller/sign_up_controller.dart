@@ -6,8 +6,8 @@ import 'package:pciu_hubspot/core/urls.dart';
 class SignUpController extends GetxController {
   static final instance = Get.find<SignUpController>();
 
-  bool _inProgress = false;
-  bool get inProgress => _inProgress;
+  bool _signUpInProgress = false;
+  bool get signUpInProgress => _signUpInProgress;
 
   String? _errorMessage;
   String? get errorMessage => _errorMessage;
@@ -20,7 +20,8 @@ class SignUpController extends GetxController {
     required String email,
     required String password,
   }) async {
-    _inProgress = true;
+
+    _signUpInProgress = true;
     update();
 
     Map<String, dynamic> requestBody = {
@@ -37,7 +38,7 @@ class SignUpController extends GetxController {
 
     if (isUserAlreadyRegistered) {
       isSuccess = false;
-      _errorMessage = 'This email is already registered. Please try signing up with a different email address.';
+      _errorMessage = 'This email is already associated with an account. Please try signing up with a different email address.';
     } else {
       try {
         final response = await NetworkCaller.putRequest(
@@ -50,15 +51,15 @@ class SignUpController extends GetxController {
           _errorMessage = null;
         } else {
           isSuccess = false;
-          _errorMessage = 'Sign-up failed. Please ensure your information is correct and try again.';
+          _errorMessage = 'Sign-up failed. Please double-check your information and try again.';
         }
       } catch (e) {
         isSuccess = false;
-        _errorMessage = 'An unexpected error occurred: $e. Please try again later.';
+        _errorMessage = 'An error occurred while processing your request. Please try again later.';
       }
     }
 
-    _inProgress = false;
+    _signUpInProgress = false;
     update();
 
     return isSuccess;
