@@ -59,7 +59,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       child: GetBuilder<SignUpController>(
                         builder: (controller) {
                           return Visibility(
-                            visible: !controller.inProgress,
+                            visible: !controller.signUpInProgress,
                             replacement: const ProgressIndicatorWidget(),
                             child: ElevatedButton(
                               onPressed: _onTapSignUp,

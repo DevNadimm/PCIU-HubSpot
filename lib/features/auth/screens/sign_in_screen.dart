@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pciu_hubspot/controller/auth_controller/google_sign_in_controller.dart';
 import 'package:pciu_hubspot/controller/auth_controller/sign_in_controller.dart';
 import 'package:pciu_hubspot/core/utils/progress_indicator.dart';
 import 'package:pciu_hubspot/core/utils/snackbar_message.dart';
@@ -66,7 +67,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       child: GetBuilder<SignInController>(
                         builder: (controller) {
                           return Visibility(
-                            visible: !controller.inProgress,
+                            visible: !controller.signInInProgress,
                             replacement: const ProgressIndicatorWidget(),
                             child: ElevatedButton(
                               onPressed: () => _onTapSignInButton(context),
@@ -140,29 +141,37 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   Widget _buildGoogleSignInButton(BuildContext context) {
-    return GestureDetector(
-      onTap: () => _onTapGoogleSignIn(context),
-      child: Container(
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          color: shadeColor,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/images/google_icon.png',
-              scale: 15,
+    return GetBuilder<GoogleSignInController>(
+      builder: (controller) {
+        return Visibility(
+          visible: !controller.googleSignInInProgress,
+          replacement: const ProgressIndicatorWidget(),
+          child: GestureDetector(
+            onTap: () => _onTapGoogleSignIn(context),
+            child: Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: shadeColor,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/images/google_icon.png',
+                    scale: 15,
+                  ),
+                  const SizedBox(width: 7),
+                  Text(
+                    'Sign In with Google',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                ],
+              ),
             ),
-            const SizedBox(width: 7),
-            Text(
-              'Sign In with Google',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      }
     );
   }
 
@@ -223,9 +232,15 @@ class _SignInScreenState extends State<SignInScreen> {
    }
   }
 
-  void _onTapGoogleSignIn(BuildContext context) {
-    /// Handle Google sign-in here.
-    Get.off(const MainBottomNavBarScreen());
+  void _onTapGoogleSignIn(BuildContext context) async {
+    final controller = GoogleSignInController.instance;
+    final result = await controller.signInWithGoogle();
+
+    if (result) {
+      Get.off(const MainBottomNavBarScreen());
+    } else {
+      SnackBarMessage.errorMessage(controller.errorMessage!);
+    }
   }
 
   @override
