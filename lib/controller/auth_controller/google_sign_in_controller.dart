@@ -28,13 +28,13 @@ class GoogleSignInController extends GetxController {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
       if (googleUser == null) {
-        return _handleSignInError('Sign-in aborted by user.');
+        return _handleSignInError('You canceled the sign-in process.');
       }
 
       final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
 
       if (googleAuth.accessToken == null || googleAuth.idToken == null) {
-        return _handleSignInError('Failed to get Google authentication credentials.');
+        return _handleSignInError('Unable to retrieve Google credentials. Please try again.');
       }
 
       final credential = GoogleAuthProvider.credential(
@@ -46,7 +46,7 @@ class GoogleSignInController extends GetxController {
       User? user = userCredential.user;
 
       if (user == null) {
-        return _handleSignInError('User not found in Firebase.');
+        return _handleSignInError('Could not find your account in our system. Please try again.');
       }
 
       final response = await NetworkCaller.getRequest(url: Urls.userDetails(user.email!));
@@ -60,10 +60,10 @@ class GoogleSignInController extends GetxController {
           return await _signInUser(user.email!, user.uid);
         }
       } else {
-        return _handleSignInError('Error fetching user details.');
+        return _handleSignInError('We encountered an issue while fetching your details. Please try again.');
       }
     } catch (e) {
-      return _handleSignInError('Exception during sign-in: $e');
+      return _handleSignInError('An error occurred during the sign-in process. Please try again.');
     }
   }
 
@@ -90,7 +90,7 @@ class GoogleSignInController extends GetxController {
         photo: user.photoURL ?? '',
       ) && await _signInUser(user.email!, user.uid);
     } else {
-      return _handleSignInError('Student ID is required!');
+      return _handleSignInError('You must provide a valid student ID to proceed.');
     }
   }
 
@@ -113,13 +113,13 @@ class GoogleSignInController extends GetxController {
           await AuthController.saveAccessToken(token);
           setGoogleSignInInProgress(false);
         } else {
-          return _handleSignInError('Token not found in response');
+          return _handleSignInError('We couldn’t find your authentication token. Please try again.');
         }
       } else {
-        return _handleSignInError('Sign-in failed. Please check your credentials.');
+        return _handleSignInError('Your sign-in attempt was unsuccessful. Please check your credentials and try again.');
       }
     } catch (e) {
-      return _handleSignInError('An error occurred: $e. Please try again later.');
+      return _handleSignInError('An error occurred. Please try again later.');
     }
 
     return true;
@@ -151,10 +151,10 @@ class GoogleSignInController extends GetxController {
       if (response.isSuccess) {
         _errorMessage = null;
       } else {
-        return _handleSignInError('Sign-up failed. Please ensure your information is correct and try again.');
+        return _handleSignInError('There was an issue with your sign-up information. Please double-check and try again.');
       }
     } catch (e) {
-      return _handleSignInError('An unexpected error occurred: $e. Please try again later.');
+      return _handleSignInError('An unexpected error occurred. Please try again later.');
     }
 
     return true;
