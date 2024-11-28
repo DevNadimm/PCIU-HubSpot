@@ -67,6 +67,7 @@ class _CoverPageInputScreenState extends State<CoverPageInputScreen> {
                   _buildTextField(context, 'Assignment Name', _assignmentNameTEController),
                 if (_selectedCoverPageType == _coverPageTypes[1])
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(child: _buildTextField(context, 'Experiment No', _expNoTEController)),
                       const SizedBox(width: 8),
@@ -87,6 +88,7 @@ class _CoverPageInputScreenState extends State<CoverPageInputScreen> {
                 _buildTextField(context, 'Program', _programTEController),
                 const SizedBox(height: 16),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(child: _buildTextField(context, 'Batch No', _batchNoTEController)),
                     const SizedBox(width: 8),
