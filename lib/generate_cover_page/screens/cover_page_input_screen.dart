@@ -1,8 +1,16 @@
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:pciu_hubspot/core/constants/colors.dart';
+import 'package:pciu_hubspot/core/utils/progress_indicator.dart';
+import 'package:pciu_hubspot/core/utils/snackbar_message.dart';
+import 'package:pciu_hubspot/generate_cover_page/widgets/pdf_content_widget.dart';
 import 'package:pciu_hubspot/shared/widgets/dropdown_menu_widget.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'pdf_preview_page.dart';
 
 class CoverPageInputScreen extends StatefulWidget {
   const CoverPageInputScreen({super.key});
@@ -28,6 +36,8 @@ class _CoverPageInputScreenState extends State<CoverPageInputScreen> {
 
   String? _selectedCoverPageType;
   String? _selectedDate;
+
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -127,16 +137,16 @@ class _CoverPageInputScreenState extends State<CoverPageInputScreen> {
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                 const SizedBox(height: 16),
-                SizedBox(
-                  width: double.infinity,
-                  height: 50,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState?.validate() ?? false) {
-                        // TODO: Implement Generate PDF functionality
-                      }
-                    },
-                    child: const Text('Generate PDF'),
+                Visibility(
+                  visible: !_isLoading,
+                  replacement: const ProgressIndicatorWidget(),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: onPressedGeneratePDF,
+                      child: const Text('Generate PDF'),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -203,6 +213,70 @@ class _CoverPageInputScreenState extends State<CoverPageInputScreen> {
       setState(() {
         _selectedDate = DateFormat('dd MMM yyyy').format(selected);
       });
+    }
+  }
+
+  Future<void> onPressedGeneratePDF() async {
+    if (_formKey.currentState?.validate() ?? false) {
+      setState(() {
+        _isLoading = true;
+      });
+
+      try {
+        final img = await rootBundle.load('assets/images/pciu_logo_png.png');
+        final imageBytes = img.buffer.asUint8List();
+        final imageProvider = pw.MemoryImage(imageBytes);
+
+        final pdf = pw.Document();
+
+        pdf.addPage(
+          pw.Page(
+            build: (context) => PdfContentWidget(
+              imageProvider: imageProvider,
+              coverPageType: _selectedCoverPageType!,
+              assignmentName: _assignmentNameTEController.text,
+              experimentNo: _expNoTEController.text,
+              experimentName: _expNameTEController.text,
+              courseCode: _courseCodeTEController.text,
+              courseName: _courseNameTEController.text,
+              studentName: _studentNameTEController.text,
+              studentProgram: _programTEController.text,
+              batchNo: _batchNoTEController.text,
+              studentId: _studentIdTEController.text,
+              teacherName: _teacherNameTEController.text,
+              teacherDepartment: _teacherDepartmentTEController.text,
+              selectedDate: _selectedDate!,
+            ),
+          ),
+        );
+
+        final pdfBytes = await pdf.save();
+
+        final directory = await getApplicationDocumentsDirectory();
+        final filePath = '${directory.path}/cover_page.pdf';
+        final file = File(filePath);
+
+        await file.writeAsBytes(pdfBytes);
+
+        setState(() {
+          _isLoading = false;
+        });
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PdfPreviewPage(
+              pdfPath: filePath,
+              text: 'Cover Page Preview',
+            ),
+          ),
+        );
+      } catch (e) {
+        setState(() {
+          _isLoading = false;
+        });
+        SnackBarMessage.errorMessage('Error generating PDF: $e');
+      }
     }
   }
 }
