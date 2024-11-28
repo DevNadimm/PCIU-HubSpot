@@ -101,9 +101,6 @@ class _CoverPageInputScreenState extends State<CoverPageInputScreen> {
                     onPressed: () {
                       if (_formKey.currentState?.validate() ?? false) {
                         // TODO: Implement Generate PDF functionality
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Form is valid. Generating PDF...')),
-                        );
                       }
                     },
                     child: const Text('Generate PDF'),

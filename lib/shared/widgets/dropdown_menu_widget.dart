@@ -20,8 +20,9 @@ class DropdownMenuWidget<T> extends StatelessWidget {
     return DropdownButtonFormField2<T>(
       isDense: true,
       value: value,
+      isExpanded: true,
       decoration: InputDecoration(
-        contentPadding: const EdgeInsets.symmetric(vertical: 14),
+        contentPadding: const EdgeInsets.only(top: 14, bottom: 14, right: 7),
         hintText: hintText,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
