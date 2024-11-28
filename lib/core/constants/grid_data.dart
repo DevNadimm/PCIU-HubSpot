@@ -3,7 +3,7 @@ import 'package:pciu_hubspot/features/home/screens/batch_coordinators_screen.dar
 import 'package:pciu_hubspot/features/home/screens/cr_screen.dart';
 import 'package:pciu_hubspot/features/home/screens/faculty_members_screen.dart';
 import 'package:pciu_hubspot/features/other/screens/under_maintenance_screen.dart';
-import 'package:pciu_hubspot/generate_cover_page/screens/input_screen.dart';
+import 'package:pciu_hubspot/generate_cover_page/screens/cover_page_input_screen.dart';
 
 List<GridModel> servicesList = [
   GridModel(
@@ -44,7 +44,7 @@ List<GridModel> servicesList = [
   GridModel(
     imgPath: 'assets/images/services/coverpage.png',
     title: "Cover Page",
-    widget: const InputScreen(),
+    widget: const CoverPageInputScreen(),
   ),
 ];
 

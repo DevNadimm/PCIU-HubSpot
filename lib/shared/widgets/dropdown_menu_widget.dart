@@ -21,7 +21,7 @@ class DropdownMenuWidget<T> extends StatelessWidget {
       isDense: true,
       value: value,
       decoration: InputDecoration(
-        contentPadding: const EdgeInsets.only(top: 14, bottom: 14, right: 7),
+        contentPadding: const EdgeInsets.symmetric(vertical: 14),
         hintText: hintText,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
