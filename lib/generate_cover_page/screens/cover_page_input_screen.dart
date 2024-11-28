@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:pciu_hubspot/core/constants/colors.dart';
 import 'package:pciu_hubspot/shared/widgets/dropdown_menu_widget.dart';
 
 class CoverPageInputScreen extends StatefulWidget {
@@ -9,7 +12,6 @@ class CoverPageInputScreen extends StatefulWidget {
 }
 
 class _CoverPageInputScreenState extends State<CoverPageInputScreen> {
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final List<String> _coverPageTypes = const ['Assignment', 'Lab Report'];
   final TextEditingController _courseCodeTEController = TextEditingController();
@@ -23,12 +25,15 @@ class _CoverPageInputScreenState extends State<CoverPageInputScreen> {
   final TextEditingController _programTEController = TextEditingController();
   final TextEditingController _batchNoTEController = TextEditingController();
   final TextEditingController _studentIdTEController = TextEditingController();
+
   String? _selectedCoverPageType;
+  String? _selectedDate;
 
   @override
   void initState() {
-    _selectedCoverPageType = _coverPageTypes[0];
     super.initState();
+    _selectedCoverPageType = _coverPageTypes[0];
+    _selectedDate = DateFormat('dd MMM yyyy').format(DateTime.now());
   }
 
   @override
@@ -100,6 +105,32 @@ class _CoverPageInputScreenState extends State<CoverPageInputScreen> {
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton(
+                    onPressed: selectDate,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: shadeColor,
+                      foregroundColor: Colors.black54,
+                    ),
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(CupertinoIcons.calendar),
+                        SizedBox(width: 8),
+                        Text('Select Date'),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                if (_selectedDate != null)
+                  Text(
+                    'Selected Date: $_selectedDate',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                const SizedBox(height: 16),
+                SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState?.validate() ?? false) {
                         // TODO: Implement Generate PDF functionality
@@ -158,6 +189,21 @@ class _CoverPageInputScreenState extends State<CoverPageInputScreen> {
         ),
       ],
     );
+  }
+
+  Future<void> selectDate() async {
+    DateTime? selected = await showDatePicker(
+      context: context,
+      firstDate: DateTime(2024),
+      lastDate: DateTime(2026),
+      initialDate: DateTime.now(),
+    );
+
+    if (selected != null) {
+      setState(() {
+        _selectedDate = DateFormat('dd MMM yyyy').format(selected);
+      });
+    }
   }
 }
 
