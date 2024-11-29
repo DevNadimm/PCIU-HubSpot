@@ -37,13 +37,33 @@ class PdfContentWidget extends pw.StatelessWidget {
   @override
   pw.Widget build(pw.Context context) {
     String title = '';
-    String details = '';
+    pw.Widget detailsWidget = pw.SizedBox();
+
     if (coverPageType == 'Assignment') {
       title = "ASSIGNMENT";
-      details = "Assignment Name: $assignmentName";
+      detailsWidget = pw.Text(
+        "Assignment Name: $assignmentName",
+        style: const pw.TextStyle(fontSize: 17),
+        textAlign: pw.TextAlign.left,
+      );
     } else if (coverPageType == 'Lab Report') {
       title = "LAB REPORT";
-      details = "Experiment No: $experimentNo\nExperiment Name: $experimentName";
+      detailsWidget = pw.Column(
+        crossAxisAlignment: pw.CrossAxisAlignment.start,
+        children: [
+          pw.Text(
+            "Experiment No: $experimentNo",
+            style: const pw.TextStyle(fontSize: 17),
+            textAlign: pw.TextAlign.left,
+          ),
+          pw.SizedBox(height: 10),
+          pw.Text(
+            "Experiment Name: $experimentName",
+            style: const pw.TextStyle(fontSize: 17),
+            textAlign: pw.TextAlign.left,
+          ),
+        ],
+      );
     }
 
     return pw.Column(
@@ -60,7 +80,7 @@ class PdfContentWidget extends pw.StatelessWidget {
         ),
         pw.SizedBox(height: 10),
         pw.Divider(),
-        pw.SizedBox(height: 20),
+        pw.SizedBox(height: 40),
         pw.Text(
           title,
           style: pw.TextStyle(
@@ -68,73 +88,112 @@ class PdfContentWidget extends pw.StatelessWidget {
             fontWeight: pw.FontWeight.bold,
             color: PdfColors.deepPurple,
           ),
-          textAlign: pw.TextAlign.center,
+          textAlign: pw.TextAlign.left,
+        ),
+        pw.SizedBox(height: 40),
+        pw.Container(
+          width: double.infinity,
+          padding: const pw.EdgeInsets.all(20),
+          decoration: pw.BoxDecoration(
+            color: PdfColor.fromHex('#f6f3fa'),
+            border: pw.Border.all(
+              color: PdfColor.fromHex('#B39DDB'),
+              width: 2,
+            ),
+            borderRadius: pw.BorderRadius.circular(15),
+          ),
+          child: pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            children: [
+              detailsWidget,
+              pw.SizedBox(height: 10),
+              pw.Text(
+                "Course Code: $courseCode",
+                style: const pw.TextStyle(fontSize: 17),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.SizedBox(height: 10),
+              pw.Text(
+                "Course Name: $courseName",
+                style: const pw.TextStyle(fontSize: 17),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.SizedBox(height: 10),
+              pw.Text(
+                "Submission Date: $selectedDate",
+                style: const pw.TextStyle(fontSize: 17),
+                textAlign: pw.TextAlign.left,
+              ),
+            ],
+          ),
         ),
         pw.SizedBox(height: 20),
-        pw.Text(
-          details,
-          style: pw.TextStyle(fontSize: 17, fontWeight: pw.FontWeight.normal),
-          textAlign: pw.TextAlign.center,
-        ),
-        pw.SizedBox(height: 10),
-        pw.Text(
-          "Course Code: $courseCode",
-          style: const pw.TextStyle(fontSize: 17),
-          textAlign: pw.TextAlign.center,
-        ),
-        pw.SizedBox(height: 10),
-        pw.Text(
-          "Course Name: $courseName",
-          style: const pw.TextStyle(fontSize: 17),
-          textAlign: pw.TextAlign.center,
-        ),
-        pw.SizedBox(height: 10),
-        pw.Text(
-          "Date: $selectedDate",
-          style: const pw.TextStyle(fontSize: 17),
-          textAlign: pw.TextAlign.center,
-        ),
-        pw.SizedBox(height: 50),
-
-        pw.Text(
-          "Submitted To:",
-          style: pw.TextStyle(fontSize: 18, fontWeight: pw.FontWeight.bold),
-        ),
-        pw.Text(
-          "Name: $teacherName",
-          style: const pw.TextStyle(fontSize: 16),
-        ),
-        pw.Text(
-          "Department: $teacherDepartment",
-          style: const pw.TextStyle(fontSize: 16),
-        ),
-        pw.Text(
-          "Port City International University",
-          style: const pw.TextStyle(fontSize: 16),
-        ),
-        pw.SizedBox(height: 20),
-
-        pw.Text(
-          "Submitted By:",
-          style: pw.TextStyle(fontSize: 18, fontWeight: pw.FontWeight.bold),
-        ),
-        pw.Text(
-          "Name: $studentName",
-          style: const pw.TextStyle(fontSize: 16),
-        ),
-        pw.Text(
-          "Program: $studentProgram",
-          style: const pw.TextStyle(fontSize: 16),
-        ),
-        pw.Text(
-          "Batch No: $batchNo",
-          style: const pw.TextStyle(fontSize: 16),
-        ),
-        pw.Text(
-          "Student ID: $studentId",
-          style: const pw.TextStyle(fontSize: 16),
+        pw.Table(
+          columnWidths: {
+            0: const pw.FlexColumnWidth(1),
+            1: const pw.FlexColumnWidth(0.1),
+            2: const pw.FlexColumnWidth(1),
+          },
+          children: [
+            pw.TableRow(
+              children: [
+                _buildTableCell(
+                  title: "Submitted To",
+                  data: [
+                    teacherName,
+                    "Department of $teacherDepartment",
+                    "Port City International University",
+                  ],
+                ),
+                pw.SizedBox(width: 20),
+                _buildTableCell(
+                  title: "Submitted By",
+                  data: [
+                    studentName,
+                    "Program: $studentProgram",
+                    "Batch No: $batchNo",
+                    "Student ID: $studentId",
+                  ],
+                ),
+              ],
+            ),
+          ],
         ),
       ],
+    );
+  }
+
+  pw.Widget _buildTableCell({
+    required String title,
+    required List<String> data,
+  }) {
+    return pw.Container(
+      decoration: pw.BoxDecoration(
+        color: PdfColor.fromHex('#f6f3fa'),
+        border: pw.Border.all(
+          color: PdfColor.fromHex('#B39DDB'),
+          width: 2,
+        ),
+        borderRadius: pw.BorderRadius.circular(15),
+      ),
+      child: pw.Padding(
+        padding: const pw.EdgeInsets.all(10),
+        child: pw.Column(
+          crossAxisAlignment: pw.CrossAxisAlignment.start,
+          children: [
+            pw.Text(
+              title,
+              style: pw.TextStyle(fontSize: 18, fontWeight: pw.FontWeight.bold),
+            ),
+            pw.SizedBox(height: 10),
+            for (var item in data)
+              pw.Text(
+                item,
+                style: const pw.TextStyle(fontSize: 16),
+              ),
+          ],
+        ),
+      ),
     );
   }
 }
