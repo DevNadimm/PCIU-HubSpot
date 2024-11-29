@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:pciu_hubspot/controller/auth_controller/auth_controller_prefs.dart';
+import 'package:pciu_hubspot/controller/shared_preferences_controller/auth_controller_prefs.dart';
 import 'package:pciu_hubspot/core/network/network_caller.dart';
 import 'package:pciu_hubspot/core/urls.dart';
 import 'package:pciu_hubspot/features/auth/widgets/my_popup.dart';
