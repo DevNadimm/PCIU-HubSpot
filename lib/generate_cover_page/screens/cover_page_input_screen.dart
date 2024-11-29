@@ -10,6 +10,7 @@ import 'package:pciu_hubspot/core/utils/progress_indicator.dart';
 import 'package:pciu_hubspot/core/utils/snackbar_message.dart';
 import 'package:pciu_hubspot/generate_cover_page/widgets/pdf_content_widget.dart';
 import 'package:pciu_hubspot/shared/widgets/dropdown_menu_widget.dart';
+import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'pdf_preview_page.dart';
 
@@ -232,6 +233,7 @@ class _CoverPageInputScreenState extends State<CoverPageInputScreen> {
 
         pdf.addPage(
           pw.Page(
+            pageFormat: PdfPageFormat.a4,
             build: (context) => PdfContentWidget(
               imageProvider: imageProvider,
               coverPageType: _selectedCoverPageType!,
