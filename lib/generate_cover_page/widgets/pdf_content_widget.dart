@@ -131,7 +131,7 @@ class PdfContentWidget extends pw.StatelessWidget {
         pw.Table(
           columnWidths: {
             0: const pw.FlexColumnWidth(1),
-            1: const pw.FlexColumnWidth(0.1),
+            1: const pw.FlexColumnWidth(0.08),
             2: const pw.FlexColumnWidth(1),
           },
           children: [
@@ -145,7 +145,7 @@ class PdfContentWidget extends pw.StatelessWidget {
                     "Port City International University",
                   ],
                 ),
-                pw.SizedBox(width: 20),
+                pw.SizedBox(),
                 _buildTableCell(
                   title: "Submitted By",
                   data: [
