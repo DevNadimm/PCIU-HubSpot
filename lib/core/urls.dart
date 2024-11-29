@@ -6,4 +6,8 @@ class Urls {
   static String userDetails(String email) {
     return '$baseUrl/user/$email';
   }
+
+  static String studentInfo(String studentId) {
+    return '$baseUrl/student/$studentId';
+  }
 }
