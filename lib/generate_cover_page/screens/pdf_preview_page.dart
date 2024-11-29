@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:open_file/open_file.dart';
 import 'dart:io';
+import 'package:pciu_hubspot/core/utils/snackbar_message.dart';
 
 class PdfPreviewPage extends StatelessWidget {
   final String pdfPath;
-  final String text;
 
   const PdfPreviewPage({
     super.key,
     required this.pdfPath,
-    required this.text,
   });
 
   @override
@@ -28,23 +27,32 @@ class PdfPreviewPage extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Text(
-              text,
-              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 20),
-            // Display the PDF preview
             Expanded(
               child: File(pdfPath).existsSync()
-                  ? Container(
-                      padding: const EdgeInsets.all(5),
-                      color: Colors.black26,
-                      child: PDFView(
-                        filePath: pdfPath,
+                  ? Center(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(
+                            color: Colors.grey.shade400,
+                            width: 2.0,
+                          ),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: AspectRatio(
+                            aspectRatio: 1 / 1.414,
+                            child: PDFView(
+                              filePath: pdfPath,
+                            ),
+                          ),
+                        ),
                       ),
                     )
-                  : const Center(child: Text("Error: PDF file not found")),
+                  : const Center(
+                      child: Text("Error: PDF file not found"),
+                    ),
             ),
             const SizedBox(height: 20),
             SizedBox(
@@ -52,7 +60,7 @@ class PdfPreviewPage extends StatelessWidget {
               height: 50,
               child: ElevatedButton(
                 onPressed: () {
-                  _downloadPdf(pdfPath, context);
+                  _openPdf(pdfPath, context);
                 },
                 child: const Text('Open PDF'),
               ),
@@ -63,14 +71,10 @@ class PdfPreviewPage extends StatelessWidget {
     );
   }
 
-  // Function to open the PDF
-  Future<void> _downloadPdf(String pdfPath, BuildContext context) async {
+  Future<void> _openPdf(String pdfPath, BuildContext context) async {
     final result = await OpenFile.open(pdfPath);
     if (result.type != ResultType.done) {
-      // Handle error if file couldn't be opened
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Failed to open the PDF file")),
-      );
+      SnackBarMessage.errorMessage("Failed to open the PDF file");
     }
   }
 }

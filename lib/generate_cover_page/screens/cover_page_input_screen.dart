@@ -266,7 +266,6 @@ class _CoverPageInputScreenState extends State<CoverPageInputScreen> {
         Get.to(
           PdfPreviewPage(
             pdfPath: filePath,
-            text: 'Cover Page Preview',
           ),
         );
       } catch (e) {
