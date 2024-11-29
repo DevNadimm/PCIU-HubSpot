@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pciu_hubspot/core/constants/colors.dart';
@@ -262,13 +263,10 @@ class _CoverPageInputScreenState extends State<CoverPageInputScreen> {
           _isLoading = false;
         });
 
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => PdfPreviewPage(
-              pdfPath: filePath,
-              text: 'Cover Page Preview',
-            ),
+        Get.to(
+          PdfPreviewPage(
+            pdfPath: filePath,
+            text: 'Cover Page Preview',
           ),
         );
       } catch (e) {
