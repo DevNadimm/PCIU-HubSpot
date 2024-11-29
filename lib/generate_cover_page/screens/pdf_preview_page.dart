@@ -45,7 +45,7 @@ class PdfPreviewPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8.0),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(4),
                 child: AspectRatio(
                   aspectRatio: 1 / 1.414,
                   child: PDFView(
