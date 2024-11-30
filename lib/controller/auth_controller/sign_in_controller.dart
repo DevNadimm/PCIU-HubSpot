@@ -40,7 +40,7 @@ class SignInController extends GetxController {
         return _handleSignInError('We encountered an issue while fetching your details. Please try again.');
       }
     } catch (e) {
-      return _handleSignInError('An error occurred during the sign-in process. Please try again.');
+      return _handleSignInError('Something went wrong. Please check your internet connection and try again later.');
     } finally {
       _signInInProgress = false;
       update();
