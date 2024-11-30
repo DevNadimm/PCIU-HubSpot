@@ -1,18 +1,52 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pciu_hubspot/controller/shared_preferences_controller/user_details_controller_prefs.dart';
 import 'package:pciu_hubspot/core/constants/colors.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
-
-  static const String _profileImageUrl =
-      'https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500';
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  static const String defaultPhotoUrl =
+      'https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500';
+
+  String name = 'N/A';
+  String photoUrl = defaultPhotoUrl;
+  String email = 'N/A';
+  String studentId = 'N/A';
+  String department = 'N/A';
+  String admission = 'N/A';
+  String batch = 'N/A';
+  int totalCredit = 0;
+  String shift = 'N/A';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserDetails();
+  }
+
+  Future<void> _loadUserDetails() async {
+    final userDetails = UserDetailsController.userDetails;
+    if (userDetails != null) {
+      setState(() {
+        name = userDetails['studentName'] ?? 'N/A';
+        email = userDetails['email'] ?? 'N/A';
+        studentId = userDetails['studentId'] ?? 'N/A';
+        department = userDetails['studentProgram'] ?? 'N/A';
+        admission = userDetails['studentSession'] ?? 'N/A';
+        batch = userDetails['studentBatch'] ?? 'N/A';
+        totalCredit = userDetails['totalCredit'] ?? 0;
+        shift = userDetails['shift'] ?? 'N/A';
+        photoUrl = userDetails['photo'] ?? defaultPhotoUrl;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -25,16 +59,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
             _buildProfilePhoto(),
             const SizedBox(height: 16),
             Text(
-              'Nadim Chowdhury',
+              name,
               style: Theme.of(context).textTheme.headlineLarge,
+              textAlign: TextAlign.center,
             ),
             const SizedBox(height: 4),
             Text(
-              'CSE 03308478',
+              studentId,
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 32),
-            _buildStudentInfoContainer(context),
+            _buildStudentInfoContainer(),
           ],
         ),
       ),
@@ -44,20 +79,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget _buildProfilePhoto() {
     return Stack(
       children: [
-        const CircleAvatar(
+        CircleAvatar(
           radius: 65,
           backgroundColor: primaryColor,
           child: CircleAvatar(
             radius: 60,
-            backgroundColor: primaryColor,
-            backgroundImage: NetworkImage(ProfileScreen._profileImageUrl),
+            backgroundImage: NetworkImage(photoUrl),
+            onBackgroundImageError: (_, __) {
+              setState(() {
+                photoUrl = defaultPhotoUrl;
+              });
+            },
           ),
         ),
         Positioned(
           right: 0,
           bottom: 0,
           child: GestureDetector(
-            onTap: () {},
+            onTap: () {
+              /// Add functionality here
+            },
             child: const CircleAvatar(
               backgroundColor: Colors.white,
               radius: 20,
@@ -77,7 +118,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _buildStudentInfoContainer(BuildContext context) {
+  Widget _buildStudentInfoContainer() {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -93,24 +134,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
       child: Column(
         children: [
-          _buildRow(context, title: 'Email', label: 'nadim@gmail.com'),
+          _buildRow(title: 'Department', label: department),
           const SizedBox(height: 8),
-          _buildRow(context, title: 'Department', label: 'CSE'),
+          _buildRow(title: 'Admission', label: admission),
           const SizedBox(height: 8),
-          _buildRow(context, title: 'Admission', label: 'Fall 2024'),
+          _buildRow(title: 'Batch', label: batch),
           const SizedBox(height: 8),
-          _buildRow(context, title: 'Batch', label: '033'),
+          _buildRow(title: 'Total Credit', label: '$totalCredit'),
           const SizedBox(height: 8),
-          _buildRow(context, title: 'Total Credit', label: '156'),
-          const SizedBox(height: 8),
-          _buildRow(context, title: 'Shift', label: 'Day'),
+          _buildRow(title: 'Shift', label: shift),
         ],
       ),
     );
   }
 
-  Widget _buildRow(BuildContext context,
-      {required String title, required String label}) {
+  Widget _buildRow({required String title, required String label}) {
     return Row(
       children: [
         Expanded(
@@ -122,10 +160,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 .copyWith(color: Colors.black54),
           ),
         ),
+        const Expanded(
+          child: Text(':'),
+        ),
         Expanded(
           child: Text(
-            ': $label',
+            label,
             style: Theme.of(context).textTheme.titleLarge,
+            textAlign: TextAlign.end,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
         ),
       ],
