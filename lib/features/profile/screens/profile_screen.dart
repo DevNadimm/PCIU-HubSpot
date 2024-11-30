@@ -2,12 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pciu_hubspot/core/constants/colors.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
   static const String _profileImageUrl =
       'https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500';
 
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -45,7 +50,7 @@ class ProfileScreen extends StatelessWidget {
           child: CircleAvatar(
             radius: 60,
             backgroundColor: primaryColor,
-            backgroundImage: NetworkImage(_profileImageUrl),
+            backgroundImage: NetworkImage(ProfileScreen._profileImageUrl),
           ),
         ),
         Positioned(
