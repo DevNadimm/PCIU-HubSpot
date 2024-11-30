@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:pciu_hubspot/controller/shared_preferences_controller/user_details_controller_prefs.dart';
 import 'package:pciu_hubspot/core/constants/colors.dart';
 import 'package:pciu_hubspot/core/utils/progress_indicator.dart';
 import 'package:pciu_hubspot/core/utils/snackbar_message.dart';
@@ -44,8 +45,20 @@ class _CoverPageInputScreenState extends State<CoverPageInputScreen> {
   @override
   void initState() {
     super.initState();
+    _loadUserDetails();
     _selectedCoverPageType = _coverPageTypes[0];
     _selectedDate = DateFormat('dd MMM yyyy').format(DateTime.now());
+  }
+
+  Future<void> _loadUserDetails() async {
+    final userDetails = UserDetailsController.userDetails;
+
+    if (userDetails != null) {
+      _studentNameTEController.text = userDetails['studentName'] ?? '';
+      _programTEController.text = userDetails['studentProgram'] ?? '';
+      _studentIdTEController.text = userDetails['studentId'] ?? '';
+      _batchNoTEController.text = userDetails['studentBatch'] ?? '';
+    }
   }
 
   @override
