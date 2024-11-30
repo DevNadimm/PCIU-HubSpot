@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:pciu_hubspot/controller/home_controller/student_details_controller.dart';
 import 'package:pciu_hubspot/controller/shared_preferences_controller/auth_controller_prefs.dart';
 import 'package:pciu_hubspot/core/network/network_caller.dart';
 import 'package:pciu_hubspot/core/urls.dart';
@@ -56,8 +57,9 @@ class GoogleSignInController extends GetxController {
 
         if (data.containsKey('data') && data['data'] == 'UserNotFound') {
           return await _handleUserNotFound(user);
-        } else {
-          return await _signInUser(user.email!, user.uid);
+        } else{
+          final sid = data['sid'];
+          return await _signInUser(user, sid);
         }
       } else {
         return _handleSignInError('We encountered an issue while fetching your details. Please try again.');
@@ -88,16 +90,16 @@ class GoogleSignInController extends GetxController {
         email: user.email!,
         password: user.uid,
         photo: user.photoURL ?? '',
-      ) && await _signInUser(user.email!, user.uid);
+      ) && await _signInUser(user, studentId);
     } else {
       return _handleSignInError('You must provide a valid student ID to proceed.');
     }
   }
 
-  Future<bool> _signInUser(String email, String uid) async {
+  Future<bool> _signInUser(User user, String studentId) async {
     Map<String, dynamic> requestBody = {
-      "identifier": email,
-      "password": uid,
+      "identifier": user.email,
+      "password": user.uid,
     };
 
     try {
@@ -111,6 +113,19 @@ class GoogleSignInController extends GetxController {
         if (data.containsKey('token')) {
           final token = data['token'];
           await AuthController.saveAccessToken(token);
+
+          final studentDetailsController = StudentDetailsController.instance;
+          final result = await studentDetailsController.getStudentDetails(
+            email: '${user.email}',
+            nameOnEmail: '${user.displayName}',
+            photo: '${user.photoURL}',
+            sId: studentId,
+          );
+
+          if (!result) {
+            _handleSignInError(studentDetailsController.errorMessage!);
+          }
+
           setGoogleSignInInProgress(false);
         } else {
           return _handleSignInError('We couldn’t find your authentication token. Please try again.');
