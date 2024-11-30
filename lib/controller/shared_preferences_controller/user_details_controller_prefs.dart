@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserDetailsController {
@@ -6,7 +8,7 @@ class UserDetailsController {
 
   static Future<void> saveUserDetails(Map<String, dynamic> details) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString(_userDetailsKey, details.toString());
+    prefs.setString(_userDetailsKey, jsonEncode(details));
     userDetails = details;
   }
 
@@ -15,8 +17,13 @@ class UserDetailsController {
     final userDetailsString = prefs.getString(_userDetailsKey);
 
     if (userDetailsString != null) {
-      userDetails = Map<String, dynamic>.from(Uri.splitQueryString(userDetailsString));
-      return userDetails;
+      try {
+        userDetails = jsonDecode(userDetailsString) as Map<String, dynamic>;
+        return userDetails;
+      } catch (e) {
+        debugPrint("Error decoding user details: $e");
+        return null;
+      }
     }
 
     return null;
