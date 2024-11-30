@@ -16,7 +16,7 @@ class NetworkCaller {
       String? token = await AuthController.getAccessToken();
       final headers = {
         'Content-Type': 'application/json',
-        if (token != null) 'token': token,
+        if (token != null) 'Authorization': 'Bearer $token',
       };
       final response = await http.put(
         uri,
@@ -58,7 +58,7 @@ class NetworkCaller {
       String? token = await AuthController.getAccessToken();
       final headers = {
         'Content-Type': 'application/json',
-        if (token != null) 'token': token,
+        if (token != null) 'Authorization': 'Bearer $token',
       };
       final response = await http.post(
         uri,
@@ -99,7 +99,7 @@ class NetworkCaller {
       String? token = await AuthController.getAccessToken();
       final headers = {
         'Content-Type': 'application/json',
-        if (token != null) 'token': token,
+        if (token != null) 'Authorization': 'Bearer $token',
       };
       final response = await http.get(
         uri,

@@ -8,6 +8,6 @@ class Urls {
   }
 
   static String studentInfo(String studentId) {
-    return '$baseUrl/student/$studentId';
+    return '$baseUrl/studentAPP/$studentId';
   }
 }
