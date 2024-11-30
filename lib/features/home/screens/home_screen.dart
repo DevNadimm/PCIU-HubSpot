@@ -12,6 +12,29 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  static const String defaultPhotoUrl =
+      'https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg';
+
+  String name = 'N/A';
+  String photoUrl = defaultPhotoUrl;
+
+  @override
+  void initState() {
+    _loadUserDetails();
+    super.initState();
+  }
+
+  Future<void> _loadUserDetails() async {
+    final userDetails = UserDetailsController.userDetails;
+    if (userDetails != null) {
+      setState(() {
+        name = userDetails['studentName'] ?? 'N/A';
+        photoUrl = userDetails['photo'] ?? defaultPhotoUrl;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -39,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildProfilePhoto() {
-    return const CircleAvatar(
+    return CircleAvatar(
       radius: 33,
       backgroundColor: primaryColor,
       child: CircleAvatar(
