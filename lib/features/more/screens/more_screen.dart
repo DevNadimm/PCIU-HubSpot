@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pciu_hubspot/controller/shared_preferences_controller/auth_controller_prefs.dart';
+import 'package:pciu_hubspot/controller/shared_preferences_controller/user_details_controller_prefs.dart';
 import 'package:pciu_hubspot/core/constants/colors.dart';
 import 'package:pciu_hubspot/core/models/menu_option_model.dart';
 import 'package:pciu_hubspot/features/auth/screens/sign_in_screen.dart';
@@ -67,6 +68,7 @@ class _MoreScreenState extends State<MoreScreen> {
         imgPath: 'assets/images/logout.png',
         onTap: () async {
           await AuthController.clearAccessToken();
+          await UserDetailsController.clearUserDetails();
           Get.offAll(const SignInScreen());
         }
       ),
