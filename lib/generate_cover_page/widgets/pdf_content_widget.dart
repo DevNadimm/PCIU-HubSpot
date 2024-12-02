@@ -114,7 +114,7 @@ class PdfContentWidget extends pw.StatelessWidget {
               ),
               pw.SizedBox(height: 10),
               pw.Text(
-                "Course Name: $courseName",
+                "Course Title: $courseName",
                 style: const pw.TextStyle(fontSize: 17),
                 textAlign: pw.TextAlign.left,
               ),
