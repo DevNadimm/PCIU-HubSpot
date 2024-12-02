@@ -123,7 +123,9 @@ class GoogleSignInController extends GetxController {
           );
 
           if (!result) {
+            isSuccess = false;
             _handleSignInError(studentDetailsController.errorMessage!);
+            return false;
           }
 
           setGoogleSignInInProgress(false);
