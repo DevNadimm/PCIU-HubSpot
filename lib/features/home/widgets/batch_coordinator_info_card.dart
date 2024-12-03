@@ -73,9 +73,9 @@ Widget _titleSection({
       Wrap(
         children: batches.map((batch) {
           return Container(
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.all(6),
             decoration: BoxDecoration(
-              color: Colors.white70,
+              color: Colors.white54,
               borderRadius: BorderRadius.circular(8)
             ),
             margin: const EdgeInsets.only(right: 8, top: 4, bottom: 4),
@@ -83,7 +83,7 @@ Widget _titleSection({
               batch,
               style: Theme.of(context)
                   .textTheme
-                  .titleLarge!
+                  .titleMedium!
                   .copyWith(color: Colors.black54),
             ),
           );
