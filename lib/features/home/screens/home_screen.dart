@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pciu_hubspot/controller/shared_preferences_controller/user_details_controller_prefs.dart';
-import 'package:pciu_hubspot/shared/widgets/grid_container.dart';
 import 'package:pciu_hubspot/core/constants/colors.dart';
 import 'package:pciu_hubspot/core/constants/grid_data.dart';
+import 'package:pciu_hubspot/features/home/widgets/upcoming_event_card.dart';
+import 'package:pciu_hubspot/shared/widgets/grid_container.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -98,6 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 1.5,
             ),
           ),
+          forceMaterialTransparency: true,
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -105,6 +107,8 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const SizedBox(height: 16),
+                const UpcomingEventCard(),
                 const SizedBox(height: 16),
                 GridContainer(items: servicesList),
                 const SizedBox(height: 16),
