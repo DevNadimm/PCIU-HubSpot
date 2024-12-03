@@ -67,13 +67,21 @@ class SignInController extends GetxController {
           await AuthController.saveAccessToken(token);
 
           final studentDetailsController = StudentDetailsController.instance;
-          await studentDetailsController.getStudentDetails(
+          final result = await studentDetailsController.getStudentDetails(
             email: email,
             nameOnEmail: name,
             sId: sid,
           );
 
-          isSuccess = true;
+          if(!result){
+            if (!result) {
+              isSuccess = false;
+              return _handleSignInError(studentDetailsController.errorMessage!);
+            }
+          } else{
+            isSuccess = true;
+          }
+
         } else {
           debugPrint('Token not found in response');
           _errorMessage = 'We couldn’t log you in. Please try again later.';
