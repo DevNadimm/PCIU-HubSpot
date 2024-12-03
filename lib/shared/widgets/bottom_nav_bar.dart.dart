@@ -26,30 +26,49 @@ class _MainBottomNavBarScreenState extends State<MainBottomNavBarScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _screens[currentIndex],
-      bottomNavigationBar: NavigationBar(
-        backgroundColor: backgroundColor,
-        indicatorColor:shadeColor,
-        selectedIndex: currentIndex,
-        onDestinationSelected: (index) {
-          currentIndex = index;
-          setState(() {});
-        },
-        destinations: const [
-          NavigationDestination(
-            icon: Icon(CupertinoIcons.home),
-            label: 'Home',
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            height: 1.5,
+            decoration: BoxDecoration(
+              color: Colors.grey.withOpacity(0.2),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.5),
+                  blurRadius: 10,
+                  offset: const Offset(0, -3),
+                ),
+              ],
+            ),
           ),
-          NavigationDestination(
-            icon: Icon(CupertinoIcons.link),
-            label: 'Links',
-          ),
-          NavigationDestination(
-            icon: Icon(CupertinoIcons.profile_circled),
-            label: 'Profile',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.density_medium_sharp),
-            label: 'More',
+          NavigationBar(
+            backgroundColor: backgroundColor,
+            indicatorColor: shadeColor,
+            selectedIndex: currentIndex,
+            onDestinationSelected: (index) {
+              setState(() {
+                currentIndex = index;
+              });
+            },
+            destinations: const [
+              NavigationDestination(
+                icon: Icon(CupertinoIcons.home),
+                label: 'Home',
+              ),
+              NavigationDestination(
+                icon: Icon(CupertinoIcons.link),
+                label: 'Links',
+              ),
+              NavigationDestination(
+                icon: Icon(CupertinoIcons.profile_circled),
+                label: 'Profile',
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.density_medium_sharp),
+                label: 'More',
+              ),
+            ],
           ),
         ],
       ),
