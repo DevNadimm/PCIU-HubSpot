@@ -92,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
           bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(4.0),
+            preferredSize: const Size.fromHeight(1.5),
             child: Container(
               color: Colors.grey.withOpacity(0.2),
               height: 1.5,
