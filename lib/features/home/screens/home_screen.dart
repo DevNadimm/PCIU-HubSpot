@@ -37,12 +37,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   String getGreetingMessage() {
     final hour = DateTime.now().hour;
-    if (hour < 12) {
+    if (hour >= 4 && hour < 12) {
       return 'Good Morning';
-    } else if (hour < 17) {
+    } else if (hour >= 12 && hour < 16) {
       return 'Good Afternoon';
-    } else {
+    } else if (hour >= 16 && hour < 20) {
       return 'Good Evening';
+    } else {
+      return 'Good Night';
     }
   }
 
