@@ -14,6 +14,13 @@ class AboutUsScreen extends StatelessWidget {
         ),
         centerTitle: true,
         forceMaterialTransparency: true,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(1.5),
+          child: Container(
+            color: Colors.grey.withOpacity(0.2),
+            height: 1.5,
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -26,7 +33,7 @@ class AboutUsScreen extends StatelessWidget {
             Text(
               'The project aims to provide resources and information to students of PCIU, including a student name search, student CGPA, CR info, and officers info.',
               style: Theme.of(context).textTheme.labelLarge,
-              textAlign: TextAlign.justify,
+              // textAlign: TextAlign.justify,
             ),
             const SizedBox(height: 32),
             _buildSectionHeader(context, 'Our Mission'),
@@ -34,7 +41,7 @@ class AboutUsScreen extends StatelessWidget {
             Text(
               'Our mission is to centralize resources and make it easier for students to access important information, connect with their peers, and stay informed about academic progress.',
               style: Theme.of(context).textTheme.labelLarge,
-              textAlign: TextAlign.justify,
+              // textAlign: TextAlign.justify,
             ),
             const SizedBox(height: 32),
             _buildSectionHeader(context, 'Meet Our Team'),
