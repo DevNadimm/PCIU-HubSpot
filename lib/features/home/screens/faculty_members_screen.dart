@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:pciu_hubspot/controller/home_controller/faculty_controller.dart';
 import 'package:pciu_hubspot/core/models/faculty_model.dart';
 import 'package:pciu_hubspot/core/utils/progress_indicator.dart';
+import 'package:pciu_hubspot/core/utils/snackbar_message.dart';
 import 'package:pciu_hubspot/features/home/widgets/faculty_info_card.dart';
 import 'package:pciu_hubspot/shared/widgets/dropdown_menu_widget.dart';
 import 'package:pciu_hubspot/shared/widgets/empty_list_widget.dart';
@@ -16,29 +17,35 @@ class FacultyMembersScreen extends StatefulWidget {
 
 class _FacultyMembersScreenState extends State<FacultyMembersScreen> {
   final List<String> _departments = ['CSE', 'EEE', 'ENG'];
-  FacultyController facultyController = FacultyController.instance;
   List<Faculties> facultyList = [];
   String? _selectedDepartment;
   String _searchQuery = '';
 
   @override
   void initState() {
-    fetchList();
     super.initState();
+    fetchData();
   }
 
-  void fetchList () async {
-    await facultyController.getFacultyMember();
-    facultyList = facultyController.facultyList!;
+  void fetchData() async {
+    final FacultyController facultyController = FacultyController.instance;
+
+    final result = await facultyController.getFacultyMember();
+    if (result) {
+      setState(() {
+        facultyList = facultyController.facultyList ?? [];
+      });
+    } else {
+      SnackBarMessage.errorMessage(facultyController.errorMessage!);
+    }
   }
+
 
   @override
   Widget build(BuildContext context) {
-    final filteredFacultyList = facultyList!.where((faculty) {
-      final matchesDepartment = _selectedDepartment == null ||
-          faculty.department == _selectedDepartment;
-      final matchesSearch =
-          faculty.name!.toLowerCase().contains(_searchQuery.toLowerCase());
+    final filteredFacultyList = facultyList.where((faculty) {
+      final matchesDepartment = _selectedDepartment == null || faculty.department == _selectedDepartment;
+      final matchesSearch = faculty.name?.toLowerCase().contains(_searchQuery.toLowerCase()) ?? false;
       return matchesDepartment && matchesSearch;
     }).toList();
 
@@ -50,6 +57,13 @@ class _FacultyMembersScreenState extends State<FacultyMembersScreen> {
         ),
         centerTitle: true,
         forceMaterialTransparency: true,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(1.5),
+          child: Container(
+            color: Colors.grey.withOpacity(0.2),
+            height: 1.5,
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -81,7 +95,8 @@ class _FacultyMembersScreenState extends State<FacultyMembersScreen> {
                                 contact: faculty.contact ?? 'N/A',
                               );
                             },
-                            separatorBuilder: (BuildContext context, int index) {
+                            separatorBuilder:
+                                (BuildContext context, int index) {
                               return const SizedBox(height: 16);
                             },
                           ),
@@ -90,7 +105,7 @@ class _FacultyMembersScreenState extends State<FacultyMembersScreen> {
                 ),
               ),
             );
-          }
+          },
         ),
       ),
     );
