@@ -14,4 +14,8 @@ class Urls {
   static String facultyMember() {
     return '$baseUrl/faculties?page=1&limit=50&department&searchQuery';
   }
+
+  static String batchCoordinator () {
+    return '$baseUrl/batchcoordinatorAPP';
+  }
 }
