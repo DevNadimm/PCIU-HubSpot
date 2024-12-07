@@ -13,6 +13,13 @@ class ContactAdminScreen extends StatelessWidget {
         ),
         centerTitle: true,
         forceMaterialTransparency: true,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(1.5),
+          child: Container(
+            color: Colors.grey.withOpacity(0.2),
+            height: 1.5,
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
