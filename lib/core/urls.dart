@@ -10,4 +10,8 @@ class Urls {
   static String studentInfo(String studentId) {
     return '$baseUrl/studentAPP/$studentId';
   }
+
+  static String facultyMember() {
+    return '$baseUrl/faculties?page=1&limit=50&department&searchQuery';
+  }
 }
