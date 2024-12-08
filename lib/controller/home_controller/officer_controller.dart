@@ -20,7 +20,7 @@ class OfficerController extends GetxController {
     update();
   }
 
-  Future<bool> getFacultyMember() async {
+  Future<bool> getOfficers() async {
     try {
       setInProgress(true);
 
