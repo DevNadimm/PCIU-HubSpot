@@ -8,18 +8,18 @@ class OfficerModel {
     if (json['officers'] != null) {
       officers = <Officers>[];
       json['officers'].forEach((v) {
-        officers!.add(new Officers.fromJson(v));
+        officers!.add(Officers.fromJson(v));
       });
     }
     totalPages = json['totalPages'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.officers != null) {
-      data['officers'] = this.officers!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (officers != null) {
+      data['officers'] = officers!.map((v) => v.toJson()).toList();
     }
-    data['totalPages'] = this.totalPages;
+    data['totalPages'] = totalPages;
     return data;
   }
 }
@@ -42,12 +42,12 @@ class Officers {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['name'] = this.name;
-    data['designation'] = this.designation;
-    data['sector'] = this.sector;
-    data['contact'] = this.contact;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['_id'] = sId;
+    data['name'] = name;
+    data['designation'] = designation;
+    data['sector'] = sector;
+    data['contact'] = contact;
     return data;
   }
 }
