@@ -2,6 +2,7 @@ import 'package:pciu_hubspot/core/models/grid_model.dart';
 import 'package:pciu_hubspot/features/home/screens/batch_coordinators_screen.dart';
 import 'package:pciu_hubspot/features/home/screens/cr_screen.dart';
 import 'package:pciu_hubspot/features/home/screens/faculty_members_screen.dart';
+import 'package:pciu_hubspot/features/home/screens/officer_screen.dart';
 import 'package:pciu_hubspot/features/other/screens/under_maintenance_screen.dart';
 import 'package:pciu_hubspot/generate_cover_page/screens/cover_page_input_screen.dart';
 
@@ -24,7 +25,7 @@ List<GridModel> servicesList = [
   GridModel(
     imgPath: 'assets/images/services/workplace.png',
     title: "All Officers",
-    widget: const UnderMaintenanceScreen(),
+    widget: const OfficerScreen(),
   ),
   GridModel(
     imgPath: 'assets/images/services/magnifier.png',

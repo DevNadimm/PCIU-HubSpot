@@ -3,6 +3,7 @@ import 'package:pciu_hubspot/controller/auth_controller/google_sign_in_controlle
 import 'package:pciu_hubspot/controller/auth_controller/sign_in_controller.dart';
 import 'package:pciu_hubspot/controller/home_controller/batch_coordinator_controller.dart';
 import 'package:pciu_hubspot/controller/home_controller/faculty_controller.dart';
+import 'package:pciu_hubspot/controller/home_controller/officer_controller.dart';
 import 'package:pciu_hubspot/controller/home_controller/student_details_controller.dart';
 import 'package:pciu_hubspot/controller/network_controller/network_controller.dart';
 import '../auth_controller/sign_up_controller.dart';
@@ -17,5 +18,6 @@ class ControllerBinders extends Bindings{
     Get.put(StudentDetailsController());
     Get.put(FacultyController());
     Get.put(BatchCoordinatorController());
+    Get.put(OfficerController());
   }
 }
