@@ -18,4 +18,8 @@ class Urls {
   static String batchCoordinator () {
     return '$baseUrl/batchcoordinatorAPP';
   }
+
+  static String officers () {
+    return '$baseUrl/officersAPP';
+  }
 }
