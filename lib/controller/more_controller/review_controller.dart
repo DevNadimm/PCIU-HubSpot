@@ -29,8 +29,8 @@ class OfficerController extends GetxController {
         _errorMessage = null;
         isSuccess = true;
 
-        final response = ReviewModel.fromJson(result.responseData);
-        reviewList = response;
+        final data = result.responseData;
+        reviewList = data.map((json) => ReviewModel.fromJson(json)).toList();
       } else {
         _errorMessage = result.errorMessage;
         isSuccess = false;

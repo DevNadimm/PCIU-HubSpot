@@ -22,4 +22,8 @@ class Urls {
   static String officers () {
     return '$baseUrl/officersAPP';
   }
+
+  static String getReviews () {
+    return '$baseUrl/reviews';
+  }
 }
