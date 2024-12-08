@@ -5,6 +5,7 @@ import 'package:pciu_hubspot/controller/home_controller/batch_coordinator_contro
 import 'package:pciu_hubspot/controller/home_controller/faculty_controller.dart';
 import 'package:pciu_hubspot/controller/home_controller/officer_controller.dart';
 import 'package:pciu_hubspot/controller/home_controller/student_details_controller.dart';
+import 'package:pciu_hubspot/controller/more_controller/review_controller.dart';
 import 'package:pciu_hubspot/controller/network_controller/network_controller.dart';
 import '../auth_controller/sign_up_controller.dart';
 
@@ -19,5 +20,6 @@ class ControllerBinders extends Bindings{
     Get.put(FacultyController());
     Get.put(BatchCoordinatorController());
     Get.put(OfficerController());
+    Get.put(ReviewController());
   }
 }

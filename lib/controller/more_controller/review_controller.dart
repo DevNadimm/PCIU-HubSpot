@@ -3,8 +3,8 @@ import 'package:pciu_hubspot/core/models/review_model.dart';
 import 'package:pciu_hubspot/core/network/network_caller.dart';
 import 'package:pciu_hubspot/core/urls.dart';
 
-class OfficerController extends GetxController {
-  static final instance = Get.find<OfficerController>();
+class ReviewController extends GetxController {
+  static final instance = Get.find<ReviewController>();
 
   bool _inProgress = false;
   String? _errorMessage;
@@ -29,7 +29,7 @@ class OfficerController extends GetxController {
         _errorMessage = null;
         isSuccess = true;
 
-        final data = result.responseData;
+        final List<dynamic> data = result.responseData as List<dynamic>;
         reviewList = data.map((json) => ReviewModel.fromJson(json)).toList();
       } else {
         _errorMessage = result.errorMessage;

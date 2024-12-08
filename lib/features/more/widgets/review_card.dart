@@ -1,25 +1,43 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pciu_hubspot/core/constants/colors.dart';
+import 'package:intl/intl.dart';
 
 class ReviewCard extends StatelessWidget {
-  final String imgUrl;
   final String name;
-  final String rating;
+  final int rating;
   final String time;
   final String review;
 
   const ReviewCard({
     super.key,
-    required this.imgUrl,
     required this.name,
     required this.rating,
     required this.time,
     required this.review,
   });
 
+  String calculateTimeAgo(String time) {
+    final DateTime parsedTime = DateTime.parse(time);
+    final Duration difference = DateTime.now().difference(parsedTime);
+
+    if (difference.inSeconds < 60) {
+      return '${difference.inSeconds} seconds ago';
+    } else if (difference.inMinutes < 60) {
+      return '${difference.inMinutes} minutes ago';
+    } else if (difference.inHours < 24) {
+      return '${difference.inHours} hours ago';
+    } else if (difference.inDays < 7) {
+      return '${difference.inDays} days ago';
+    } else {
+      return DateFormat.yMMMMd().format(parsedTime);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final String relativeTime = calculateTimeAgo(time);
+
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(
@@ -42,9 +60,15 @@ class ReviewCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CircleAvatar(
-                  radius: 22,
-                  backgroundImage: NetworkImage(imgUrl),
+                  radius: 20,
                   backgroundColor: primaryColor,
+                  child: Text(
+                    name[0],
+                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
                 const SizedBox(width: 16),
                 Expanded(
@@ -67,12 +91,12 @@ class ReviewCard extends StatelessWidget {
                           ),
                           const SizedBox(width: 4),
                           Text(
-                            rating,
+                            rating.toString(),
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
                           const SizedBox(width: 8),
                           Text(
-                            time,
+                            relativeTime,
                             style: Theme.of(context)
                                 .textTheme
                                 .labelMedium!
