@@ -1,11 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pciu_hubspot/core/constants/reviews_data.dart';
+import 'package:pciu_hubspot/controller/more_controller/review_controller.dart';
+import 'package:pciu_hubspot/core/utils/progress_indicator.dart';
+import 'package:pciu_hubspot/core/utils/snackbar_message.dart';
 import 'package:pciu_hubspot/features/more/screens/write_review_screen.dart';
 import 'package:pciu_hubspot/features/more/widgets/review_card.dart';
 
-class UserReviewsScreen extends StatelessWidget {
+class UserReviewsScreen extends StatefulWidget {
   const UserReviewsScreen({super.key});
+
+  @override
+  State<UserReviewsScreen> createState() => _UserReviewsScreenState();
+}
+
+class _UserReviewsScreenState extends State<UserReviewsScreen> {
+  @override
+  void initState() {
+    fetchData();
+    super.initState();
+  }
+
+  void fetchData() async {
+    final controller = ReviewController.instance;
+    final result = await controller.getReviews();
+    if (!result) {
+      SnackBarMessage.errorMessage(controller.errorMessage!);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,29 +51,34 @@ class UserReviewsScreen extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const SizedBox(height: 8),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: reviews.length,
-                      itemBuilder: (context, index) {
-                        final review = reviews[index];
-                        return ReviewCard(
-                          imgUrl: review['imgUrl']!,
-                          name: review['name']!,
-                          rating: review['rating']!,
-                          time: review['time']!,
-                          review: review['review']!,
-                        );
-                      },
+              child: GetBuilder<ReviewController>(builder: (controller) {
+                return Visibility(
+                  visible: !controller.inProgress,
+                  replacement: const ProgressIndicatorWidget(),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 8),
+                        ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: controller.reviewList?.length ?? 0,
+                          itemBuilder: (context, index) {
+                            final review = controller.reviewList![index];
+                            return ReviewCard(
+                              name: review.name ?? 'N/A',
+                              rating: review.rating ?? 0,
+                              time: review.createdAt ?? 'N/A',
+                              review: review.review ?? 'N/A',
+                            );
+                          },
+                        ),
+                        const SizedBox(height: 8),
+                      ],
                     ),
-                    const SizedBox(height: 8),
-                  ],
-                ),
-              ),
+                  ),
+                );
+              }),
             ),
           ),
           Divider(
