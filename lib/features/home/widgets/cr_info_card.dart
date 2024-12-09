@@ -8,7 +8,7 @@ class CrInfoCard extends StatelessWidget {
     required this.cr,
   });
 
-  final CR cr;
+  final Crs cr;
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +28,10 @@ class CrInfoCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _titleSection(context: context, name: cr.name),
+          _titleSection(context: context, name: cr.crname ?? 'N/A'),
           const Divider(color: Colors.black26),
           const SizedBox(height: 8),
-          _detailRow(context: context, label: 'Batch:', value: cr.batch ?? 'N/A'),
+          _detailRow(context: context, label: 'Batch:', value: cr.batch?? 'N/A'),
           const SizedBox(height: 4),
           _detailRow(context: context, label: 'Department:', value: cr.department ?? 'N/A'),
           const SizedBox(height: 4),
@@ -39,11 +39,11 @@ class CrInfoCard extends StatelessWidget {
           const SizedBox(height: 4),
           _detailRow(context: context, label: 'Section:', value: cr.section ?? 'N/A'),
           const SizedBox(height: 4),
-          _detailRow(context: context, label: 'Contact:', value: cr.contact ?? 'N/A'),
+          _detailRow(context: context, label: 'Contact:', value: cr.phone ?? 'N/A'),
           const SizedBox(height: 4),
-          _detailRow(context: context, label: 'Email:', value: cr.email ?? 'N/A'),
+          _detailRow(context: context, label: 'Email:', value: cr.mail ?? 'N/A'),
           const SizedBox(height: 4),
-          _detailRow(context: context, label: 'Facebook ID:', value: cr.facebookId ?? 'N/A'),
+          _detailRow(context: context, label: 'Facebook ID:', value: cr.fbid ?? 'N/A'),
         ],
       ),
     );
@@ -72,9 +72,14 @@ Widget _detailRow({
         label,
         style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Colors.black54),
       ),
-      Text(
-        value,
-        style: Theme.of(context).textTheme.titleMedium,
+      Expanded(
+        child: Text(
+          value,
+          style: Theme.of(context).textTheme.titleMedium,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          textAlign: TextAlign.end,
+        ),
       ),
     ],
   );
