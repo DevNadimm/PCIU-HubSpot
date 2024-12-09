@@ -26,4 +26,8 @@ class Urls {
   static String getReviews () {
     return '$baseUrl/reviews';
   }
+
+  static String getAllCr () {
+    return '$baseUrl/allcrs?page=1&limit=200&department&searchQuery';
+  }
 }
