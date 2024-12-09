@@ -167,6 +167,7 @@ class PdfContentWidget extends pw.StatelessWidget {
     required List<String> data,
   }) {
     return pw.Container(
+      height: 150,
       decoration: pw.BoxDecoration(
         color: PdfColor.fromHex('#f6f3fa'),
         border: pw.Border.all(
@@ -178,6 +179,7 @@ class PdfContentWidget extends pw.StatelessWidget {
       child: pw.Padding(
         padding: const pw.EdgeInsets.all(10),
         child: pw.Column(
+          mainAxisAlignment: pw.MainAxisAlignment.start,
           crossAxisAlignment: pw.CrossAxisAlignment.start,
           children: [
             pw.Text(
