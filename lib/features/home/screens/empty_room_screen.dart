@@ -16,7 +16,7 @@ class EmptyRoomScreen extends StatefulWidget {
 class _EmptyRoomScreenState extends State<EmptyRoomScreen> {
   List<EmptyRoomModel> scheduleData = [];
 
-  final List<String> timeSlots = [
+  final timeSlots = [
     "9:00 AM - 10:30 AM",
     "10:30 AM - 12:00 PM",
     "12:00 PM - 1:25 PM",
@@ -90,21 +90,19 @@ class _EmptyRoomScreenState extends State<EmptyRoomScreen> {
                                   children: [
                                     Text(
                                       dayData.day,
-                                      style: const TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black87,
-                                      ),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall,
                                     ),
                                     const SizedBox(height: 10),
                                     Table(
                                       border: TableBorder.all(
-                                        color: Colors.grey.shade400,
+                                        color: Colors.grey.shade500,
                                         width: 1,
-                                        borderRadius: BorderRadius.circular(8)
+                                        borderRadius: BorderRadius.circular(8),
                                       ),
                                       columnWidths: const {
-                                        0: FixedColumnWidth(120),
+                                        0: FixedColumnWidth(100),
                                         1: FlexColumnWidth(2),
                                       },
                                       children: timeSlots
@@ -118,10 +116,9 @@ class _EmptyRoomScreenState extends State<EmptyRoomScreen> {
                                                   const EdgeInsets.all(8.0),
                                               child: Text(
                                                 entry.value,
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.blue.shade700,
-                                                ),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleMedium!,
                                               ),
                                             ),
                                             Padding(
@@ -161,16 +158,24 @@ class _EmptyRoomScreenState extends State<EmptyRoomScreen> {
       return const Text('No rooms available');
     }
     return Wrap(
-      spacing: 8.0,
-      runSpacing: 8.0,
-      children: roomData
-          .map(
-            (slot) => Chip(
-              label: Text(slot),
-              backgroundColor: Colors.blue.shade50,
-            ),
-          )
-          .toList(),
+      children: roomData.map((slot) {
+        return Container(
+          padding: const EdgeInsets.all(6),
+          decoration: BoxDecoration(
+            color: Colors.white54,
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(width: 1, color: Colors.grey.shade400),
+          ),
+          margin: const EdgeInsets.only(right: 8, top: 4, bottom: 4),
+          child: Text(
+            slot,
+            style: Theme.of(context)
+                .textTheme
+                .titleMedium!
+                .copyWith(color: Colors.black54),
+          ),
+        );
+      }).toList(),
     );
   }
 

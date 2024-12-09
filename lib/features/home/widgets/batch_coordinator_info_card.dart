@@ -76,7 +76,8 @@ Widget _titleSection({
             padding: const EdgeInsets.all(6),
             decoration: BoxDecoration(
               color: Colors.white54,
-              borderRadius: BorderRadius.circular(8)
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(width: 1, color: Colors.grey.shade400),
             ),
             margin: const EdgeInsets.only(right: 8, top: 4, bottom: 4),
             child: Text(
