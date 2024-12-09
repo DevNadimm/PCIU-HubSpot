@@ -1,21 +1,74 @@
-class CR {
-  final String name;
-  final String? batch;
-  final String? department;
-  final String? shift;
-  final String? section;
-  final String? contact;
-  final String? email;
-  final String? facebookId;
+class CRModel {
+  List<Crs>? crs;
+  int? totalPages;
 
-  CR({
-    required this.name,
-    this.batch,
-    this.shift,
-    this.section,
-    this.department,
-    this.contact,
-    this.email,
-    this.facebookId,
-  });
+  CRModel({this.crs, this.totalPages});
+
+  CRModel.fromJson(Map<String, dynamic> json) {
+    if (json['crs'] != null) {
+      crs = <Crs>[];
+      json['crs'].forEach((v) {
+        crs!.add(Crs.fromJson(v));
+      });
+    }
+    totalPages = json['totalPages'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (crs != null) {
+      data['crs'] = crs!.map((v) => v.toJson()).toList();
+    }
+    data['totalPages'] = totalPages;
+    return data;
+  }
+}
+
+class Crs {
+  String? sId;
+  String? batch;
+  String? crname;
+  String? phone;
+  String? mail;
+  String? fbid;
+  String? department;
+  String? shift;
+  String? section;
+
+  Crs(
+      {this.sId,
+        this.batch,
+        this.crname,
+        this.phone,
+        this.mail,
+        this.fbid,
+        this.department,
+        this.shift,
+        this.section});
+
+  Crs.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
+    batch = json['batch'];
+    crname = json['crname'];
+    phone = json['phone'];
+    mail = json['mail'];
+    fbid = json['fbid'];
+    department = json['department'];
+    shift = json['shift'];
+    section = json['section'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['_id'] = sId;
+    data['batch'] = batch;
+    data['crname'] = crname;
+    data['phone'] = phone;
+    data['mail'] = mail;
+    data['fbid'] = fbid;
+    data['department'] = department;
+    data['shift'] = shift;
+    data['section'] = section;
+    return data;
+  }
 }
