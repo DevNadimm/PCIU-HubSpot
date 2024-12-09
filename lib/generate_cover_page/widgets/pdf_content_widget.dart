@@ -167,7 +167,7 @@ class PdfContentWidget extends pw.StatelessWidget {
     required List<String> data,
   }) {
     return pw.Container(
-      height: 150,
+      height: 145,
       decoration: pw.BoxDecoration(
         color: PdfColor.fromHex('#f6f3fa'),
         border: pw.Border.all(
