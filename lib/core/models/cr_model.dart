@@ -26,7 +26,7 @@ class CRModel {
 
 class Crs {
   String? sId;
-  String? batch;
+  dynamic batch;
   String? crname;
   String? phone;
   String? mail;
@@ -35,20 +35,27 @@ class Crs {
   String? shift;
   String? section;
 
-  Crs(
-      {this.sId,
-        this.batch,
-        this.crname,
-        this.phone,
-        this.mail,
-        this.fbid,
-        this.department,
-        this.shift,
-        this.section});
+  Crs({
+    this.sId,
+    this.batch,
+    this.crname,
+    this.phone,
+    this.mail,
+    this.fbid,
+    this.department,
+    this.shift,
+    this.section,
+  });
 
   Crs.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
-    batch = json['batch'];
+
+    if (json['batch'] is int) {
+      batch = json['batch'].toString();
+    } else {
+      batch = json['batch'];
+    }
+
     crname = json['crname'];
     phone = json['phone'];
     mail = json['mail'];
@@ -61,7 +68,13 @@ class Crs {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['_id'] = sId;
-    data['batch'] = batch;
+
+    if (batch is int) {
+      data['batch'] = batch.toString();
+    } else {
+      data['batch'] = batch;
+    }
+
     data['crname'] = crname;
     data['phone'] = phone;
     data['mail'] = mail;
