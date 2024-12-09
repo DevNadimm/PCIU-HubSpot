@@ -18,7 +18,15 @@ class ReviewModel {
     sId = json['_id'];
     name = json['name'];
     sid = json['sid'];
-    rating = json['rating'];
+
+    if (json['rating'] is int) {
+      rating = json['rating'];
+    } else if (json['rating'] is double) {
+      rating = json['rating']?.toInt();
+    } else if (json['rating'] is String) {
+      rating = int.tryParse(json['rating'] ?? '5') ?? 5;
+    }
+
     review = json['review'];
     createdAt = json['createdAt'];
   }
