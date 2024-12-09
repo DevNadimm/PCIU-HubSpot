@@ -128,16 +128,13 @@ class PdfContentWidget extends pw.StatelessWidget {
           ),
         ),
         pw.SizedBox(height: 20),
-        pw.Table(
-          columnWidths: {
-            0: const pw.FlexColumnWidth(1),
-            1: const pw.FlexColumnWidth(0.08),
-            2: const pw.FlexColumnWidth(1),
-          },
-          children: [
-            pw.TableRow(
-              children: [
-                _buildTableCell(
+        pw.Container(
+          width: double.infinity,
+          child: pw.Row(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            children: [
+              pw.Expanded(
+                child: _buildTableCell(
                   title: "Submitted To",
                   data: [
                     teacherName,
@@ -145,8 +142,10 @@ class PdfContentWidget extends pw.StatelessWidget {
                     "Port City International University",
                   ],
                 ),
-                pw.SizedBox(),
-                _buildTableCell(
+              ),
+              pw.SizedBox(width: 20),
+              pw.Expanded(
+                child: _buildTableCell(
                   title: "Submitted By",
                   data: [
                     studentName,
@@ -155,9 +154,9 @@ class PdfContentWidget extends pw.StatelessWidget {
                     "Student ID: $studentId",
                   ],
                 ),
-              ],
-            ),
-          ],
+              ),
+            ],
+          ),
         ),
       ],
     );
