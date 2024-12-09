@@ -20,23 +20,11 @@ class UpcomingEventCard extends StatelessWidget {
       child: Stack(
         children: [
           Positioned(
-            left: 50,
-            top: -60,
+            right: -80,
+            bottom: -40,
             child: Container(
-              height: 120,
-              width: 120,
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.15),
-                borderRadius: BorderRadius.circular(100),
-              ),
-            ),
-          ),
-          Positioned(
-            right: -60,
-            bottom: -20,
-            child: Container(
-              height: 150,
-              width: 140,
+              height: 200,
+              width: 200,
               decoration: BoxDecoration(
                 color: Colors.white.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(100),
