@@ -1,6 +1,7 @@
 import 'package:pciu_hubspot/core/models/grid_model.dart';
 import 'package:pciu_hubspot/features/home/screens/batch_coordinators_screen.dart';
 import 'package:pciu_hubspot/features/home/screens/cr_screen.dart';
+import 'package:pciu_hubspot/features/home/screens/empty_room_screen.dart';
 import 'package:pciu_hubspot/features/home/screens/faculty_members_screen.dart';
 import 'package:pciu_hubspot/features/home/screens/officer_screen.dart';
 import 'package:pciu_hubspot/features/other/screens/under_maintenance_screen.dart';
@@ -35,7 +36,7 @@ List<GridModel> servicesList = [
   GridModel(
     imgPath: 'assets/images/services/emptyroom.png',
     title: "Empty Room",
-    widget: const UnderMaintenanceScreen(),
+    widget: const EmptyRoomScreen(),
   ),
   GridModel(
     imgPath: 'assets/images/services/clubmembers.png',
