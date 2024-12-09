@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pciu_hubspot/controller/shared_preferences_controller/user_details_controller_prefs.dart';
 
 class ContactAdminScreen extends StatefulWidget {
   const ContactAdminScreen({super.key});
@@ -8,6 +9,26 @@ class ContactAdminScreen extends StatefulWidget {
 }
 
 class _ContactAdminScreenState extends State<ContactAdminScreen> {
+  final TextEditingController _nameTEController = TextEditingController();
+  final TextEditingController _emailTEController = TextEditingController();
+  final TextEditingController _subjectTEController = TextEditingController();
+  final TextEditingController _messageTEController = TextEditingController();
+
+  @override
+  void initState() {
+    fetchStudentData();
+    super.initState();
+  }
+
+  void fetchStudentData (){
+    final userDetails = UserDetailsController.userDetails;
+
+    if (userDetails != null) {
+      _nameTEController.text = userDetails['studentName'] ?? '';
+      _emailTEController.text = userDetails['email'] ?? '';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,23 +60,25 @@ class _ContactAdminScreenState extends State<ContactAdminScreen> {
               ),
               const SizedBox(height: 32),
               _buildTextField(
+                controller: _nameTEController,
                 context: context,
-                initialValue: 'Nadim Chowdhury',
                 hintText: 'Your Name',
               ),
               const SizedBox(height: 16),
               _buildTextField(
+                controller: _emailTEController,
                 context: context,
-                initialValue: 'nadimchowdhury87@gmail.com',
                 hintText: 'Your Email',
               ),
               const SizedBox(height: 16),
               _buildTextField(
+                controller: _subjectTEController,
                 context: context,
                 hintText: 'Subject',
               ),
               const SizedBox(height: 16),
               _buildTextField(
+                controller: _messageTEController,
                 context: context,
                 maxLines: 4,
                 hintText: 'Please share your message here',
@@ -87,13 +110,13 @@ class _ContactAdminScreenState extends State<ContactAdminScreen> {
 
   Widget _buildTextField({
     required BuildContext context,
-    String? initialValue,
+    required TextEditingController controller,
     String? hintText,
     int maxLines = 1,
   }) {
     return TextFormField(
+      controller: controller,
       style: Theme.of(context).textTheme.titleLarge,
-      initialValue: initialValue,
       maxLines: maxLines,
       decoration: InputDecoration(
         hintText: hintText,
