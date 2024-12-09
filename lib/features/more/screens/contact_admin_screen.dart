@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 
-class ContactAdminScreen extends StatelessWidget {
+class ContactAdminScreen extends StatefulWidget {
   const ContactAdminScreen({super.key});
 
+  @override
+  State<ContactAdminScreen> createState() => _ContactAdminScreenState();
+}
+
+class _ContactAdminScreenState extends State<ContactAdminScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
