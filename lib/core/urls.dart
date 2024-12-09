@@ -28,6 +28,6 @@ class Urls {
   }
 
   static String getAllCr () {
-    return '$baseUrl/allcrs?page=1&limit=200&department&searchQuery';
+    return '$baseUrl/allcrs?page=1&limit=200';
   }
 }
