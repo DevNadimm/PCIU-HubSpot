@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:pciu_hubspot/core/constants/cr_data.dart';
+import 'package:get/get.dart';
+import 'package:pciu_hubspot/controller/home_controller/cr_controller.dart';
+import 'package:pciu_hubspot/core/models/cr_model.dart';
+import 'package:pciu_hubspot/core/utils/progress_indicator.dart';
+import 'package:pciu_hubspot/core/utils/snackbar_message.dart';
 import 'package:pciu_hubspot/features/home/widgets/cr_info_card.dart';
 import 'package:pciu_hubspot/shared/widgets/dropdown_menu_widget.dart';
 import 'package:pciu_hubspot/shared/widgets/empty_list_widget.dart';
@@ -12,15 +16,35 @@ class CrScreen extends StatefulWidget {
 }
 
 class _CrScreenState extends State<CrScreen> {
+  List<Crs> crList = [];
   final List<String> _departments = ['CSE', 'EEE', 'ENG', 'BBA', 'CEN', 'LLB', 'BTE'];
   String? _selectedDepartment;
   String _searchQuery = '';
 
   @override
+  void initState() {
+    fetchData ();
+    super.initState();
+  }
+
+  void fetchData () async {
+    final controller = CRController.instance;
+
+    final result = await controller.getAllCr();
+    if(result){
+      setState(() {
+        crList = controller.crList ?? [];
+      });
+    } else {
+      SnackBarMessage.errorMessage(controller.errorMessage!);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final filteredList = crList.where((cr) {
       final matchesDepartment = _selectedDepartment == null || cr.department == _selectedDepartment;
-      final matchesSearch = cr.name.toLowerCase().contains(_searchQuery.toLowerCase());
+      final matchesSearch = cr.crname!.toLowerCase().contains(_searchQuery.toLowerCase());
       return matchesDepartment && matchesSearch;
     }).toList();
 
@@ -42,31 +66,39 @@ class _CrScreenState extends State<CrScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(height: 16),
-              _buildTopSection(context),
-              const SizedBox(height: 16),
-              filteredList.isEmpty
-                  ? const EmptyListWidget()
-                  : ListView.separated(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: filteredList.length,
-                      itemBuilder: (context, index) {
-                        final cr = filteredList[index];
-                        return CrInfoCard(
-                          cr: cr,
-                        );
-                      },
-                      separatorBuilder: (BuildContext context, int index) {
-                        return const SizedBox(height: 16);
-                      },
-                    ),
-              const SizedBox(height: 16),
-            ],
-          ),
+        child: GetBuilder<CRController>(
+          builder: (controller) {
+            return Visibility(
+              visible: !controller.inProgress,
+              replacement: const ProgressIndicatorWidget(),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const SizedBox(height: 16),
+                    _buildTopSection(context),
+                    const SizedBox(height: 16),
+                    filteredList.isEmpty
+                        ? const EmptyListWidget()
+                        : ListView.separated(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: filteredList.length,
+                            itemBuilder: (context, index) {
+                              final cr = filteredList[index];
+                              return CrInfoCard(
+                                cr: cr,
+                              );
+                            },
+                            separatorBuilder: (BuildContext context, int index) {
+                              return const SizedBox(height: 16);
+                            },
+                          ),
+                    const SizedBox(height: 16),
+                  ],
+                ),
+              ),
+            );
+          }
         ),
       ),
     );
