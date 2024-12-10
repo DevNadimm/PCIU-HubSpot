@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pciu_hubspot/core/utils/toast_message.dart';
+import 'package:get/get.dart';
+import 'package:pciu_hubspot/controller/more_controller/write_review_controller.dart';
+import 'package:pciu_hubspot/controller/shared_preferences_controller/user_details_controller_prefs.dart';
+import 'package:pciu_hubspot/core/utils/progress_indicator.dart';
+import 'package:pciu_hubspot/core/utils/snackbar_message.dart';
 
 class WriteReviewScreen extends StatefulWidget {
   const WriteReviewScreen({super.key});
@@ -12,12 +16,25 @@ class WriteReviewScreen extends StatefulWidget {
 class _WriteReviewScreenState extends State<WriteReviewScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey();
   final TextEditingController _reviewController = TextEditingController();
-  double _rating = 5;
+
+  String? studentName;
+  String? studentId;
+  int _rating = 5;
+
 
   @override
-  void dispose() {
-    _reviewController.dispose();
-    super.dispose();
+  void initState() {
+    fetchStudentData();
+    super.initState();
+  }
+
+  void fetchStudentData() {
+    final userDetails = UserDetailsController.userDetails;
+
+    if (userDetails != null) {
+      studentName = userDetails['studentName'] ?? '';
+      studentId = userDetails['studentId'] ?? '';
+    }
   }
 
   @override
@@ -97,7 +114,7 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
             return IconButton(
               onPressed: () {
                 setState(() {
-                  _rating = index + 1.0;
+                  _rating = index + 1;
                 });
               },
               icon: Icon(
@@ -134,22 +151,45 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
     return SizedBox(
       width: double.infinity,
       height: 50,
-      child: ElevatedButton(
-        onPressed: () {
-          if (_formKey.currentState!.validate()) {
-            _submitReview();
-          }
-        },
-        child: const Text("Submit Review"),
+      child: GetBuilder<WriteReviewController>(
+        builder: (controller) {
+          return Visibility(
+            visible: !controller.inProgress,
+            replacement: const ProgressIndicatorWidget(),
+            child: ElevatedButton(
+              onPressed: () async {
+                if (_formKey.currentState!.validate()) {
+                /// API Call
+                Map<String, dynamic> requestBody = {
+                  "name": studentName,
+                  "sid": studentId,
+                  "rating": _rating,
+                  "review": _reviewController.text
+                };
+
+                final result = await controller.writeReview(requestBody);
+                  if(result){
+                    SnackBarMessage.successMessage("Thank you for your feedback! Your review has been submitted successfully.");
+                    _reviewController.clear();
+                    setState(() {
+                      _rating = 5;
+                    });
+                  } else {
+                    SnackBarMessage.errorMessage(controller.errorMessage!);
+                  }
+                }
+              },
+              child: const Text("Submit Review"),
+            ),
+          );
+        }
       ),
     );
   }
 
-  void _submitReview() {
-    ToastMessage.successToast('Review submitted successfully');
-    _reviewController.clear();
-    setState(() {
-      _rating = 5;
-    });
+  @override
+  void dispose() {
+    _reviewController.dispose();
+    super.dispose();
   }
 }

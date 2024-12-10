@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:pciu_hubspot/controller/more_controller/contact_admin_controller.dart';
 import 'package:pciu_hubspot/controller/shared_preferences_controller/user_details_controller_prefs.dart';
+import 'package:pciu_hubspot/core/utils/progress_indicator.dart';
+import 'package:pciu_hubspot/core/utils/snackbar_message.dart';
 
 class ContactAdminScreen extends StatefulWidget {
   const ContactAdminScreen({super.key});
@@ -94,11 +98,36 @@ class _ContactAdminScreenState extends State<ContactAdminScreen> {
                 SizedBox(
                   width: double.infinity,
                   height: 50,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (_globalKey.currentState!.validate()) {}
-                    },
-                    child: const Text('Send Message'),
+                  child: GetBuilder<ContactAdminController>(
+                    builder: (controller) {
+                      return Visibility(
+                        visible: !controller.inProgress,
+                        replacement: const ProgressIndicatorWidget(),
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            if (_globalKey.currentState!.validate()) {
+                            /// API Call
+                            final requestBody = {
+                              "name": _nameTEController.text,
+                              "email": _emailTEController.text,
+                              "subject": _subjectTEController.text,
+                              "msgdata":_messageTEController.text,
+                            };
+
+                            final result = await controller.sendMessage(requestBody);
+                              if(result){
+                                SnackBarMessage.successMessage("Message sent! Thank you for reaching out.");
+                                _subjectTEController.clear();
+                                _messageTEController.clear();
+                              } else {
+                                SnackBarMessage.errorMessage(controller.errorMessage!);
+                              }
+                            }
+                          },
+                          child: const Text('Send Message'),
+                        ),
+                      );
+                    }
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -137,5 +166,14 @@ class _ContactAdminScreenState extends State<ContactAdminScreen> {
         return null;
       },
     );
+  }
+
+  @override
+  void dispose() {
+    _nameTEController.dispose();
+    _emailTEController.dispose();
+    _subjectTEController.dispose();
+    _messageTEController.dispose();
+    super.dispose();
   }
 }

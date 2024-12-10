@@ -2,8 +2,8 @@ import 'package:get/get.dart';
 import 'package:pciu_hubspot/core/network/network_caller.dart';
 import 'package:pciu_hubspot/core/urls.dart';
 
-class ContactAdminController extends GetxController {
-  static final instance = Get.find<ContactAdminController>();
+class WriteReviewController extends GetxController {
+  static final instance = Get.find<WriteReviewController>();
 
   String? _errorMessage;
   bool _inProgress = false;
@@ -18,10 +18,10 @@ class ContactAdminController extends GetxController {
     update();
   }
 
-  Future<bool> sendMessage(Map<String, dynamic> body) async {
+  Future<bool> writeReview(Map<String, dynamic> body) async {
     try {
       setInProgress(true);
-      final result = await NetworkCaller.postRequest(url: Urls.contactAdmin, body: body);
+      final result = await NetworkCaller.postRequest(url: Urls.writeReview, body: body);
       if (result.isSuccess) {
         isSuccess = true;
         _errorMessage = null;
