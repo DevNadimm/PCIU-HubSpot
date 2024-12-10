@@ -13,6 +13,7 @@ class _ContactAdminScreenState extends State<ContactAdminScreen> {
   final TextEditingController _emailTEController = TextEditingController();
   final TextEditingController _subjectTEController = TextEditingController();
   final TextEditingController _messageTEController = TextEditingController();
+  final GlobalKey<FormState> _globalKey = GlobalKey();
 
   @override
   void initState() {
@@ -20,7 +21,7 @@ class _ContactAdminScreenState extends State<ContactAdminScreen> {
     super.initState();
   }
 
-  void fetchStudentData (){
+  void fetchStudentData() {
     final userDetails = UserDetailsController.userDetails;
 
     if (userDetails != null) {
@@ -50,58 +51,67 @@ class _ContactAdminScreenState extends State<ContactAdminScreen> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 16),
-              Text(
-                'We’d love to hear from you! If you have feedback or questions, feel free to reach out.',
-                style: Theme.of(context).textTheme.labelLarge,
-              ),
-              const SizedBox(height: 32),
-              _buildTextField(
-                controller: _nameTEController,
-                context: context,
-                hintText: 'Your Name',
-              ),
-              const SizedBox(height: 16),
-              _buildTextField(
-                controller: _emailTEController,
-                context: context,
-                hintText: 'Your Email',
-              ),
-              const SizedBox(height: 16),
-              _buildTextField(
-                controller: _subjectTEController,
-                context: context,
-                hintText: 'Subject',
-              ),
-              const SizedBox(height: 16),
-              _buildTextField(
-                controller: _messageTEController,
-                context: context,
-                maxLines: 4,
-                hintText: 'Please share your message here',
-              ),
-              const SizedBox(height: 16),
-              SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: const Text('Send Message'),
+          child: Form(
+            key: _globalKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 16),
+                Text(
+                  'We’d love to hear from you! If you have feedback or questions, feel free to reach out.',
+                  style: Theme.of(context).textTheme.labelLarge,
                 ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                'We’ll reply to the email address you provided.',
-                style: Theme.of(context)
-                    .textTheme
-                    .labelMedium!
-                    .copyWith(color: Colors.black54),
-              ),
-              const SizedBox(height: 16),
-            ],
+                const SizedBox(height: 32),
+                _buildTextField(
+                  controller: _nameTEController,
+                  context: context,
+                  hintText: 'Your Name',
+                  level: 'your name',
+                ),
+                const SizedBox(height: 16),
+                _buildTextField(
+                  controller: _emailTEController,
+                  context: context,
+                  hintText: 'Your Email',
+                  level: 'your email',
+                ),
+                const SizedBox(height: 16),
+                _buildTextField(
+                  controller: _subjectTEController,
+                  context: context,
+                  hintText: 'Subject',
+                  level: 'subject',
+                ),
+                const SizedBox(height: 16),
+                _buildTextField(
+                  controller: _messageTEController,
+                  context: context,
+                  maxLines: 4,
+                  hintText: 'Please share your message here',
+                  level: 'your message',
+                ),
+                const SizedBox(height: 16),
+                SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (_globalKey.currentState!.validate()) {}
+                    },
+                    child: const Text('Send Message'),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'We’ll reply to the email address you provided.',
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelMedium!
+                      .copyWith(color: Colors.black54),
+                ),
+                const SizedBox(height: 16),
+              ],
+            ),
           ),
         ),
       ),
@@ -109,6 +119,7 @@ class _ContactAdminScreenState extends State<ContactAdminScreen> {
   }
 
   Widget _buildTextField({
+    required String level,
     required BuildContext context,
     required TextEditingController controller,
     String? hintText,
@@ -118,12 +129,13 @@ class _ContactAdminScreenState extends State<ContactAdminScreen> {
       controller: controller,
       style: Theme.of(context).textTheme.titleLarge,
       maxLines: maxLines,
-      decoration: InputDecoration(
-        hintText: hintText,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-      ),
+      decoration: InputDecoration(hintText: hintText),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return "Please enter $level";
+        }
+        return null;
+      },
     );
   }
 }
