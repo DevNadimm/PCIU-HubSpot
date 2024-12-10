@@ -4,6 +4,7 @@ class Urls {
   static const String signIn = '$baseUrl/jwt';
   static const String emptyRoom = '$baseUrl/emptyroomAPP';
   static const String contactAdmin = '$baseUrl/msg';
+  static const String writeReview = '$baseUrl/reviews';
 
   static String userDetails(String email) {
     return '$baseUrl/user/$email';
