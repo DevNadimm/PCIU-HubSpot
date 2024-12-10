@@ -3,6 +3,7 @@ class Urls {
   static const String signUp = '$baseUrl/user';
   static const String signIn = '$baseUrl/jwt';
   static const String emptyRoom = '$baseUrl/emptyroomAPP';
+  static const String contactAdmin = '$baseUrl/msg';
 
   static String userDetails(String email) {
     return '$baseUrl/user/$email';
