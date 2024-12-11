@@ -12,7 +12,6 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter_svg: ^2.0.10+1
   flutter_launcher_icons: ^0.14.1
-  fluttertoast: ^8.2.8
   dropdown_button2: ^2.3.9
   firebase_core: ^3.8.0
   firebase_auth: ^5.3.3
@@ -27,6 +26,7 @@ dependencies:
   shared_preferences: ^2.3.3
   loading_indicator: ^3.1.1
   connectivity_plus: ^6.1.0
+  flutter_inappwebview: ^6.1.5
 
 
 dev_dependencies:
