@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pciu_hubspot/controller/shared_preferences_controller/auth_controller_prefs.dart';
-import 'package:pciu_hubspot/controller/shared_preferences_controller/user_details_controller_prefs.dart';
 import 'package:pciu_hubspot/core/constants/colors.dart';
 import 'package:pciu_hubspot/core/models/menu_option_model.dart';
-import 'package:pciu_hubspot/features/auth/screens/sign_in_screen.dart';
 import 'package:pciu_hubspot/features/more/screens/about_us_screen.dart';
 import 'package:pciu_hubspot/features/more/screens/contact_admin_screen.dart';
 import 'package:pciu_hubspot/features/more/screens/user_reviews_screen.dart';
+import 'package:pciu_hubspot/features/more/widgets/logout_dialog.dart';
 
 class MoreScreen extends StatefulWidget {
   const MoreScreen({super.key});
@@ -66,11 +64,9 @@ class _MoreScreenState extends State<MoreScreen> {
         title: 'Log Out',
         subTitle: 'Securely log out of your account.',
         imgPath: 'assets/images/logout.png',
-        onTap: () async {
-          await AuthController.clearAccessToken();
-          await UserDetailsController.clearUserDetails();
-          Get.offAll(const SignInScreen());
-        }
+        onTap: () {
+          LogoutDialog.show(context);
+        },
       ),
     ];
 
