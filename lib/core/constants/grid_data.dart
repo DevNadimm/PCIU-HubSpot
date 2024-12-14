@@ -4,6 +4,7 @@ import 'package:pciu_hubspot/features/home/screens/cr_screen.dart';
 import 'package:pciu_hubspot/features/home/screens/empty_room_screen.dart';
 import 'package:pciu_hubspot/features/home/screens/faculty_members_screen.dart';
 import 'package:pciu_hubspot/features/home/screens/officer_screen.dart';
+import 'package:pciu_hubspot/features/links/screens/web_view_screen.dart';
 import 'package:pciu_hubspot/features/other/screens/under_maintenance_screen.dart';
 import 'package:pciu_hubspot/generate_cover_page/screens/cover_page_input_screen.dart';
 
@@ -50,46 +51,69 @@ List<GridModel> servicesList = [
   ),
 ];
 
-
 List<GridModel> necessaryLinks = [
   GridModel(
     imgPath: 'assets/images/links/class_schedule.png',
     title: "Class Schedule",
-    widget: const UnderMaintenanceScreen(),
+    widget: const WebViewScreen(
+      url: 'https://www.portcity.edu.bd/HomePage/ListPrimary/23/C/academic-class-schedule',
+      title: 'Class Schedule',
+    ),
   ),
   GridModel(
     imgPath: 'assets/images/links/exam_schedule.png',
     title: "Exam Schedule",
-    widget: const UnderMaintenanceScreen(),
+    widget: const WebViewScreen(
+      url: 'https://www.portcity.edu.bd/HomePage/ListPrimary/24/C/academic-exam-schedule',
+      title: 'Exam Schedule',
+    ),
   ),
   GridModel(
     imgPath: 'assets/images/links/academic_calendar.png',
     title: "Academic Calendar",
-    widget: const UnderMaintenanceScreen(),
+    widget: const WebViewScreen(
+      url: 'https://www.portcity.edu.bd/HomePage/AcademicCalender',
+      title: 'Academic Calendar',
+    ),
   ),
   GridModel(
     imgPath: 'assets/images/links/facebook.png',
     title: "PCIU FB Page",
-    widget: const UnderMaintenanceScreen(),
+    widget: const WebViewScreen(
+      url: 'https://www.facebook.com/profile.php?id=100064572554682',
+      title: 'PCIU FB Page',
+    ),
   ),
   GridModel(
     imgPath: 'assets/images/links/registration.png',
     title: "Online Registration",
-    widget: const UnderMaintenanceScreen(),
+    widget: const WebViewScreen(
+      url: 'http://119.18.149.45/pciuonlineregistration',
+      title: 'Online Registration',
+    ),
   ),
   GridModel(
     imgPath: 'assets/images/links/trimester_result.png',
     title: "Trimester Result",
-    widget: const UnderMaintenanceScreen(),
+    widget: const WebViewScreen(
+      url: 'http://119.18.149.45/PCIUStudentPortal/Student/TrimesterResult',
+      title: 'Trimester Result',
+    ),
   ),
   GridModel(
     imgPath: 'assets/images/links/semester_result.png',
     title: "Semester Result",
-    widget: const UnderMaintenanceScreen(),
+    widget: const WebViewScreen(
+      url: 'http://119.18.149.45/PCIUOnlineResult',
+      title: 'Semester Result',
+    ),
   ),
   GridModel(
     imgPath: 'assets/images/links/cgpa_graph.png',
     title: "CGPA Graph",
-    widget: const UnderMaintenanceScreen(),
+    widget: const WebViewScreen(
+      url: 'https://pciu-cgpa-calculator.vercel.app/',
+      title: 'CGPA Graph',
+    ),
   ),
 ];
