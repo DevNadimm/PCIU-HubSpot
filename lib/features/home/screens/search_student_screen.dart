@@ -27,19 +27,25 @@ class _SearchStudentScreenState extends State<SearchStudentScreen> {
     'BTE'
   ];
   String? _selectedDepartment;
-  String _searchQuery = '';
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
-    fetchData();
     super.initState();
+    fetchData();
   }
 
-  void fetchData() async {
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  void fetchData({String searchQuery = '', String? department}) async {
     final controller = SearchStudentController.instance;
 
-    final result = await controller.getSearchStudent();
-    if(result){
+    final result = await controller.getSearchStudent(searchQuery: searchQuery, department: department);
+    if (result) {
       setState(() {
         studentList = controller.studentList ?? [];
       });
@@ -107,12 +113,12 @@ class _SearchStudentScreenState extends State<SearchStudentScreen> {
       children: [
         Flexible(
           child: TextFormField(
+            controller: _searchController,
             style: Theme.of(context).textTheme.titleLarge,
             decoration: const InputDecoration(hintText: 'Search by Name'),
-            onChanged: (value) {
-              setState(() {
-                _searchQuery = value;
-              });
+            textInputAction: TextInputAction.search,
+            onFieldSubmitted: (value) {
+              fetchData(searchQuery: value, department: _selectedDepartment);
             },
           ),
         ),
@@ -126,6 +132,10 @@ class _SearchStudentScreenState extends State<SearchStudentScreen> {
               setState(() {
                 _selectedDepartment = newValue;
               });
+              fetchData(
+                searchQuery: _searchController.text,
+                department: _selectedDepartment,
+              );
             },
           ),
         ),
