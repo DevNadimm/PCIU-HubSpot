@@ -29,29 +29,66 @@ class _SearchStudentScreenState extends State<SearchStudentScreen> {
   String? _selectedDepartment;
   final TextEditingController _searchController = TextEditingController();
 
+  final ScrollController _scrollController = ScrollController();
+  bool isLoading = false;
+  bool hasMoreData = true;
+  int page = 1;
+
   @override
   void initState() {
     super.initState();
     fetchData();
+    _initializeScrollListener();
   }
 
   @override
   void dispose() {
     _searchController.dispose();
+    _scrollController.dispose();
     super.dispose();
+  }
+
+  void _initializeScrollListener() {
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+              _scrollController.position.maxScrollExtent &&
+          !isLoading &&
+          hasMoreData) {
+        page++;
+        fetchData(
+            searchQuery: _searchController.text,
+            department: _selectedDepartment);
+      }
+    });
   }
 
   void fetchData({String searchQuery = '', String? department}) async {
     final controller = SearchStudentController.instance;
 
-    final result = await controller.getSearchStudent(searchQuery: searchQuery, department: department);
+    if (searchQuery != _searchController.text ||
+        department != _selectedDepartment) {
+      setState(() {
+        page = 1;
+        studentList.clear();
+        isLoading = true;
+      });
+    }
+
+    final result = await controller.getSearchStudent(
+        searchQuery: searchQuery, department: department, page: page);
     if (result) {
       setState(() {
-        studentList = controller.studentList ?? [];
+        studentList.addAll(controller.studentList ?? []);
+        hasMoreData = controller.totalPages! > page;
+        debugPrint("Length Student List:${studentList.length}");
       });
     } else {
       SnackBarMessage.errorMessage(controller.errorMessage!);
     }
+
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
@@ -79,6 +116,7 @@ class _SearchStudentScreenState extends State<SearchStudentScreen> {
             visible: !controller.inProgress,
             replacement: const ProgressIndicatorWidget(),
             child: SingleChildScrollView(
+              controller: _scrollController,
               child: Column(
                 children: [
                   const SizedBox(height: 16),
@@ -89,8 +127,12 @@ class _SearchStudentScreenState extends State<SearchStudentScreen> {
                       : ListView.separated(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          itemCount: studentList.length,
+                          itemCount: studentList.length + (isLoading ? 1 : 0),
                           itemBuilder: (context, index) {
+                            if (index == studentList.length) {
+                              return const Center(
+                                  child: CircularProgressIndicator());
+                            }
                             final student = studentList[index];
                             return StudentInfoCard(student: student);
                           },
@@ -118,6 +160,10 @@ class _SearchStudentScreenState extends State<SearchStudentScreen> {
             decoration: const InputDecoration(hintText: 'Search by Name'),
             textInputAction: TextInputAction.search,
             onFieldSubmitted: (value) {
+              setState(() {
+                page = 1;
+                studentList.clear();
+              });
               fetchData(searchQuery: value, department: _selectedDepartment);
             },
           ),
@@ -131,6 +177,8 @@ class _SearchStudentScreenState extends State<SearchStudentScreen> {
             onChanged: (newValue) {
               setState(() {
                 _selectedDepartment = newValue;
+                page = 1;
+                studentList.clear();
               });
               fetchData(
                 searchQuery: _searchController.text,
