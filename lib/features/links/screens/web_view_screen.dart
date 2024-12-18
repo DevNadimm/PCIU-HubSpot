@@ -1,46 +1,68 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:pciu_hubspot/core/utils/progress_indicator.dart';
 
 class WebViewScreen extends StatefulWidget {
-  const WebViewScreen({super.key});
+  const WebViewScreen({super.key, required this.url, required this.title});
+
+  final String url;
+  final String title;
 
   @override
-  _WebViewScreenState createState() => _WebViewScreenState();
+  State<WebViewScreen> createState() => _WebViewScreenState();
 }
 
 class _WebViewScreenState extends State<WebViewScreen> {
   late InAppWebViewController _webViewController;
-  late InAppWebView _webView;
-
-  @override
-  void initState() {
-    super.initState();
-    // Initialize the webview.
-    _webView = InAppWebView(
-      initialUrlRequest: URLRequest(url: Uri.parse('https://www.example.com')), // Set your URL here
-      onWebViewCreated: (InAppWebViewController controller) {
-        _webViewController = controller;
-      },
-      onLoadStart: (InAppWebViewController controller, Uri? url) {
-        print("Page started loading: $url");
-      },
-      onLoadStop: (InAppWebViewController controller, Uri? url) {
-        print("Page finished loading: $url");
-      },
-      onProgressChanged: (InAppWebViewController controller, int progress) {
-        print("Page loading progress: $progress%");
-      },
-    );
-  }
+  bool _isLoading = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('WebView', style: Theme.of(context).textTheme.headline6),
+        title: Text(
+          widget.title,
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
         centerTitle: true,
+        forceMaterialTransparency: true,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(1.5),
+          child: Container(
+            color: Colors.grey.withOpacity(0.2),
+            height: 1.5,
+          ),
+        ),
       ),
-      body: _webView,
+      body: Stack(
+        children: [
+          InAppWebView(
+            initialUrlRequest: URLRequest(url: WebUri(widget.url)),
+            onWebViewCreated: (controller) {
+              _webViewController = controller;
+            },
+            onLoadStart: (controller, url) {
+              setState(() {
+                _isLoading = true;
+              });
+            },
+            onLoadStop: (controller, url) async {
+              setState(() {
+                _isLoading = false;
+              });
+            },
+          ),
+          _isLoading
+              ? const ProgressIndicatorWidget()
+              : const SizedBox.shrink(),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _webViewController.reload();
+        },
+        child: const Icon(Icons.refresh),
+      ),
     );
   }
 }

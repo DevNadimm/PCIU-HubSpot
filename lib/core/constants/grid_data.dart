@@ -88,7 +88,7 @@ List<GridModel> necessaryLinks = [
     imgPath: 'assets/images/links/registration.png',
     title: "Online Registration",
     widget: const WebViewScreen(
-      url: 'http://119.18.149.45/pciuonlineregistration',
+      url: 'https://studentportal.portcity.edu.bd/',
       title: 'Online Registration',
     ),
   ),
