@@ -33,4 +33,8 @@ class Urls {
   static String getAllCr () {
     return '$baseUrl/allcrs?page=1&limit=200';
   }
+
+  static String getSearchStudent({int? page, String? department, String? searchQuery}) {
+    return '$baseUrl/studentsAPP?page=$page&limit=50&department=$department&searchQuery=$searchQuery';
+  }
 }
