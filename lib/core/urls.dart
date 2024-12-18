@@ -35,6 +35,9 @@ class Urls {
   }
 
   static String getSearchStudent({int? page, String? department, String? searchQuery}) {
+    page ??= 1;
+    department ??= "";
+    searchQuery ??= "";
     return '$baseUrl/studentsAPP?page=$page&limit=50&department=$department&searchQuery=$searchQuery';
   }
 }

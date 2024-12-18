@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:pciu_hubspot/controller/home_controller/search_student_controller.dart';
 import 'package:pciu_hubspot/core/models/student_model.dart';
 import 'package:pciu_hubspot/core/utils/progress_indicator.dart';
 import 'package:pciu_hubspot/core/utils/snackbar_message.dart';
-import 'package:pciu_hubspot/features/home/widgets/search_student_card.dart';
+import 'package:pciu_hubspot/features/home/widgets/student_info_card.dart';
 import 'package:pciu_hubspot/shared/widgets/dropdown_menu_widget.dart';
 import 'package:pciu_hubspot/shared/widgets/empty_list_widget.dart';
 
@@ -56,8 +55,9 @@ class _SearchStudentScreenState extends State<SearchStudentScreen> {
           hasMoreData) {
         page++;
         fetchData(
-            searchQuery: _searchController.text,
-            department: _selectedDepartment);
+          searchQuery: _searchController.text,
+          department: _selectedDepartment,
+        );
       }
     });
   }
@@ -65,30 +65,31 @@ class _SearchStudentScreenState extends State<SearchStudentScreen> {
   void fetchData({String searchQuery = '', String? department}) async {
     final controller = SearchStudentController.instance;
 
+    // New query or department - Reset list
     if (searchQuery != _searchController.text ||
         department != _selectedDepartment) {
-      setState(() {
-        page = 1;
-        studentList.clear();
-        isLoading = true;
-      });
+      page = 1;
+      studentList.clear();
     }
 
+    setState(() => isLoading = true);
+
     final result = await controller.getSearchStudent(
-        searchQuery: searchQuery, department: department, page: page);
+      searchQuery: searchQuery,
+      department: department,
+      page: page,
+    );
+
     if (result) {
       setState(() {
         studentList.addAll(controller.studentList ?? []);
         hasMoreData = controller.totalPages! > page;
-        debugPrint("Length Student List:${studentList.length}");
       });
     } else {
       SnackBarMessage.errorMessage(controller.errorMessage!);
     }
 
-    setState(() {
-      isLoading = false;
-    });
+    setState(() => isLoading = false);
   }
 
   @override
@@ -111,41 +112,44 @@ class _SearchStudentScreenState extends State<SearchStudentScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: GetBuilder<SearchStudentController>(builder: (controller) {
-          return Visibility(
-            visible: !controller.inProgress,
-            replacement: const ProgressIndicatorWidget(),
-            child: SingleChildScrollView(
-              controller: _scrollController,
-              child: Column(
-                children: [
-                  const SizedBox(height: 16),
-                  _buildTopSection(context),
-                  const SizedBox(height: 16),
-                  studentList.isEmpty
-                      ? const EmptyListWidget()
-                      : ListView.separated(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: studentList.length + (isLoading ? 1 : 0),
-                          itemBuilder: (context, index) {
-                            if (index == studentList.length) {
-                              return const Center(
-                                  child: CircularProgressIndicator());
-                            }
-                            final student = studentList[index];
-                            return StudentInfoCard(student: student);
-                          },
-                          separatorBuilder: (BuildContext context, int index) {
-                            return const SizedBox(height: 16);
-                          },
-                        ),
-                  const SizedBox(height: 16),
-                ],
-              ),
+        child: Column(
+          children: [
+            const SizedBox(height: 16),
+            _buildTopSection(context),
+            const SizedBox(height: 16),
+            Expanded(
+              child: studentList.isEmpty
+                  ? isLoading
+                      ? const ProgressIndicatorWidget()
+                      : const EmptyListWidget()
+                  : ListView.separated(
+                      controller: _scrollController,
+                      itemCount: studentList.length + (hasMoreData ? 1 : 0),
+                      itemBuilder: (context, index) {
+                        if (index < studentList.length) {
+                          final student = studentList[index];
+                          return StudentInfoCard(student: student);
+                        }
+                        // Placeholder for seamless loading
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Center(
+                            child: isLoading
+                                ? const SizedBox.shrink()
+                                : const Text(
+                                    'Loading more...',
+                                    style: TextStyle(color: Colors.grey),
+                                  ),
+                          ),
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return const SizedBox(height: 16);
+                      },
+                    ),
             ),
-          );
-        }),
+          ],
+        ),
       ),
     );
   }
@@ -160,10 +164,8 @@ class _SearchStudentScreenState extends State<SearchStudentScreen> {
             decoration: const InputDecoration(hintText: 'Search by Name'),
             textInputAction: TextInputAction.search,
             onFieldSubmitted: (value) {
-              setState(() {
-                page = 1;
-                studentList.clear();
-              });
+              page = 1;
+              studentList.clear();
               fetchData(searchQuery: value, department: _selectedDepartment);
             },
           ),
