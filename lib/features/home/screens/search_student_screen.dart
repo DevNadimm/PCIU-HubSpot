@@ -130,7 +130,6 @@ class _SearchStudentScreenState extends State<SearchStudentScreen> {
                           final student = studentList[index];
                           return StudentInfoCard(student: student);
                         }
-                        // Placeholder for seamless loading
                         return Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: Center(
