@@ -6,6 +6,7 @@ import 'package:pciu_hubspot/controller/home_controller/cr_controller.dart';
 import 'package:pciu_hubspot/controller/home_controller/empty_room_controller.dart';
 import 'package:pciu_hubspot/controller/home_controller/faculty_controller.dart';
 import 'package:pciu_hubspot/controller/home_controller/officer_controller.dart';
+import 'package:pciu_hubspot/controller/home_controller/search_student_controller.dart';
 import 'package:pciu_hubspot/controller/home_controller/student_details_controller.dart';
 import 'package:pciu_hubspot/controller/more_controller/contact_admin_controller.dart';
 import 'package:pciu_hubspot/controller/more_controller/review_controller.dart';
@@ -29,5 +30,6 @@ class ControllerBinders extends Bindings{
     Get.put(EmptyRoomController());
     Get.put(ContactAdminController());
     Get.put(WriteReviewController());
+    Get.put(SearchStudentController());
   }
 }
