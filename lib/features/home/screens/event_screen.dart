@@ -76,7 +76,7 @@ class _EventScreenState extends State<EventScreen> {
                 event.fee != null)
               Card(
                 elevation: 0,
-                color: primaryColor.withOpacity(0.05),
+                color: shadeColor,
                 margin: const EdgeInsets.only(bottom: 16),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
