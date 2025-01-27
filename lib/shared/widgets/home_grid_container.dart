@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pciu_hubspot/core/constants/colors.dart';
 
-class GridContainer extends StatelessWidget {
-  const GridContainer({super.key, required this.items});
+class HomeGridContainer extends StatelessWidget {
+  const HomeGridContainer({super.key, required this.items});
 
   final List items;
 

@@ -7,7 +7,7 @@ import 'package:pciu_hubspot/core/constants/colors.dart';
 import 'package:pciu_hubspot/core/constants/grid_data.dart';
 import 'package:pciu_hubspot/core/utils/progress_indicator.dart';
 import 'package:pciu_hubspot/features/home/widgets/event_carousel.dart';
-import 'package:pciu_hubspot/shared/widgets/grid_container.dart';
+import 'package:pciu_hubspot/shared/widgets/home_grid_container.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -124,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(height: 16),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: GridContainer(items: servicesList),
+                      child: HomeGridContainer(items: servicesList),
                     ),
                     const SizedBox(height: 16),
                   ],
