@@ -25,7 +25,10 @@ class _MainBottomNavBarScreenState extends State<MainBottomNavBarScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _screens[currentIndex],
+      body: IndexedStack(
+        index: currentIndex,
+        children: _screens,
+      ),
       bottomNavigationBar: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
