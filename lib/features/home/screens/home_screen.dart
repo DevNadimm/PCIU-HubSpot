@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:pciu_hubspot/controller/home_controller/event_controller.dart';
 import 'package:pciu_hubspot/controller/shared_preferences_controller/user_details_controller_prefs.dart';
 import 'package:pciu_hubspot/core/constants/colors.dart';
 import 'package:pciu_hubspot/core/constants/grid_data.dart';
-import 'package:pciu_hubspot/features/home/widgets/upcoming_event_card.dart';
+import 'package:pciu_hubspot/core/utils/progress_indicator.dart';
+import 'package:pciu_hubspot/features/home/widgets/event_carousel.dart';
 import 'package:pciu_hubspot/shared/widgets/grid_container.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -23,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     _loadUserDetails();
+    _loadEvents();
     super.initState();
   }
 
@@ -34,6 +38,11 @@ class _HomeScreenState extends State<HomeScreen> {
         photoUrl = userDetails['photo'] ?? defaultPhotoUrl;
       });
     }
+  }
+
+  Future<void> _loadEvents() async {
+    final eventController = EventController.instance;
+    await eventController.getEvents();
   }
 
   String getGreetingMessage() {
@@ -101,20 +110,28 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           forceMaterialTransparency: true,
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 16),
-                const UpcomingEventCard(),
-                const SizedBox(height: 16),
-                GridContainer(items: servicesList),
-                const SizedBox(height: 16),
-              ],
-            ),
-          ),
+        body: GetBuilder<EventController>(
+          builder: (controller) {
+            return Visibility(
+              visible: !controller.inProgress,
+              replacement: const ProgressIndicatorWidget(),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 16),
+                    EventCarousel(eventList: controller.eventList),
+                    const SizedBox(height: 16),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: GridContainer(items: servicesList),
+                    ),
+                    const SizedBox(height: 16),
+                  ],
+                ),
+              ),
+            );
+          }
         ),
       ),
     );

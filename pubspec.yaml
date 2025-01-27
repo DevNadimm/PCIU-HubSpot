@@ -27,6 +27,7 @@ dependencies:
   loading_indicator: ^3.1.1
   connectivity_plus: ^6.1.0
   flutter_inappwebview: ^6.1.5
+  carousel_slider: ^5.0.0
 
 
 dev_dependencies:

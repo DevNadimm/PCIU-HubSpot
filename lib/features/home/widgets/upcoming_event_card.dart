@@ -1,12 +1,19 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pciu_hubspot/core/constants/colors.dart';
+import 'package:pciu_hubspot/core/models/event_model.dart';
 
 class UpcomingEventCard extends StatelessWidget {
-  const UpcomingEventCard({super.key});
+  const UpcomingEventCard({super.key, required this.event});
+  final EventModel event;
 
   @override
   Widget build(BuildContext context) {
+    const TextStyle eventTextStyle = TextStyle(
+      fontSize: 14,
+      color: Colors.white,
+      fontWeight: FontWeight.w500,
+    );
+
     return Container(
       decoration: BoxDecoration(
         gradient: const LinearGradient(
@@ -20,8 +27,8 @@ class UpcomingEventCard extends StatelessWidget {
       child: Stack(
         children: [
           Positioned(
-            right: -80,
-            bottom: -40,
+            right: MediaQuery.of(context).size.width * -0.2,
+            bottom: MediaQuery.of(context).size.height * -0.05,
             child: Container(
               height: 200,
               width: 200,
@@ -45,9 +52,9 @@ class UpcomingEventCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 4),
-                const Text(
-                  "Navigating Your CSE Career Journey with Anisul Islam",
-                  style: TextStyle(
+                Text(
+                  event.name ?? "",
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
@@ -56,30 +63,23 @@ class UpcomingEventCard extends StatelessWidget {
                 const SizedBox(height: 8),
                 Row(
                   children: [
-                    const Icon(CupertinoIcons.calendar,
+                    const Icon(Icons.calendar_today_outlined,
                         color: Colors.white, size: 18),
                     const SizedBox(width: 8),
                     Text(
-                      "December 15, 2024",
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.white.withOpacity(0.9), fontWeight: FontWeight.w500,
-                      ),
+                      event.date ?? "",
+                      style: eventTextStyle,
                     ),
                   ],
                 ),
                 const SizedBox(height: 4),
                 Row(
                   children: [
-                    const Icon(Icons.access_time,
-                        color: Colors.white, size: 18),
+                    const Icon(Icons.access_time, color: Colors.white, size: 18),
                     const SizedBox(width: 8),
                     Text(
-                      "2:00 PM - 6:00 PM",
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.white.withOpacity(0.8), fontWeight: FontWeight.w500,
-                      ),
+                      event.time ?? "",
+                      style: eventTextStyle,
                     ),
                   ],
                 ),

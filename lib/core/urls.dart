@@ -5,6 +5,7 @@ class Urls {
   static const String emptyRoom = '$baseUrl/emptyroomAPP';
   static const String contactAdmin = '$baseUrl/msg';
   static const String writeReview = '$baseUrl/reviews';
+  static const String getEvent = '$baseUrl/events';
 
   static String userDetails(String email) {
     return '$baseUrl/user/$email';
